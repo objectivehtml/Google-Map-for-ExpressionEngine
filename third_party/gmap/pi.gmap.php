@@ -2,13 +2,13 @@
 
 $plugin_info = array(
 	'pi_name'			=> 'Google Map Channel Plugin',
-	'pi_version'		=> '2.1',
+	'pi_version'		=> '2.1.1',
 	'pi_author'			=> 'Justin Kimbrell',
 	'pi_author_url'		=> 'http://objectivehtml.com/plugins/google-map-channel-plugin',
 	'pi_description'	=> 'Creates static and dynamic maps from content channels.',
 	'pi_usage'			=> Gmap::usage()
 );
-					
+				
 
 Class Gmap {
 	
@@ -141,7 +141,7 @@ Class Gmap {
 	{
 		$location = '
 		address = \''.$address.'\';
-		address = address.trim();
+		address = address.replace(/^\s\s*/, \'\').replace(/\s\s*$/, \'\');
 		
 		if(address != \'\') {		
 		/* Gets a location using Google\'s Geocode */
@@ -275,10 +275,10 @@ Class Gmap {
 			foreach($this->args['map'] as $option => $value)
 				if($value) $options .= $option.': '.$value.', '.$newline;
 						
-			$options = substr($options, 0, strlen($options) - 1);
+			$options = rtrim($options, ', '.$newline);
 			
-		$options .= '}';
-		
+		$options .= $newline.'}';
+					
 		return $options;
 	}
 	
