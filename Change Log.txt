@@ -1,10 +1,15 @@
 /**
 * Google Maps for ExpressionEngine
 * Author: Justin Kimbrell
-* Build: 2.1.1 - May 5, 2011
+* Build: 2.1.2 - May 9, 2011
 * Copyright 2011 - All rights reserved
 * http://objectivehtml.com, http://inthesaucepan.com
 */
+
+Version 2.1.2 5/9/2011
+----------------------
+Fixed the a problem the with double-quotes breaking the javascript. The markup that is now inserted into the info window is now escaped.
+
 
 Version 2.1.1 5/5/2011
 ----------------------
@@ -12,9 +17,9 @@ Fixed a typo the caused a JavaScript error in IE that resulted in the maps not d
 
 
 Version 2.1 - 5/2/2011
--------------------------
+----------------------
 Core plugin code was completely rewritten for comprehension and for easier long-term support. The original API was unchanged, except with the addition of several new features. Added latitude_field, longitude_field, and zoom_field to pull the respective values from a specified channel. Plot or center on a static longitude and latitude coordinate. Now able to add multiple static addresses. The only required field is now the id. A lot of rules were changes in how data interacts with the map. If the address or coordinates are blank coming from the channel, the record is ignored. You can define a single channel that stores address and coordinates and plot them on a single map. The idea of the upgrade was to be less restrictive.
- 
+
 
 Version 2.0 - 4/23/2011
 ----------------------
