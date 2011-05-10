@@ -22,5 +22,5 @@ Core plugin code was completely rewritten for comprehension and for easier long-
 
 
 Version 2.0 - 4/23/2011
-----------------------
+-----------------------
 Completely revamped the Google Map implementation within the native channel:entries tag instead of using a proprietary syntax. Google Maps v3.0 API was used instead of 2.0 which comes with mobile support. All v3.0 options are available.

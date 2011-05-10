@@ -2,7 +2,7 @@
 
 $plugin_info = array(
 	'pi_name'			=> 'Google Map Channel Plugin',
-	'pi_version'		=> '2.1.2',
+	'pi_version'		=> '2.1.3',
 	'pi_author'			=> 'Justin Kimbrell',
 	'pi_author_url'		=> 'http://objectivehtml.com/plugins/google-map-channel-plugin',
 	'pi_description'	=> 'Creates static and dynamic maps from content channels.',
@@ -55,8 +55,32 @@ Class Gmap {
 		$this->_fetch_params();
 				
 		if(!$this->args['plugin']['id'])
-			show_error('You must assign a unique <code>id</code> to every map. This <code>id</code> sould only contain alphabetical and numerical characters with the exception of an underscore.');
+			show_error('You must assign a unique <code>id</code> to every map. This <code>id</code> should only contain alphabetical and numerical characters with the exception of an underscore.');
+		
+		
+		// Loops through the defined channels and checks for custom fields and 
+		$this->EE->load->model(array('channel_model', 'field_model'));
+		
+		$channel_name = explode('|', $this->args['channel']['channel']);
+		
+		foreach($channel_name as $name)
+		{			
+			$channel = $this->EE->channel_model->get_channels(NULL, array('*'), array(array('channel_name' => $name)))->row();
+			
+			if(isset($channel->field_group))
+			{			
+				$fields = $this->EE->field_model->get_fields($channel->field_group)->result();
 				
+				foreach($fields as $field)
+				{			
+					$field_name = 'search:'.$field->field_name;
+					
+					if($this->EE->TMPL->fetch_param($field_name))
+						$this->args['channel'][$field_name] = $this->EE->TMPL->fetch_param($field_name);
+				}
+			}
+		}
+		
 		$this->return_data = $this->_init_map();
 	}
 		
