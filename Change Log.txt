@@ -1,10 +1,27 @@
 /**
 * Google Maps for ExpressionEngine
 * Author: Justin Kimbrell
-* Build: 2.1.3 - May 9, 2011
+* Build: 2.2 - June 10, 2011
 * Copyright 2011 - All rights reserved
 * http://objectivehtml.com, http://inthesaucepan.com
 */
+
+Version 2.2 6/10/2011
+----------------------
+Version 2.2 brings a load of new features to the table. Here are the major ones:
+
+Create maps with custom marker icons
+Create maps with custom styles using the Google Maps API Styles Map Wizard
+5 all new methods for further extendability including: gmap:marker, gmap:dropdown, gmap:center, gmap:zoom, and gmap:init.
+Fully compatible with Matrix (with SafeCracker coming before the final release)
+Display one info window at a time
+Add control over the default zoom functionality
+New gmap:dropdown method can be used to auto-populate a dropdown menu with the markers on the map.
+All new fieldtype with a very simple drag and drop interface to geocode a matrix of coordinates.
+Limit number of markers that can be added to the fieldtype.
+Populate custom latitude and longitude fields with the individual degrees.
+Available in 5 languages: English, French, Dutch, Norwegian, and Spanish
+Compatibility with SafeCracker, NSM Add-on Updater, and the new @ee_zoo's new Visitor
 
 
 Version 2.1.3 5/9/2011
