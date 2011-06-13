@@ -1,4 +1,15 @@
 <?php
+/**
+ * Plugin - Google Maps for ExpressionEngine
+ *
+ * @package			Google Maps for ExpressionEngine
+ * @version			2.2.1
+ * @author			Justin Kimbrell <http://objectivehtml.com>
+ * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
+ * @license 		Creative Commons Attribution 3.0 Unported License -
+ 					please see LICENSE file included with this distribution
+ * @link			http://objectivehtml.com/documentation/google-maps-for-expressionengine
+ */
 
 $plugin_info = array(
 	'pi_name'			=> 'Google Map Channel Plugin',

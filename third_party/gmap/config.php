@@ -1,9 +1,9 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * Config file for Google Maps for ExpressionEngine
+ * Config file - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.2
+ * @version			2.2.1
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -26,7 +26,7 @@ $config['name']		= 'Google Maps For ExressionEngine';
 | -------------------------------------------------------------------
 */
 
-$config['version']	= '2.2';
+$config['version']	= '2.2.1';
 
 
 /*
