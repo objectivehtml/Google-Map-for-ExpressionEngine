@@ -25,6 +25,8 @@ class Gmap_ft extends EE_Fieldtype {
 	
 	function display_field($coords)
 	{	
+		$this->EE->load->config('gmap');
+		
 		$field = $this->EE->db->get_where('channel_fields', array('field_id' => $this->settings['field_id']))->row_array();
 				
 		$this->settings = unserialize(base64_decode($field['field_settings']));
@@ -93,8 +95,8 @@ class Gmap_ft extends EE_Fieldtype {
 			
 			$populate_lat_lng_fn = '
 			function populate_lat_lng(lat, lng) {
-				$("#field_id_'.$lat_field['field_id'].'").val(lat);
-				$("#field_id_'.$lng_field['field_id'].'").val(lng);
+				$("#field_id_'.$lat_field['field_id'].', #'.$lat_field['field_name'].'").val(lat);
+				$("#field_id_'.$lng_field['field_id'].', #'.$lng_field['field_name'].'").val(lng);
 			}';
 		}
 		

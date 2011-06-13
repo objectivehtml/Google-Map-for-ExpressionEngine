@@ -2,7 +2,7 @@
 
 $plugin_info = array(
 	'pi_name'			=> 'Google Map Channel Plugin',
-	'pi_version'		=> '2.2',
+	'pi_version'		=> '2.2.1',
 	'pi_author'			=> 'Justin Kimbrell',
 	'pi_author_url'		=> 'http://objectivehtml.com/plugins/google-map-channel-plugin',
 	'pi_description'	=> 'Creates static and dynamic maps from content channels.',
@@ -54,6 +54,8 @@ Class Gmap {
 	function Gmap()
 	{
 		$this->EE =& get_instance();
+			
+		$this->EE->load->config('gmap');
 		
 		$this->_fetch_params();
 		

@@ -6,6 +6,10 @@
 * http://objectivehtml.com, http://inthesaucepan.com
 */
 
+Version 2.2.1 6/13/2011
+-----------------------
+Minor bug fixes that dealt with the field type and safecracker that caused some installations no to update the lat and lng. Also fixed the long time bug that caused conditional statements no to process correctly inside javascript. (Now $config['protect_javascript'] = 'n';)
+
 Version 2.2 6/10/2011
 ----------------------
 Version 2.2 brings a load of new features to the table. Here are the major ones:
