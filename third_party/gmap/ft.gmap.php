@@ -106,8 +106,8 @@ class Gmap_ft extends EE_Fieldtype {
 			
 			$populate_lat_lng_fn = '
 			function populate_lat_lng(lat, lng) {
-				$("#field_id_'.$lat_field['field_id'].', #'.$lat_field['field_name'].'").val(lat);
-				$("#field_id_'.$lng_field['field_id'].', #'.$lng_field['field_name'].'").val(lng);
+				$("#field_id_'.$lat_field['field_id'].', input[name=\''.$lat_field['field_name'].'\']").val(lat);
+				$("#field_id_'.$lng_field['field_id'].', input[name=\''.$lng_field['field_name'].'\']").val(lng);
 			}';
 		}
 		
