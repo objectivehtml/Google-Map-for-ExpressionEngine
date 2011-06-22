@@ -1,16 +1,20 @@
 /**
 * Google Maps for ExpressionEngine
 * Author: Justin Kimbrell
-* Build: 2.2 - June 10, 2011
+* Build: 2.3 BETA - June 22, 2011
 * Copyright 2011 - All rights reserved
 * http://objectivehtml.com, http://inthesaucepan.com
 */
 
-Version 2.2.1 6/13/2011
+Version 2.3 BETA Build 6/22/2011
+--------------------------------
+A number a significant improvements have been made to more easily search your channel data in relation to a specific location. Currently the user can only define the location, not the developer. However, this will not be the case in future builds. A new result method tracks the search search results that also integrates well with the channel:entries tag. Much more to come in this release. (This is the first BETA build of 2.3)
+
+Version 2.2.1 Build 6/13/2011
 -----------------------
 Minor bug fixes that dealt with the field type and safecracker that caused some installations no to update the lat and lng. Also fixed the long time bug that caused conditional statements no to process correctly inside javascript. (Now $config['protect_javascript'] = 'n';)
 
-Version 2.2 6/10/2011
+Version 2.2 Build 6/10/2011
 ----------------------
 Version 2.2 brings a load of new features to the table. Here are the major ones:
 
@@ -28,26 +32,26 @@ Available in 5 languages: English, French, Dutch, Norwegian, and Spanish
 Compatibility with SafeCracker, NSM Add-on Updater, and the new @ee_zoo's new Visitor
 
 
-Version 2.1.3 5/9/2011
+Version 2.1.3 Build 5/9/2011
 ----------------------
 Added the ability to search custom fields like the inherent exp:channel:entries tag. (search:custom_field="some value").
 
 
-Version 2.1.2 5/9/2011
+Version 2.1.2 Build 5/9/2011
 ----------------------
 Fixed the a problem the with double-quotes breaking the javascript. The markup that is now inserted into the info window is now escaped.
 
 
-Version 2.1.1 5/5/2011
+Version 2.1.1 Build 5/5/2011
 ----------------------
 Fixed a typo the caused a JavaScript error in IE that resulted in the maps not displaying properly.
 
 
-Version 2.1 - 5/2/2011
+Version 2.1 Build 5/2/2011
 ----------------------
 Core plugin code was completely rewritten for comprehension and for easier long-term support. The original API was unchanged, except with the addition of several new features. Added latitude_field, longitude_field, and zoom_field to pull the respective values from a specified channel. Plot or center on a static longitude and latitude coordinate. Now able to add multiple static addresses. The only required field is now the id. A lot of rules were changes in how data interacts with the map. If the address or coordinates are blank coming from the channel, the record is ignored. You can define a single channel that stores address and coordinates and plot them on a single map. The idea of the upgrade was to be less restrictive.
 
 
-Version 2.0 - 4/23/2011
+Version 2.0 Build 4/23/2011
 ----------------------
 Completely revamped the Google Map implementation within the native channel:entries tag instead of using a proprietary syntax. Google Maps v3.0 API was used instead of 2.0 which comes with mobile support. All v3.0 options are available.
