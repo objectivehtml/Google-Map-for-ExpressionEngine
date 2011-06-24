@@ -52,7 +52,7 @@ Class Gmap {
 		'plugin' => array(
 			'center', 'channel', 'hide_markers', 'open_windows', 'map_type', 'id', 'class', 'style',
 			'style_link', 'style_obj', 'extend_bounds', 'show_one_window', 'icon', 'show_coordinate',
-			'add_title_to_dropdown', 'metric', 'offset', 'distance'
+			'add_title_to_dropdown', 'metric', 'offset', 'distance', 'cache_post'
 		),
 		
 		/* Dynamic and Static fields */
@@ -195,6 +195,21 @@ Class Gmap {
 			'category_model'
 		));
 		
+		if($this->args['plugin']['cache_post'])
+		{		
+			if($this->EE->input->post('init_gmap_search') == 'y')
+			{			
+				$this->EE->functions->set_cookie('gmap_last_post', serialize($_POST), strtotime('+1 year'));
+			}
+			else
+			{
+				$cookie = $this->EE->input->cookie('gmap_last_post');
+				
+				if($cookie)
+					$_POST = unserialize($cookie);
+			}
+		}
+		
 		$tagdata			 = empty($this->EE->TMPL->tagdata) ? FALSE : $this->EE->TMPL->tagdata;
 		$metric		   		 = $this->EE->TMPL->fetch_param('metric');
 		$metric				 = $metric ? $metric : 'miles';
@@ -277,19 +292,16 @@ Class Gmap {
 					if(is_array($categories))
 					{			
 						foreach($categories as $category)
-						{
-							$where .= '`channel_id` = \''.$channel_data->channel_id.'\' AND ';			
 							$where .= '`cat_id` = \''.$category.'\' AND ';
-						}
+						
+						$where = rtrim($where, ' AND ') . ' OR ';
 					}
 					else
 					{
 						if(is_array($prep_fields))
 						{				
 							foreach($prep_fields as $prep_index => $prep_value)
-							{
 								$where .= $prep_value .' AND ';
-							}
 						}
 						
 						$where = rtrim($where, ' AND ') . ' OR ';
@@ -447,6 +459,20 @@ Class Gmap {
 			'category_model'
 		));
 		
+		if($this->args['plugin']['cache_post'])
+		{		
+			if($this->EE->input->post('init_gmap_search') == 'y')
+			{			
+				$this->EE->functions->set_cookie('gmap_last_post', serialize($_POST), strtotime('+1 year'));
+			}
+			else
+			{
+				$cookie = $this->EE->input->cookie('gmap_last_post');
+				
+				if($cookie) $_POST = unserialize($cookie);
+			}
+		}
+		
 		$checked_true  		 = 'checked="checked"';
 		$selected_true 		 = 'selected="selected"';
 		$metric		   		 = $this->EE->TMPL->fetch_param('metric');
@@ -586,7 +612,7 @@ Class Gmap {
 		
 		$tagdata   	   		   = $this->EE->TMPL->parse_variables($this->EE->TMPL->tagdata, $vars);
 		$form 		   		   = form_open($return, $attributes, $hidden_fields).$tagdata.form_close();
-		
+				
 		if(isset($response))
 		{
 			$this->EE->functions->set_cookie('gmap_last_search', serialize($response), strtotime('+1 year'));
