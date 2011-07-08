@@ -6,6 +6,11 @@
 * http://objectivehtml.com, http://inthesaucepan.com
 */
 
+Version 2.3 BETA Build 7/07/2011
+--------------------------------
+A number of bug fixes for the search and results methods.
+
+
 Version 2.3 BETA Build 6/22/2011
 --------------------------------
 A number a significant improvements have been made to more easily search your channel data in relation to a specific location. Currently the user can only define the location, not the developer. However, this will not be the case in future builds. A new result method tracks the search search results that also integrates well with the channel:entries tag. Much more to come in this release. (This is the first BETA build of 2.3)

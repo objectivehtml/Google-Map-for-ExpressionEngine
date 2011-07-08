@@ -218,7 +218,7 @@ Class Gmap {
 		$channels			 = explode('|', $this->args['channel']['channel']);
 		$distance_field 	 = $this->EE->TMPL->fetch_param('distance_field');
 		$distance			 = $this->EE->input->post($distance_field);
-		$categories			 = $this->EE->input->post('category');
+		$categories			 = $this->EE->input->post('categories');
 		
 		/*
 		$page				 = 1;
@@ -245,6 +245,9 @@ Class Gmap {
 					
 					$lat_field = $this->EE->TMPL->fetch_param('latitude_field');
 					$lng_field = $this->EE->TMPL->fetch_param('longitude_field');
+					
+					if(!$lat_field) show_error('You must define a latitude field. Ex: latitude_field="your_field_name"');
+					if(!$lng_field) show_error('You must define a longitude field. Ex: longitude_field="your_field_name"');
 					
 					$lat_field_name = $this->_prep_sql_fieldname($lat_field, FALSE, FALSE);	
 					$lat_field_name = $lat_field_name[0];
@@ -289,30 +292,36 @@ Class Gmap {
 					//$this->EE->db->or_where('channel_id', $channel_data->channel_id);
 					$where .= '`channel_id` = \''.$channel_data->channel_id.'\' AND ';
 					
+					
+					//Builds where clause for the categories
 					if(is_array($categories))
 					{			
 						foreach($categories as $category)
 							$where .= '`cat_id` = \''.$category.'\' AND ';
-						
-						$where = rtrim($where, ' AND ') . ' OR ';
 					}
-					else
+					else if(is_string($categories) && !empty($categories))
 					{
-						if(is_array($prep_fields))
-						{				
-							foreach($prep_fields as $prep_index => $prep_value)
-								$where .= $prep_value .' AND ';
-						}
-						
-						$where = rtrim($where, ' AND ') . ' OR ';
+						$where .= '`cat_id` = \''.$categories.'\' AND';
 					}
+					
+					//Builds the where clause for each custom field
+					if(is_array($prep_fields))
+					{				
+						foreach($prep_fields as $prep_index => $prep_value)
+							$where .= $prep_value .' AND ';
+					}
+					
+					$where = rtrim(rtrim($where, ' AND '), ' OR ');
 				}
 			}
 			
-			$where = 'WHERE '.rtrim(trim($where), ' OR');
+			if(!empty($where))
+				$where = 'WHERE '.rtrim(trim($where), ' OR');
+				
 			$sql   = rtrim(trim($sql), ' OR') . $where . ' GROUP BY `exp_channel_data`.`entry_id`' . $having;
 			
 			//echo $sql;
+			
 			
 			/*
 			if($limit) 
@@ -332,7 +341,7 @@ Class Gmap {
 				
 				$vars[0]['entry_ids'] = $entry_ids;
 				$vars[0]['total_results'] = $total_results;
-				
+								
 				return $this->EE->TMPL->parse_variables($tagdata, $vars);
 			}
 			else
@@ -478,18 +487,23 @@ Class Gmap {
 		$metric		   		 = $this->EE->TMPL->fetch_param('metric');
 		$geocode_field		 = $this->EE->TMPL->fetch_param('geocode_field');
 		$location			 = $this->EE->input->post($geocode_field);
-		$distance	   		 = $this->EE->input->post('distance');		
+		$distance_field 	 = $this->EE->TMPL->fetch_param('distance_field');
+		$distance	   		 = $this->EE->input->post($distance_field);		
 		$channels 	   		 = explode('|', $this->args['channel']['channel']);
 		$field_loop 		 = $this->reserved_terms;
 		$vars 		   		 = array(array());
-				
+		
+		/*
 		foreach($field_loop as $append)
 		{
 			$vars[0]['distance'.$append] = $this->EE->input->post('distance'.$append) ? 
 										   $this->EE->input->post('distance'.$append) : '';
 		}
+		*/
 		
+		$vars[0]['distance']	 = $distance;
 		$vars[0][$geocode_field] = $this->EE->input->post($geocode_field);
+				
 		$vars[0]['metric']   	 = $metric ? $metric : 'miles';
 				
 		//Loops through the defined channels
@@ -577,20 +591,21 @@ Class Gmap {
 				$selected = '';
 				$checked  = '';
 				
-				if($this->_is_checked_or_selected($this->EE->input->post('category'), $category->cat_id))
+				if($this->_is_checked_or_selected($this->EE->input->post('categories'), $category->cat_id))
 				{
 					$selected = $selected_true;
 					$checked  = $checked_true;
 				}
 				
 				$vars[0]['categories'][] = array(
-					'category_id'   		  => $category->cat_id,
-					'category_name' 		  => $category->cat_name,
-					'category_url_title'      => $category->cat_url_title,
-					'category_description'    => $category->cat_description,
-					'category_image'		  => $category->cat_image,
-					'selected'				  => $selected,
-					'checked'				  => $checked
+					'category_id'   		 	=> $category->cat_id,
+					'category_group_id'   		=> $category->group_id,
+					'category_name' 		  	=> $category->cat_name,
+					'category_url_title'      	=> $category->cat_url_title,
+					'category_description'    	=> $category->cat_description,
+					'category_image'		  	=> $category->cat_image,
+					'selected'				  	=> $selected,
+					'checked'				  	=> $checked
 				);	
 			}
 		}
@@ -609,7 +624,7 @@ Class Gmap {
 		
 		$vars[0]['has_searched']     = $this->EE->input->post('init_gmap_search') ? TRUE : FALSE;
 		$vars[0]['has_not_searched'] = $vars[0]['has_searched'] ? FALSE : TRUE;
-		
+			
 		$tagdata   	   		   = $this->EE->TMPL->parse_variables($this->EE->TMPL->tagdata, $vars);
 		$form 		   		   = form_open($return, $attributes, $hidden_fields).$tagdata.form_close();
 				
