@@ -3,7 +3,7 @@
  * Plugin - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.2.1
+ * @version			2.2.2
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -13,7 +13,7 @@
 
 $plugin_info = array(
 	'pi_name'			=> 'Google Maps for ExpressionEngine',
-	'pi_version'		=> '2.2.1',
+	'pi_version'		=> '2.2.2',
 	'pi_author'			=> 'Justin Kimbrell',
 	'pi_author_url'		=> 'http://objectivehtml.com/documentation/google-maps-for-expressionengine',
 	'pi_description'	=> 'Creates static and dynamic maps from content channels.',

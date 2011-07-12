@@ -3,7 +3,7 @@
  * Fieldtype - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.2.1
+ * @version			2.2.2
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -15,7 +15,7 @@ class Gmap_ft extends EE_Fieldtype {
 
 	var $info = array(
 		'name'		=> 'Google Maps for ExpressionEngine',
-		'version'	=> '2.2'
+		'version'	=> '2.2.2'
 	);
 	
 	// --------------------------------------------------------------------
@@ -38,8 +38,9 @@ class Gmap_ft extends EE_Fieldtype {
 	{	
 		$this->EE->load->config('gmap');
 		
-		$field = $this->EE->db->get_where('channel_fields', array('field_id' => $this->settings['field_id']))->row_array();
-				
+		$field_id = $this->settings['field_id'];
+		$field = $this->EE->db->get_where('channel_fields', array('field_id' => $field_id))->row_array();
+		
 		$this->settings = unserialize(base64_decode($field['field_settings']));
 		
 		$coord_string = $coords;
@@ -135,6 +136,11 @@ class Gmap_ft extends EE_Fieldtype {
 			
 			'.$populate_lat_lng_fn.'
 			
+			$("#hold_field_'.$field_id.' .hide_field span").click(function() {
+				google.maps.event.trigger(gmap, "resize");
+				gmap.setCenter(location)
+			});
+					
 			function gmap_remove_all_markers() {
 				$(gmap_markers).each(function(i) {
 					remove_marker(i);
