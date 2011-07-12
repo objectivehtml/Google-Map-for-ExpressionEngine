@@ -6,6 +6,10 @@
 * http://objectivehtml.com, http://inthesaucepan.com
 */
 
+Version 2.3 BETA Build 7/11/2011
+--------------------------------
+Fixed the bug that caused the map to clip when it was hidden before initialization (for the fieldtype).
+
 Version 2.3 BETA Build 7/07/2011
 --------------------------------
 A number of bug fixes for the search and results methods.
