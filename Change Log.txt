@@ -1,10 +1,14 @@
 /**
 * Google Maps for ExpressionEngine
 * Author: Justin Kimbrell
-* Build: 2.3 BETA - June 22, 2011
+* Build: 2.3 BETA - Build 20110720
 * Copyright 2011 - All rights reserved
 * http://objectivehtml.com, http://inthesaucepan.com
 */
+
+Version 2.3 BETA Build 7/20/2011
+--------------------------------
+Fixed a bug that caused errors when user enters an invalid location (for the geocoder). Added basic form validation to the gimp:search and gmap:results methods. Deprecated exp:gmap, and now exp:gmap:init is required.
 
 Version 2.3 BETA Build 7/11/2011
 --------------------------------

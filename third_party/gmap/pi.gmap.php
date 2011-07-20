@@ -1,9 +1,9 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * Plugin - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.2.1
+ * @version			2.3 Beta - Build 20110720
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -13,7 +13,7 @@
 
 $plugin_info = array(
 	'pi_name'			=> 'Google Maps for ExpressionEngine',
-	'pi_version'		=> '2.2.1',
+	'pi_version'		=> '2.3',
 	'pi_author'			=> 'Justin Kimbrell',
 	'pi_author_url'		=> 'http://objectivehtml.com/documentation/google-maps-for-expressionengine',
 	'pi_description'	=> 'Creates static and dynamic maps from content channels.',
@@ -52,7 +52,8 @@ Class Gmap {
 		'plugin' => array(
 			'center', 'channel', 'hide_markers', 'open_windows', 'map_type', 'id', 'class', 'style',
 			'style_link', 'style_obj', 'extend_bounds', 'show_one_window', 'icon', 'show_coordinate',
-			'add_title_to_dropdown', 'metric', 'offset', 'distance', 'cache_post'
+			'add_title_to_dropdown', 'metric', 'offset', 'distance', 'cache_post', 'show_sql', 'require', 
+			'name'
 		),
 		
 		/* Dynamic and Static fields */
@@ -66,27 +67,24 @@ Class Gmap {
 	
 	public $geocoder_response;
 	
-	public function Gmap()
+	public function __construct()
 	{
 		$this->EE =& get_instance();
 			
-		$this->EE->load->config('gmap');
-		
-		$this->_fetch_params();
-		
-		$this->return_data = $this->init();
+		$this->EE->load->config('gmap');	
 	}
 	
 	public function init()
 	{	
-		if(!$this->args['plugin']['id'])
-			show_error('You must assign a unique <code>id</code> to every map. This <code>id</code> should only contain alphabetical and numerical characters with the exception of an underscore.');
+		$this->args = $this->_fetch_params(FALSE);
 		
 		return $this->_init_map();
 	}
 	
 	public function center()
 	{
+		$this->args = $this->_fetch_params(FALSE);
+		
 		$data  = '<script type="text/javascript">';
 		
 		$manual_zoom = FALSE;
@@ -112,6 +110,8 @@ Class Gmap {
 	
 	public function dropdown()
 	{
+		$this->args = $this->_fetch_params(FALSE);
+		
 		$limit 	  = $this->args['channel']['limit'] ? $this->args['channel']['limit'] : 'false';
 		 
 		$dropdown = '
@@ -171,6 +171,8 @@ Class Gmap {
 	
 	public function marker($manual_zoom = FALSE)
 	{
+		$this->args = $this->_fetch_params(FALSE);
+		
 		$tagdata	 = $this->EE->TMPL->tagdata;
 		$manual_zoom = $manual_zoom ? $this->args['map']['zoom'] : FALSE;		
 		
@@ -186,8 +188,23 @@ Class Gmap {
 		return $map;
 	}
 	
+	public function post()
+	{
+		$this->args = $this->_fetch_params(FALSE);
+		
+		$name		= $this->args['plugin']['name'];
+		
+		if(!$name) show_error('You must define a post name parameter in the exp:gmap:post method.');
+		
+		$post		= $this->EE->input->post($name);
+		
+		return $post ? $post : '';
+	}
+	
 	public function results()
 	{
+		$this->args = $this->_fetch_params(FALSE);
+		
 		$this->EE->load->model(array(
 			'channel_model', 
 			'field_model', 
@@ -213,26 +230,44 @@ Class Gmap {
 		$tagdata			 = empty($this->EE->TMPL->tagdata) ? FALSE : $this->EE->TMPL->tagdata;
 		$metric		   		 = $this->EE->TMPL->fetch_param('metric');
 		$metric				 = $metric ? $metric : 'miles';
-		$geocode_field		 = $this->EE->TMPL->fetch_param('geocode_field');
-		$location			 = $this->EE->input->post($geocode_field);
+		$geocode_fields		 = explode('|', $this->EE->TMPL->fetch_param('geocode_field'));
+		
+		$location = '';
+		
+		foreach($geocode_fields as $geocode_field)
+		{	
+			$post 						 = $this->EE->input->post($geocode_field) . ' ';
+			$location				 	.= $post;
+			$vars[0][$geocode_field]  	 = trim($post);
+		}
+		
+		$location = trim($location);
+		
 		$channels			 = explode('|', $this->args['channel']['channel']);
 		$distance_field 	 = $this->EE->TMPL->fetch_param('distance_field');
 		$distance			 = $this->EE->input->post($distance_field);
-		$categories			 = $this->EE->input->post('category');
+		$categories			 = $this->EE->input->post('categories');
 		
-		/*
-		$page				 = 1;
-		$limit				 = 0;
-		$offset			 	 = $page * $limit - $limit;
-		*/
-				
+		foreach($_POST as $field => $value)
+			$vars[0]['post:'.$field] = $this->EE->input->post($field);
+		
+		$vars[0]['has_searched']     = $this->EE->input->post('init_gmap_search') == 'y' ? TRUE : FALSE;
+		$vars[0]['has_not_searched'] = $vars[0]['has_searched'] ? FALSE : TRUE;
+
+		if($vars[0]['has_searched'])
+			$vars = $this->_get_required_field_errors($vars);
+			
 		if($this->EE->input->post('init_gmap_search') == 'y')
 		{
 			if($location)
 			{
-				$response = $this->_geocode_location($location);			
-				$vars[0]  = $this->_geocode_response($response);
+				$response = $this->_geocode_location($location);
 				
+				if($response->status == "OK")			
+					$vars[0]  = array_merge($vars[0], $this->_geocode_response($response));
+				else
+					return $this->EE->TMPL->no_results();
+					
 				$lat = $vars[0]['geocoder:latitude'];
 				$lng = $vars[0]['geocoder:longitude'];
 				
@@ -289,43 +324,50 @@ Class Gmap {
 					//$this->EE->db->or_where('channel_id', $channel_data->channel_id);
 					$where .= '`channel_id` = \''.$channel_data->channel_id.'\' AND ';
 					
+					if(is_array($prep_fields))
+					{				
+						foreach($prep_fields as $prep_index => $prep_value)
+							$where .= $prep_value .' AND ';
+					}
+					
 					if(is_array($categories))
-					{			
+					{	
+						$vars[0]['category']   = implode('|', $categories);
+						$vars[0]['categories'] = $vars[0]['category'];
+								
 						foreach($categories as $category)
+						{						
 							$where .= '`cat_id` = \''.$category.'\' AND ';
+						}
 						
 						$where = rtrim($where, ' AND ') . ' OR ';
 					}
 					else
 					{
-						if(is_array($prep_fields))
-						{				
-							foreach($prep_fields as $prep_index => $prep_value)
-								$where .= $prep_value .' AND ';
-						}
+						$where .= '`cat_id` = \''.$categories.'\' AND ';
+						
+						$vars[0]['category'] 	= $categories;
+						$vars[0]['categories'] 	= $vars[0]['category'];
 						
 						$where = rtrim($where, ' AND ') . ' OR ';
-					}
+					}											
 				}
 			}
 			
 			$where = 'WHERE '.rtrim(trim($where), ' OR');
 			$sql   = rtrim(trim($sql), ' OR') . $where . ' GROUP BY `exp_channel_data`.`entry_id`' . $having;
 			
-			//echo $sql;
+			$vars[0]['sql'] = $sql;
 			
-			/*
-			if($limit) 
-				$sql .= ' LIMIT '.$limit.', '.$offset;
-			*/
-				
+			if($this->args['plugin']['show_sql']) echo $sql;
+							
 			$results = $this->EE->db->query($sql);
 			$total_results = $results->num_rows();
 			$entry_ids = $this->_create_id_string($results->result());
 					
 			if($tagdata)
 			{	
-				if($total_results == 0)
+				if($total_results == 0 && $vars[0]['total_errors'] == 0)
 				{
 					return $this->EE->TMPL->no_results($vars);
 				}
@@ -450,8 +492,13 @@ Class Gmap {
 	}
 	
 	public function search()
-	{
+	{		
+		$this->args = $this->_fetch_params(FALSE);
+		
+		$vars = array(array());
+		
 		$this->EE->load->helper('form');
+		
 		$this->EE->load->model(array(
 			'channel_model', 
 			'field_model', 
@@ -473,15 +520,25 @@ Class Gmap {
 			}
 		}
 		
-		$checked_true  		 = 'checked="checked"';
-		$selected_true 		 = 'selected="selected"';
-		$metric		   		 = $this->EE->TMPL->fetch_param('metric');
-		$geocode_field		 = $this->EE->TMPL->fetch_param('geocode_field');
-		$location			 = $this->EE->input->post($geocode_field);
-		$distance	   		 = $this->EE->input->post('distance');		
-		$channels 	   		 = explode('|', $this->args['channel']['channel']);
-		$field_loop 		 = $this->reserved_terms;
-		$vars 		   		 = array(array());
+		$checked_true  		= 'checked="checked"';
+		$selected_true 		= 'selected="selected"';
+		$metric		   		= $this->EE->TMPL->fetch_param('metric');
+		$geocode_fields		= explode('|', $this->EE->TMPL->fetch_param('geocode_field'));
+		
+		$location = '';
+		
+		foreach($geocode_fields as $geocode_field)
+		{	
+			$post 						 = $this->EE->input->post($geocode_field) . ' ';
+			$location				 	.= $post;
+			$vars[0][$geocode_field]  	 = trim($post);
+		}
+							
+		$location = trim($location);
+		
+		$distance	   		= $this->EE->input->post('distance');		
+		$channels 	   		= explode('|', $this->args['channel']['channel']);
+		$field_loop 		= $this->reserved_terms;
 				
 		foreach($field_loop as $append)
 		{
@@ -489,7 +546,9 @@ Class Gmap {
 										   $this->EE->input->post('distance'.$append) : '';
 		}
 		
-		$vars[0][$geocode_field] = $this->EE->input->post($geocode_field);
+		foreach($_POST as $field => $value)
+			$vars[0]['post:'.$field] = $this->EE->input->post($field);
+		
 		$vars[0]['metric']   	 = $metric ? $metric : 'miles';
 				
 		//Loops through the defined channels
@@ -564,7 +623,7 @@ Class Gmap {
 				$vars[0] = array_merge($fields, $vars[0]);
 			}
 				
-		}		
+		}
 		
 		//Loops through the channel categories and assigns them to template
 		//variable in a linear fasion, similar to the steps above
@@ -572,12 +631,12 @@ Class Gmap {
 		{
 			$cat_data = $this->EE->category_model->get_channel_categories($cat_id, array('*'))->result();
 			
-			foreach($cat_data as $category)
+			foreach($cat_data as $cat_index => $category)
 			{
 				$selected = '';
 				$checked  = '';
 				
-				if($this->_is_checked_or_selected($this->EE->input->post('category'), $category->cat_id))
+				if($this->_is_checked_or_selected($this->EE->input->post('categories'), $category->cat_id))
 				{
 					$selected = $selected_true;
 					$checked  = $checked_true;
@@ -585,6 +644,7 @@ Class Gmap {
 				
 				$vars[0]['categories'][] = array(
 					'category_id'   		  => $category->cat_id,
+					'category_group_id'		  => $cat_id,
 					'category_name' 		  => $category->cat_name,
 					'category_url_title'      => $category->cat_url_title,
 					'category_description'    => $category->cat_description,
@@ -607,11 +667,14 @@ Class Gmap {
 			'location'		  	=> $location
 		);
 		
-		$vars[0]['has_searched']     = $this->EE->input->post('init_gmap_search') ? TRUE : FALSE;
+		$vars[0]['has_searched']     = $this->EE->input->post('init_gmap_search') == 'y' ? TRUE : FALSE;
 		$vars[0]['has_not_searched'] = $vars[0]['has_searched'] ? FALSE : TRUE;
 		
-		$tagdata   	   		   = $this->EE->TMPL->parse_variables($this->EE->TMPL->tagdata, $vars);
-		$form 		   		   = form_open($return, $attributes, $hidden_fields).$tagdata.form_close();
+		if($vars[0]['has_searched'])
+			$vars = $this->_get_required_field_errors($vars);
+		
+		$tagdata   	= $this->EE->TMPL->parse_variables($this->EE->TMPL->tagdata, $vars);
+		$form 		= form_open($return, $attributes, $hidden_fields).$tagdata.form_close();
 				
 		if(isset($response))
 		{
@@ -619,6 +682,48 @@ Class Gmap {
 		}
 		
 		return $form;
+	}
+	
+	private function _get_required_field_errors($vars = FALSE)
+	{
+		if(!$vars) $vars = array();
+		
+		$required_fields = explode('|', $this->args['plugin']['require']);
+			
+		$this->EE->load->library('form_validation');
+		$this->EE->form_validation->set_error_delimiters('', '');
+		
+		foreach($required_fields as $field)
+		{
+			$this->EE->form_validation->set_rules($field, ucwords(str_replace(array('-', '_'), ' ', $field)), 'trim|required');
+		}
+		
+		if ($this->EE->form_validation->run() == FALSE)
+		{
+			$error_count = 0;
+			
+			foreach($required_fields as $field)
+			{				
+				if(form_error($field))
+				{						
+					$vars[0]['error:'.$field] = form_error($field);
+					$vars[0]['global_errors'][] = array(
+						'field_name' => $field,
+						'error'		 => form_error($field)
+					);
+					
+					$error_count++;
+				}
+			}
+			
+			$vars[0]['total_errors'] = $error_count;
+		}
+		else
+		{
+			$vars[0]['total_errors'] = 0;
+		}
+		
+		return $vars;
 	}
 	
 	private function _geocode_location($location)
@@ -693,82 +798,10 @@ Class Gmap {
 		return FALSE;
 	}
 	
-	public function radius()
-	{
-		$this->EE->load->model(array('channel_model', 'field_model', 'channel_entries_model'));
-		
-		$channels = explode('|', $this->args['channel']['channel']);
-		$channels[0];		
-		
-		$channel_data = $this->EE->channel_model->get_channels(NULL, array('channel_id, field_group'), array(
-			array(
-				'channel_name' => $this->args['channel']['channel']
-			)
-		))->row();
-		
-		$field_data = $this->EE->field_model->get_fields($channel_data->field_group)->result_array();
-		
-		$lat_field = $this->EE->field_model->get_fields($channel_data->field_group, array(
-			'field_name' => $this->args['fields']['latitude_field']
-		))->row();
-		
-		$lng_field = $this->EE->field_model->get_fields($channel_data->field_group, array(
-			'field_name' => $this->args['fields']['longitude_field']
-		))->row();
-		
-		$lat_field_name = '`field_id_'.$lat_field->field_id.'`';
-		$lng_field_name = '`field_id_'.$lng_field->field_id.'`';
-		
-		/*
-		$this->EE->db->select('channel_titles.*');
-		
-		foreach($field_data as $field)
-			$this->EE->db->select('channel_data.field_id_'.$field['field_id'].' as '.$field['field_name']);
-		
-		SELECT ((ACOS(SIN($lat * PI() / 180) * SIN(`lat` * PI() / 180) + COS($lat * PI() / 180) * COS(`lat` * PI() / 180) * COS(($lon – `lon`) * PI() / 180)) * 180 / PI()) * 60 * 1.1515) AS distance 
-		
-		FROM `members` HAVING distance<=’10′ ORDER BY distance ASC
-		
-		*/
-		
-		$lat = 40;
-		$lng = -86;
-		
-		$this->EE->db->select('entry_id');
-		$this->EE->db->select('(((ACOS(SIN('.$lat.' * PI() / 180) * SIN('.$lat_field_name.' * PI() / 180) + COS('.$lat.' * PI() / 180) * COS('.$lat_field_name.' * PI() / 180) * COS(('.$lng.' - '.$lng_field_name.') * PI() / 180)) * 180 / PI()) * 60 * 1.1515) * '.$this->args['plugin']['offset'].') AS distance');
-		
-		//$this->EE->db->join('channel_data', 'channel_titles.entry_id = channel_data.entry_id');
-		
-		$this->EE->db->where($lat_field_name.' != ', '');
-		
-		if($this->args['plugin']['distance'])
-		{
-			$distance = $this->args['plugin']['distance'];
-			
-			$polarity = strstr($distance, '+') == TRUE ? ' >= ' : ' <= ';
-					
-			$this->EE->db->having('distance '.$polarity.' '. str_replace('+', '', $this->args['plugin']['distance']), NULL, FALSE);
-		}
-		
-		$entries = $this->EE->db->get('channel_data')->result_array();
-		
-		$entry_id = array();
-	
-		foreach($entries as $entry)
-			$entry_id[] = $entry['entry_id'];
-		
-		$this->args['channel']['entry_id'] = implode('|', $entry_id);
-		
-		if(!empty($this->args['channel']['entry_id']))
-			return $this->_init_map();
-		
-		$verbage = strstr($distance, '+') ? 'outside' : 'within';
-		
-		return 'No coordinates found '.$verbage.' '.(float)$distance.' '.$this->args['plugin']['metric'];
-	}
-	
 	public function zoom()
 	{
+		$this->args = $this->_fetch_params();
+		
 		$data = NULL;
 		
 		if($this->args['map']['zoom'] !== FALSE)
@@ -1279,8 +1312,8 @@ Class Gmap {
 		return $exp_open_tag . $content . $exp_close_tag;
 	}
 	
-	private function _fetch_params()
-	{
+	private function _fetch_params($require_id = TRUE)
+	{		
 		// Loops through the defined channels and checks for custom fields and 
 		$this->EE->load->model(array('channel_model', 'field_model'));
 		
@@ -1297,12 +1330,16 @@ Class Gmap {
 				$this->args[$group][$param] = $this->EE->TMPL->fetch_param($param);
 		}
 		
+		if(!$this->args['plugin']['id'] && $require_id)
+			show_error('You must assign a unique <code>id</code> to every map. This <code>id</code> should only contain alphabetical and numerical characters with the exception of an underscore.');
+		
 		/* Sets the default values */
 		$this->args['fields']['latitude'] = $this->args['fields']['latitude'] !== FALSE ? $this->args['fields']['latitude'] : 0;
 		
 		$this->args['fields']['longitude'] = $this->args['fields']['longitude'] !== FALSE ? $this->args['fields']['longitude'] : 0;
 		
 		$this->args['plugin']['offset'] = 1;
+		
 		
 		switch($this->args['plugin']['metric'])
 		{
@@ -1337,8 +1374,12 @@ Class Gmap {
 		if($this->args['plugin']['show_coordinate'] == "yes" || $this->args['plugin']['show_coordinate'] == "true")
 			$this->args['plugin']['show_coordinate'] = TRUE;
 		else
-		
 			$this->args['plugin']['show_coordinate'] = FALSE;
+								
+		if($this->args['plugin']['show_sql'] == "yes" || $this->args['plugin']['show_sql'] == "true")
+			$this->args['plugin']['show_sql'] = TRUE;
+		else		
+			$this->args['plugin']['show_sql'] = FALSE;
 			
 			
 		if($this->args['plugin']['add_title_to_dropdown'] == "yes" || $this->args['plugin']['add_title_to_dropdown'] == "true")
