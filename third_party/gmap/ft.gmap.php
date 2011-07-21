@@ -3,7 +3,7 @@
  * Fieldtype - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.3 Beta - Build 20110721
+ * @version			2.2.1
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -15,7 +15,7 @@ class Gmap_ft extends EE_Fieldtype {
 
 	var $info = array(
 		'name'		=> 'Google Maps for ExpressionEngine',
-		'version'	=> '2.3'
+		'version'	=> '2.2.1'
 	);
 	
 	// --------------------------------------------------------------------
@@ -103,12 +103,6 @@ class Gmap_ft extends EE_Fieldtype {
 			fieldOpts.gmap_total_points = 1;
 			populate_lat_lng(location.lat(), location.lng());
 			';
-			
-			$populate_lat_lng_fn = '
-			function populate_lat_lng(lat, lng) {
-				$("#field_id_'.$lat_field['field_id'].', input[name=\''.$lat_field['field_name'].'\']").val(lat);
-				$("#field_id_'.$lng_field['field_id'].', input[name=\''.$lng_field['field_name'].'\']").val(lng);
-			}';
 		}
 
 		foreach($coords as $coord)
@@ -151,6 +145,10 @@ class Gmap_ft extends EE_Fieldtype {
 			var gmap_markers = [];
 			var gmap_marker_count = 0;
 					
+			function populate_lat_lng(lat, lng) {
+				$("#field_id_'.$lat_field['field_id'].', input[name=\''.$lat_field['field_name'].'\']").val(lat);
+				$("#field_id_'.$lng_field['field_id'].', input[name=\''.$lng_field['field_name'].'\']").val(lng);
+			}
 			
 			function gmap_remove_all_markers() {
 				$(gmap_markers).each(function(i) {
