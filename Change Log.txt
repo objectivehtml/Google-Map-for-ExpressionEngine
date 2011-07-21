@@ -8,6 +8,10 @@
 
 Version 2.3 BETA Build 7/21/2011
 --------------------------------
+Updated the fieldtype from code contributed by John D Wells who can be found on Twitter @johndwells and http://johndwells.com/. He implemented a "defer initialization until click" feature. In a future build, there will be an option to omit this feature and initialize the map on load.
+
+Version 2.3 BETA Build 7/21/2011
+--------------------------------
 Fixed a bug that caused an empty result set if the form didn't contain a category.
 
 Version 2.3 BETA Build 7/20/2011
