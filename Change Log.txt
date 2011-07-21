@@ -1,10 +1,14 @@
 /**
 * Google Maps for ExpressionEngine
 * Author: Justin Kimbrell
-* Build: 2.3 BETA - Build 20110720
+* Build: 2.3 BETA - Build 20110721
 * Copyright 2011 - All rights reserved
 * http://objectivehtml.com, http://inthesaucepan.com
 */
+
+Version 2.3 BETA Build 7/21/2011
+--------------------------------
+Fixed a bug that caused an empty result set if the form didn't contain a category.
 
 Version 2.3 BETA Build 7/20/2011
 --------------------------------

@@ -339,18 +339,18 @@ Class Gmap {
 						{						
 							$where .= '`cat_id` = \''.$category.'\' AND ';
 						}
-						
-						$where = rtrim($where, ' AND ') . ' OR ';
 					}
-					else
-					{
+					
+					//Checks to see if the category is actually set						
+					else if($categories)	
+					{				
 						$where .= '`cat_id` = \''.$categories.'\' AND ';
-						
+					
 						$vars[0]['category'] 	= $categories;
 						$vars[0]['categories'] 	= $vars[0]['category'];
-						
-						$where = rtrim($where, ' AND ') . ' OR ';
-					}											
+					}			
+					
+					$where = rtrim($where, ' AND ') . ' OR ';								
 				}
 			}
 			
