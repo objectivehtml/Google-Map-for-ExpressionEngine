@@ -3,7 +3,7 @@
  * Fieldtype - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.2.2
+ * @version			2.2.1
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -15,7 +15,7 @@ class Gmap_ft extends EE_Fieldtype {
 
 	var $info = array(
 		'name'		=> 'Google Maps for ExpressionEngine',
-		'version'	=> '2.2.2'
+		'version'	=> '2.2'
 	);
 	
 	// --------------------------------------------------------------------
