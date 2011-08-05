@@ -10,8 +10,8 @@
 	
 	<div style="height:<?=$height?>; margin-bottom:1em">
 		
-		<div style="height:100%;width:100%;cursor:pointer" id="gmap_canvas">
-			<div style="display:block;line-height:<?=$height?>;text-align:center;text-transform:uppercase;font-size:120%">click to activate map</div>
+		<div style="height:100%;width:100%" id="gmap_canvas">
+		
 		</div>
 		
 	</div>
@@ -19,7 +19,7 @@
 
 <div class="coordinates">
 	<label for="gmap_coords">Saved Coordinates</label>
-	<input type="text" name="<?=$field_name?>" id="gmap_coords" value="<?=$coords?>" style="width:100%" />
+	<input type="text" name="<?=$field_name?>" id="gmap_coords" value="" style="width:100%" />
 	
 	<br>
 

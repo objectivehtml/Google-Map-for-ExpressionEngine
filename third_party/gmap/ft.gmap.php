@@ -3,7 +3,7 @@
  * Fieldtype - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.2.1
+ * @version			2.2.3
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -15,7 +15,7 @@ class Gmap_ft extends EE_Fieldtype {
 
 	var $info = array(
 		'name'		=> 'Google Maps for ExpressionEngine',
-		'version'	=> '2.2.1'
+		'version'	=> '2.2.3'
 	);
 	
 	// --------------------------------------------------------------------
@@ -38,8 +38,9 @@ class Gmap_ft extends EE_Fieldtype {
 	{	
 		$this->EE->load->config('gmap');
 		
-		$field = $this->EE->db->get_where('channel_fields', array('field_id' => $this->settings['field_id']))->row_array();
-				
+		$field_id = $this->settings['field_id'];
+		$field = $this->EE->db->get_where('channel_fields', array('field_id' => $field_id))->row_array();
+		
 		$this->settings = unserialize(base64_decode($field['field_settings']));
 		
 		$coord_string = $coords;
@@ -103,25 +104,15 @@ class Gmap_ft extends EE_Fieldtype {
 			fieldOpts.gmap_total_points = 1;
 			populate_lat_lng(location.lat(), location.lng());
 			';
-		}
-
-		foreach($coords as $coord)
-		{
-			$js_coords = '';
-			if(is_array($coord))
-			{
-				$js_coords .= '
-					location = new google.maps.LatLng('.$coord['lat'].', '.$coord['lng'].');
-					
-					gmap_add_marker(location);
-		    		gmap_bounds.extend(location);
-		    		gmap.fitBounds(gmap_bounds);
-				';
-			}
+			
+			$populate_lat_lng_fn = '
+			function populate_lat_lng(lat, lng) {
+				$("#field_id_'.$lat_field['field_id'].', input[name=\''.$lat_field['field_name'].'\']").val(lat);
+				$("#field_id_'.$lng_field['field_id'].', input[name=\''.$lng_field['field_name'].'\']").val(lng);
+			}';
 		}
 		
 		$this->EE->javascript->output('
-		
 			var fieldOpts 		= '.$script.';			
 			
 			var location 		= new google.maps.LatLng(fieldOpts.gmap_latitude, fieldOpts.gmap_longitude);
@@ -130,7 +121,6 @@ class Gmap_ft extends EE_Fieldtype {
 			var myOptions = {
 				zoom: parseInt(fieldOpts.gmap_zoom),
 				center: location,
-				scrollwheel: false,
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
 				disableDoubleClickZoom: true
 			}
@@ -138,18 +128,19 @@ class Gmap_ft extends EE_Fieldtype {
 			var gmap_canvas = $("#gmap_canvas").get(0);
 			var gmap_coords = $("#gmap_coords");
 			var gmap_button = document.getElementById("#gmap_submit");
-
-			var gmap = null;
-			var gmap_bounds = null; 
-
+					
+			var gmap = new google.maps.Map(gmap_canvas, myOptions);
+			var gmap_bounds = new google.maps.LatLngBounds(); 
 			var gmap_markers = [];
 			var gmap_marker_count = 0;
-					
-			function populate_lat_lng(lat, lng) {
-				$("#field_id_'.$lat_field['field_id'].', input[name=\''.$lat_field['field_name'].'\']").val(lat);
-				$("#field_id_'.$lng_field['field_id'].', input[name=\''.$lng_field['field_name'].'\']").val(lng);
-			}
 			
+			'.$populate_lat_lng_fn.'
+			
+			$("#hold_field_'.$field_id.' .hide_field span").click(function() {
+				google.maps.event.trigger(gmap, "resize");
+				gmap.setCenter(location)
+			});
+					
 			function gmap_remove_all_markers() {
 				$(gmap_markers).each(function(i) {
 					remove_marker(i);
@@ -220,94 +211,92 @@ class Gmap_ft extends EE_Fieldtype {
 				}
 			}
 			
-			$("#gmap_canvas").click(function(e) {
-				$(this).unbind("click");
+			google.maps.event.addListener(gmap, \'dblclick\', function(event) {
+		    	gmap_add_marker(event.latLng, true);
 				
-				// before we go any further, clear out input because we will recreate it via js
-				gmap_coords.val("");
-
-				gmap = new google.maps.Map(gmap_canvas, myOptions);
-				gmap_bounds = new google.maps.LatLngBounds(); 
-				
-				'.$populate_lat_lng_fn.'
-
-				google.maps.event.addListener(gmap, \'dblclick\', function(event) {
-			    	gmap_add_marker(event.latLng, true);
-					
-				});
-							
-				$(".gmap-remove").live("click", function() {
-					var $t 		= $(this);
-					var id 		= String($t.attr("id"));
-					var title 	= $t.attr("title");
-					
-					remove_marker(id, title);
+			});
 						
+			$(".gmap-remove").live("click", function() {
+				var $t 		= $(this);
+				var id 		= String($t.attr("id"));
+				var title 	= $t.attr("title");
+				
+				remove_marker(id, title);
+					
+				return false;
+			});
+			
+			$(".gmap-remove-all").click(function() {
+				gmap_remove_all_markers();
+				
+				return false;
+			});
+					
+			$("#gmap_address").keypress(function(event) {
+				if(event.keyCode == 13)	{	
+					$("#gmap_submit").click();
 					return false;
-				});
-				
-				$(".gmap-remove-all").click(function() {
-					gmap_remove_all_markers();
+				}
+			});
+									
+			$("#gmap_submit").click(function() {
+				(function () {  /* Fixes a known bug with Google\'s API with displaying the InfoWindow(s) */
+					var address = $("#gmap_address").val();
 					
-					return false;
-				});
-						
-				$("#gmap_address").keypress(function(event) {
-					if(event.keyCode == 13)	{	
-						$("#gmap_submit").click();
-						return false;
-					}
-				});
-										
-				$("#gmap_submit").click(function() {
-					(function () {  /* Fixes a known bug with Google\'s API with displaying the InfoWindow(s) */
-						var address = $("#gmap_address").val();
-						
-						gmap_geocoder.geocode( { \'address\': address}, function(results, status) {
-							if (status == google.maps.GeocoderStatus.OK) {
-								
-								var coord = results[0].geometry.location;
-								
-								gmap_add_marker(coord);
-								
-								 $("#gmap_address").val("").focus();
-							} else {
-								alert("Geocode was not successful for the following reason: " + status);
-							}
-						});
-					})();
-				});
-				
-				gmap_coords.blur(function() {
-					coord_string = $(this).val();
-					coords = coord_string.split(\')(\');
-					
-					gmap_remove_all_markers();
-						
-					if(coord_string != \'\') {					
-						for(i = 0; i < coords.length; i++) {
-							var coord = coords[i].split(\', \');
+					gmap_geocoder.geocode( { \'address\': address}, function(results, status) {
+						if (status == google.maps.GeocoderStatus.OK) {
 							
-							if(coord.length >= 2) {							
-								var new_latitude 	= coord[0].replace(\'(\', \'\').replace(\')\', \'\');
-								var new_longitude 	= coord[1].replace(\')\', \'\').replace(\'(\', \'\');
-								
-								var location = new google.maps.LatLng(new_latitude, new_longitude);
-								
-								gmap_add_marker(location);
-							} else {
-								alert("There is an error in the coordinate formatting: "+coord);
-							}
+							var coord = results[0].geometry.location;
+							
+							gmap_add_marker(coord);
+							
+							 $("#gmap_address").val("").focus();
+						} else {
+							alert("Geocode was not successful for the following reason: " + status);
+						}
+					});
+				})();
+			});
+			
+			gmap_coords.blur(function() {
+				coord_string = $(this).val();
+				coords = coord_string.split(\')(\');
+				
+				gmap_remove_all_markers();
+					
+				if(coord_string != \'\') {					
+					for(i = 0; i < coords.length; i++) {
+						var coord = coords[i].split(\', \');
+						
+						if(coord.length >= 2) {							
+							var new_latitude 	= coord[0].replace(\'(\', \'\').replace(\')\', \'\');
+							var new_longitude 	= coord[1].replace(\')\', \'\').replace(\'(\', \'\');
+							
+							var location = new google.maps.LatLng(new_latitude, new_longitude);
+							
+							gmap_add_marker(location);
+						} else {
+							alert("There is an error in the coordinate formatting: "+coord);
 						}
 					}
-					
-				});
+				}
 				
-				' . $js_coords . '
 			});
-		
 		');
 		
+		foreach($coords as $coord)
+		{
+			if(is_array($coord))
+			{
+				$this->EE->javascript->output('
+					location = new google.maps.LatLng('.$coord['lat'].', '.$coord['lng'].');
+					
+					gmap_add_marker(location);
+		    		gmap_bounds.extend(location);
+		    		gmap.fitBounds(gmap_bounds);
+				');
+			}
+		}
 		
 		$vars = array(
 			'height' 	 => $options['gmap_map_height'],
@@ -356,7 +345,6 @@ class Gmap_ft extends EE_Fieldtype {
 			var myOptions = {
 				zoom: '.$data['gmap_zoom'].',
 				center: location,
-				scrollwheel : false,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
 						
@@ -469,7 +457,7 @@ class Gmap_ft extends EE_Fieldtype {
 			lang('gmap_preview', 'gmap_preview').'<br>'.
 			lang('gmap_preview_description').'<br>'.'<br>'.
 			'<i>'.lang('gmap_google_map_render_bug').'</i>',
-			'<div id="gmap_wrapper" style="height: '.$data['gmap_map_height'].'"><div style="height:100%;width:100%;cursor:pointer" id="gmap_canvas"><span style="display:block;line-height:<?=$height?>;text-align:center;text-transform:uppercase;font-size:120%">click to activate map</span></div></div>'
+			'<div id="gmap_wrapper" style="height: '.$data['gmap_map_height'].'"><div id="gmap_canvas" style="width: 100%; height: 100%"></div></div>'
 		);
 		
 	}
