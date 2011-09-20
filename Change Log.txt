@@ -1,13 +1,17 @@
 /**
 * Google Maps for ExpressionEngine
 * Author: Justin Kimbrell
-* Build: 2.3 BETA - Build 20110721
+* Build: 2.3 BETA - Build 20110920
 * Copyright 2011 - All rights reserved
 * http://objectivehtml.com, http://inthesaucepan.com
 */
 
+Version 2.3 BETA 9/20/2011
+--------------------------
+Added the ability to search the entry_date and expiration_date within the exp:gmap:results method. Also fixed an problem that caused the v2.3 beta fieldtype code to be overwritten by an older version. Restored my current working version.
+
 Version 2.3 BETA 8/5/2011
-----------------------
+-------------------------
 Fixed a bug that prevent the dropdown from displaying properly in IE. I also made jQuery a required library for the dropdown for easier code maintenance and browser compatibility.
 
 Version 2.3 BETA Build 7/21/2011

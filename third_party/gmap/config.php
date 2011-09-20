@@ -26,7 +26,7 @@ $config['name']		= 'Google Maps For ExressionEngine';
 | -------------------------------------------------------------------
 */
 
-$config['version']	= '2.2.3';
+$config['version']	= '2.3 Beta';
 
 
 /*
