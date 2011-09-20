@@ -23,7 +23,8 @@ $plugin_info = array(
 
 Class Gmap {
 	
-	private $reserved_terms = array('', '_min', '_max', '_like');
+	private $reserved_terms 	= array('', '_min', '_max', '_like');
+	private $reserved_fields	= array('entry_date', 'expiration_date', 'title');
 	
 	private $args = array(
 		
@@ -321,7 +322,7 @@ Class Gmap {
 				$having = ' HAVING `distance` '.$this->_prep_value($distance_field, $distance);
 			}
 					
-			$sql .= ' FROM `exp_channel_data` LEFT JOIN `exp_category_posts` ON `exp_channel_data`.`entry_id` = `exp_category_posts`.`entry_id`';
+			$sql .= ' FROM `exp_channel_data` LEFT JOIN `exp_channel_titles` ON `exp_channel_data`.`entry_id` = `exp_channel_titles`.`entry_id` LEFT JOIN `exp_category_posts` ON `exp_channel_data`.`entry_id` = `exp_category_posts`.`entry_id`';
 										
 			//Loops through the defined channels
 			foreach($channels as $channel_name)
@@ -333,7 +334,7 @@ Class Gmap {
 				if(count($channel_data) > 0)
 				{	
 					//$this->EE->db->or_where('channel_id', $channel_data->channel_id);
-					$where .= '`channel_id` = \''.$channel_data->channel_id.'\' AND ';
+					$where .= '`exp_channel_titles`.`channel_id` = \''.$channel_data->channel_id.'\' AND ';
 					
 					if(is_array($prep_fields))
 					{				
@@ -454,34 +455,42 @@ Class Gmap {
 			//Creates the SQL field name by removed the reserved terms
 			$sql_field_name = str_replace($this->reserved_terms, '', $field_name);
 			
-			//Gets the field data and if the field exists, the sql statement is created
-			$field_data = $this->EE->field_model->get_fields('', array('field_name' => $sql_field_name));
-						
-			if($field_data->num_rows() > 0)
-			{	
-				//Validates that a value is not FALSE
-				if($value !== FALSE && !empty($value) || $to_append == FALSE)
-				{
-					//If to_append is TRUE, then the operator is appended
-					if($to_append == TRUE)
-					{			
-						//Converts a value string to a variable
-						$values = is_array($value) ? $value : array($value);
-						
-						//Loops through the values array and creates the SQL conditions
-						foreach($values as $value)
-						{
-							$operator = $this->_prep_value($field_name, $value);
-														
-							$string[] = '`field_id_'.$field_data->row('field_id').'` '.$operator;
+			if(in_array($sql_field_name, $this->reserved_fields))
+			{
+				$operator = $this->_prep_value($field_name, $value);
+				$string[] = '`'.$sql_field_name.'` '.$operator;
+			}
+			else
+			{
+				//Gets the field data and if the field exists, the sql statement is created
+				$field_data = $this->EE->field_model->get_fields('', array('field_name' => $sql_field_name));				
+					
+				if($field_data->num_rows() > 0)
+				{	
+					//Validates that a value is not FALSE
+					if($value !== FALSE && !empty($value) || $to_append == FALSE)
+					{
+						//If to_append is TRUE, then the operator is appended
+						if($to_append == TRUE)
+						{			
+							//Converts a value string to a variable
+							$values = is_array($value) ? $value : array($value);
+							
+							//Loops through the values array and creates the SQL conditions
+							foreach($values as $value)
+							{
+								$operator = $this->_prep_value($field_name, $value);
+															
+								$string[] = '`field_id_'.$field_data->row('field_id').'` '.$operator;
+							}
+						}
+						else
+						{					
+							$string[] = '`field_id_'.$field_data->row('field_id').'`';
 						}
 					}
-					else
-					{					
-						$string[] = '`field_id_'.$field_data->row('field_id').'`';
-					}
-				}
-			}			
+				}			
+			}
 		}
 		
 		return $string;
