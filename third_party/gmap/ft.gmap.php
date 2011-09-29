@@ -151,7 +151,7 @@ class Gmap_ft extends EE_Fieldtype {
 			var gmap_marker_count = 0;
 					
 			'.$populate_lat_lng_fn.'
-
+	
 			function gmap_remove_all_markers() {
 				$(gmap_markers).each(function(i) {
 					remove_marker(i);

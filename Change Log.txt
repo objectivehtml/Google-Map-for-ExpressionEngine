@@ -1,10 +1,14 @@
 /**
 * Google Maps for ExpressionEngine
 * Author: Justin Kimbrell
-* Build: 2.3 BETA - Build 20110920
+* Build: 2.3 BETA - Build 20110929
 * Copyright 2011 - All rights reserved
 * http://objectivehtml.com, http://inthesaucepan.com
 */
+
+Version 2.3 BETA 9/29/2011
+--------------------------
+Fixed a couple bugs in the results method. Also added a feature so the user can search by _day. This will take a timestamp and search the entire day, not just a specific time. (Works in a similar fashion as _min, _max, and _like)
 
 Version 2.3 BETA 9/20/2011
 --------------------------

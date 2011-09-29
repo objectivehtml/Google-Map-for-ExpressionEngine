@@ -3,7 +3,7 @@
  * Plugin - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.3 Beta - Build 20110805
+ * @version			2.3 Beta - Build 20110929
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -23,7 +23,7 @@ $plugin_info = array(
 
 Class Gmap {
 	
-	private $reserved_terms 	= array('', '_min', '_max', '_like');
+	private $reserved_terms 	= array('', '_min', '_max', '_like', '_day');
 	private $reserved_fields	= array('entry_date', 'expiration_date', 'title');
 	
 	private $args = array(
@@ -454,7 +454,7 @@ Class Gmap {
 												
 			//Creates the SQL field name by removed the reserved terms
 			$sql_field_name = str_replace($this->reserved_terms, '', $field_name);
-			
+						
 			if(in_array($sql_field_name, $this->reserved_fields))
 			{
 				$operator = $this->_prep_value($field_name, $value);
@@ -463,8 +463,7 @@ Class Gmap {
 			else
 			{
 				//Gets the field data and if the field exists, the sql statement is created
-				$field_data = $this->EE->field_model->get_fields('', array('field_name' => $sql_field_name));				
-					
+				$field_data = $this->EE->field_model->get_fields('', array('field_name' => $sql_field_name));									
 				if($field_data->num_rows() > 0)
 				{	
 					//Validates that a value is not FALSE
@@ -479,9 +478,10 @@ Class Gmap {
 							//Loops through the values array and creates the SQL conditions
 							foreach($values as $value)
 							{
-								$operator = $this->_prep_value($field_name, $value);
-															
-								$string[] = '`field_id_'.$field_data->row('field_id').'` '.$operator;
+								$field_id = $field_data->row('field_id');
+								$operator = $this->_prep_value($field_name, $value, $field_id);
+								
+								$string[] = '`field_id_'.$field_id.'` '.$operator;
 							}
 						}
 						else
@@ -496,8 +496,10 @@ Class Gmap {
 		return $string;
 	}
 	
-	private function _prep_value($field_name, $value)
+	private function _prep_value($field_name, $value, $field_id = FALSE)
 	{
+		$date = strtotime(date('Ymd 23:59:59', $value).'+1 day');
+		
 		//Preps conditional statement by testing the field_name for keywords
 		if(strpos($field_name, '_min'))
 			$operator = ' >= \''.$value.'\'';
@@ -505,8 +507,10 @@ Class Gmap {
 			$operator = ' <= \''.$value.'\'';
 		else if(strpos($field_name, '_like'))
 			$operator = ' LIKE \'%'.$value.'%\'';
+		else if(strpos($field_name, '_day') && $field_id)
+			$operator = ' >= '.$value.' AND `field_id_'.$field_id.'` <= '.$date;
 		else
-			$operator = ' = \''.$value.'\' ';
+			$operator = ' = \''.$value.'\'';
 	
 		return $operator;
 	}
