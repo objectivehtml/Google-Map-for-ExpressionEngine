@@ -1,12 +1,16 @@
 /**
 * Google Maps for ExpressionEngine
 * Author: Justin Kimbrell
-* Build: 2.3 BETA - Build 20111006
+* Build: 2.3 BETA - Build 20111007
 * Copyright 2011 - All rights reserved
 * http://objectivehtml.com, http://inthesaucepan.com
 */
 
-Version 2.3 BETA 9/29/2011
+Version 2.3 BETA 10/07/2011
+--------------------------
+Fixed a problem with the search form not properly selecting dropdown options due to whitespace.
+
+Version 2.3 BETA 10/06/2011
 --------------------------
 Fixed a bug in the new _date span feature.
 

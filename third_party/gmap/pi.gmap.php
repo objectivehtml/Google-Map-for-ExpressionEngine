@@ -3,7 +3,7 @@
  * Plugin - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.3 Beta - Build 20111006
+ * @version			2.3 Beta - Build 20111007
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -560,6 +560,7 @@ Class Gmap {
 		
 		$location = '';
 		
+		
 		foreach($geocode_fields as $geocode_field)
 		{	
 			$post 						 = $this->EE->input->post($geocode_field) . ' ';
@@ -610,7 +611,7 @@ Class Gmap {
 					$field_appendage = $field_name . $append;
 										
 					$input = $this->EE->input->post($field_appendage) ?
-					    	 $this->EE->input->post($field_appendage) : '';
+					    	 trim($this->EE->input->post($field_appendage)) : '';
 					    										
 					//If list items exist, it build the option:field_name array
 					if(!empty($field->field_list_items))
@@ -622,21 +623,20 @@ Class Gmap {
 							//Loops through the list items for the fieldtype
 							foreach($list_items as $item)
 							{
+								$item = trim($item);
 								$checked = '';
 								$selected = '';
 								
 								//Checks to see if the entry should be checked or selected
 								if($this->EE->input->post($field_appendage) !== FALSE)
-								{
-									$post = $this->EE->input->post($field_appendage);
-																		
-									if($this->_is_checked_or_selected($post, $item))
+								{											
+									if($this->_is_checked_or_selected($input, $item))
 									{
 										$checked = $checked_true;
 										$selected = $selected_true;
-									}
+									}								
 								}
-								
+																
 								//Adds all the data to the template variable
 								$vars[0]['options:'.$field_appendage][] = array(
 									'option_name'  => ucfirst($item),
@@ -813,7 +813,13 @@ Class Gmap {
 		if(is_array($post))
 		{
 			foreach($post as $post_index => $post_value)
-			{											
+			{			
+					
+			if($item == 'equipment-truck')
+			{
+				$post;exit();
+			}
+									
 				if($item == $post_value)
 				{
 					return TRUE;
