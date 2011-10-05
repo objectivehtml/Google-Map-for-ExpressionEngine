@@ -3,7 +3,7 @@
  * Plugin - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.3 Beta - Build 20110929
+ * @version			2.3 Beta - Build 20111006
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -498,20 +498,29 @@ Class Gmap {
 	
 	private function _prep_value($field_name, $value, $field_id = FALSE)
 	{
-		$date = strtotime(date('Ymd 23:59:59', $value).'+1 day');
-		
 		//Preps conditional statement by testing the field_name for keywords
 		if(strpos($field_name, '_min'))
+		{
 			$operator = ' >= \''.$value.'\'';
+		}
 		else if(strpos($field_name, '_max'))
+		{
 			$operator = ' <= \''.$value.'\'';
+		}
 		else if(strpos($field_name, '_like'))
+		{
 			$operator = ' LIKE \'%'.$value.'%\'';
+		}
 		else if(strpos($field_name, '_day') && $field_id)
+		{
+			$date = strtotime(date('Ymd 23:59:59', $value).'+1 day');
 			$operator = ' >= '.$value.' AND `field_id_'.$field_id.'` <= '.$date;
+		}
 		else
+		{
 			$operator = ' = \''.$value.'\'';
-	
+		}
+		
 		return $operator;
 	}
 	

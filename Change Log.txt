@@ -1,10 +1,14 @@
 /**
 * Google Maps for ExpressionEngine
 * Author: Justin Kimbrell
-* Build: 2.3 BETA - Build 20110929
+* Build: 2.3 BETA - Build 20111006
 * Copyright 2011 - All rights reserved
 * http://objectivehtml.com, http://inthesaucepan.com
 */
+
+Version 2.3 BETA 9/29/2011
+--------------------------
+Fixed a bug in the new _date span feature.
 
 Version 2.3 BETA 9/29/2011
 --------------------------
