@@ -3,7 +3,7 @@
  * Fieldtype - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.3 Beta - Build 20110721
+ * @version			2.3 Beta - Build 20111011
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -

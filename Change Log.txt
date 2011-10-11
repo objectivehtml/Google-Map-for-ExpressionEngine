@@ -6,6 +6,10 @@
 * http://objectivehtml.com, http://inthesaucepan.com
 */
 
+Version 2.3 BETA 10/10/2011
+--------------------------
+Fixed a bug that caused an error to display if some variables weren't set properly.
+
 Version 2.3 BETA 10/07/2011
 --------------------------
 Fixed a problem with the search form not properly selecting dropdown options due to whitespace.
