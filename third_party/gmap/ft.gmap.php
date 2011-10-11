@@ -96,6 +96,12 @@ class Gmap_ft extends EE_Fieldtype {
 		$center = '';
 		$populate_lat_lng = '';
 				
+		$lat_field['field_id'] = isset($lat_field['field_id']) ? $lat_field['field_id'] : '';
+		$lng_field['field_id'] = isset($lng_field['field_id']) ? $lng_field['field_id'] : '';
+		$lat_field['field_name'] = isset($lat_field['field_name']) ? $lat_field['field_name'] : '';
+		$lng_field['field_name'] = isset($lng_field['field_name']) ? $lng_field['field_name'] : '';
+		
+		
 		$populate_lat_lng_fn = '
 		function populate_lat_lng(lat, lng) {
 			$("#field_id_'.$lat_field['field_id'].', input[name=\''.$lat_field['field_name'].'\']").val(lat);
