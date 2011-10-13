@@ -276,7 +276,7 @@ class Gmap_ft extends EE_Fieldtype {
 								
 								gmap_add_marker(coord);
 								
-								 $("#gmap_address").val("").focus();
+								$("#gmap_address").val("").focus();
 							} else {
 								alert("Geocode was not successful for the following reason: " + status);
 							}
