@@ -6,6 +6,10 @@
 * http://objectivehtml.com, http://inthesaucepan.com
 */
 
+Version 2.3 BETA 10/12/2011
+--------------------------
+Fixed a bug that prevented the search/results method from working if a channel parameter was not defined. Started implementing Channel Data. Also, starting to slowly implement Markdown.
+
 Version 2.3 BETA 10/10/2011
 --------------------------
 Fixed a bug that caused an error to display if some variables weren't set properly.

@@ -3,7 +3,7 @@
  * Plugin - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.3 Beta - Build 20111007
+ * @version			2.3 Beta - Build 20111012
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -215,7 +215,12 @@ Class Gmap {
 	
 	public function results()
 	{
+		$this->EE->load->library('channel_data');
+		
 		$this->args = $this->_fetch_params(FALSE);
+		
+		if(!$this->args['channel']['channel'])
+			show_error('You must define a channel to use the exp:gmap:results method');
 		
 		$this->EE->load->model(array(
 			'channel_model', 
@@ -327,6 +332,8 @@ Class Gmap {
 			//Loops through the defined channels
 			foreach($channels as $channel_name)
 			{		
+				$channel_data = $this->EE->channel_data->get_channels(array(), array('channel_name' => $channel_name));
+				
 				$channel_data = $this->EE->channel_model->get_channels(NULL, array('channel_id, field_group'), 
 					array(array('channel_name' => $channel_name))
 				)->row();
@@ -601,7 +608,7 @@ Class Gmap {
 			foreach($channel_fields as $index => $channel_field)
 			{
 				$field = $this->EE->field_model->get_field($channel_field->field_id)->row();
-				$field_name = str_replace(array('_min', '_max'), array('', ''), $field->field_name);
+				$field_name = str_replace(array('_min', '_max',), array('', ''), $field->field_name);
 								
 				$fields = array();
 				
@@ -609,15 +616,24 @@ Class Gmap {
 				foreach($field_loop as $append)
 				{
 					$field_appendage = $field_name . $append;
+						
+					$input = $this->EE->input->post($field_appendage);
+					
+					if(!is_array($input))
+					{
+						$input = $input ? array(trim($input)) : '';
+					}
+					else
+					{
+						foreach($input as $input_index => $input_value)
+							$input[$input_index] = trim($input_value);
+					}
 										
-					$input = $this->EE->input->post($field_appendage) ?
-					    	 trim($this->EE->input->post($field_appendage)) : '';
-					    										
 					//If list items exist, it build the option:field_name array
 					if(!empty($field->field_list_items))
 					{					
 						$list_items = explode("\n", $field->field_list_items);
-								
+						
 						if(count($list_items) > 0)
 						{
 							//Loops through the list items for the fieldtype
