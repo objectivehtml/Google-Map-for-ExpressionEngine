@@ -337,30 +337,48 @@ class Gmap_ft extends EE_Fieldtype {
 		$this->EE->cp->add_to_head('<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
 		
 		$this->EE->javascript->output('
-			var gmap_canvas = $("#gmap_canvas").get(0);
-			
-			var location 		= new google.maps.LatLng('.$data['gmap_latitude'].', '.$data['gmap_longitude'].');
-	 		var gmap_geocoder	= new google.maps.Geocoder();
-	 		
-			var myOptions = {
-				zoom: '.$data['gmap_zoom'].',
-				center: location,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			}
-						
-			var gmap = new google.maps.Map(gmap_canvas, myOptions);
-			
-			google.maps.event.addListener(gmap, \'center_changed\', function() {
-				var center = gmap.getCenter();
-				$("#gmap_latitude").val(center.lat());
-				$("#gmap_longitude").val(center.lng());
-			});
-			
-			google.maps.event.addListener(gmap, \'zoom_changed\', function() {
-				var zoom = gmap.getZoom();
-				$("#gmap_zoom").val(zoom);
-			});
-			
+
+            var timer = setInterval(shouldInit, 1000);  // check if map should be inited
+            var mapInited = false;
+
+            var gmap_canvas;
+            var gmap;
+
+            function shouldInit()
+            {
+                if(mapInited) return;
+
+                if($("#gmap_wrapper").is(":visible")) {
+
+                    mapInited = true;
+                    clearInterval(timer);
+
+                    gmap_canvas = $("#gmap_canvas").get(0);
+
+                    var location 		= new google.maps.LatLng('.$data['gmap_latitude'].', '.$data['gmap_longitude'].');
+                    var gmap_geocoder	= new google.maps.Geocoder();
+
+                    var myOptions = {
+                        zoom: '.$data['gmap_zoom'].',
+                        center: location,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    }
+
+                    gmap = new google.maps.Map(gmap_canvas, myOptions);
+
+                    google.maps.event.addListener(gmap, \'center_changed\', function() {
+                        var center = gmap.getCenter();
+                        $("#gmap_latitude").val(center.lat());
+                        $("#gmap_longitude").val(center.lng());
+                    });
+
+                    google.maps.event.addListener(gmap, \'zoom_changed\', function() {
+                        var zoom = gmap.getZoom();
+                        $("#gmap_zoom").val(zoom);
+                    });
+                }
+            }
+
 			$("#gmap_latitude, #gmap_longitude").blur(function() {
 				var lat = parseFloat($("#gmap_latitude").val());
 				var lng = parseFloat($("#gmap_longitude").val());
@@ -384,7 +402,7 @@ class Gmap_ft extends EE_Fieldtype {
 					alert("Invalid zoom: "+zoom+". The zoom must be between 0 and 20.");
 				}
 			});
-			
+
 			$("#gmap_map_height").blur(function() {
 				$("#gmap_wrapper").css("height", $(this).val());
 			});
