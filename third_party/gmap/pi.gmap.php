@@ -3,7 +3,7 @@
  * Plugin - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.3 Beta - Build 20111012
+ * @version			2.4 - Build 20111227
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -13,7 +13,7 @@
 
 $plugin_info = array(
 	'pi_name'			=> 'Google Maps for ExpressionEngine',
-	'pi_version'		=> '2.3',
+	'pi_version'		=> '2.4',
 	'pi_author'			=> 'Justin Kimbrell',
 	'pi_author_url'		=> 'http://objectivehtml.com/documentation/google-maps-for-expressionengine',
 	'pi_description'	=> 'Creates static and dynamic maps from content channels.',
@@ -23,8 +23,7 @@ $plugin_info = array(
 
 Class Gmap {
 	
-	private $reserved_terms 	= array('', '_min', '_max', '_like', '_day');
-	private $reserved_fields	= array('entry_date', 'expiration_date', 'title');
+	private $reserved_terms = array('', '_min', '_max', '_like');
 	
 	private $args = array(
 		
@@ -185,7 +184,8 @@ Class Gmap {
 	{
 		$this->args = $this->_fetch_params(FALSE);
 		
-		$tagdata	 = $this->EE->TMPL->tagdata;
+		$tagdata = trim($this->EE->TMPL->advanced_conditionals($this->EE->TMPL->tagdata));
+				
 		$manual_zoom = $manual_zoom ? $this->args['map']['zoom'] : FALSE;		
 		
 		$map  = 
@@ -196,7 +196,7 @@ Class Gmap {
 			$this->_plot_coords($manual_zoom) .
 		
 		'</script>';
-
+		
 		return $map;
 	}
 	
@@ -215,12 +215,7 @@ Class Gmap {
 	
 	public function results()
 	{
-		$this->EE->load->library('channel_data');
-		
 		$this->args = $this->_fetch_params(FALSE);
-		
-		if(!$this->args['channel']['channel'])
-			show_error('You must define a channel to use the exp:gmap:results method');
 		
 		$this->EE->load->model(array(
 			'channel_model', 
@@ -327,13 +322,11 @@ Class Gmap {
 				$having = ' HAVING `distance` '.$this->_prep_value($distance_field, $distance);
 			}
 					
-			$sql .= ' FROM `exp_channel_data` LEFT JOIN `exp_channel_titles` ON `exp_channel_data`.`entry_id` = `exp_channel_titles`.`entry_id` LEFT JOIN `exp_category_posts` ON `exp_channel_data`.`entry_id` = `exp_category_posts`.`entry_id`';
+			$sql .= ' FROM `exp_channel_data` LEFT JOIN `exp_category_posts` ON `exp_channel_data`.`entry_id` = `exp_category_posts`.`entry_id`';
 										
 			//Loops through the defined channels
 			foreach($channels as $channel_name)
 			{		
-				$channel_data = $this->EE->channel_data->get_channels(array(), array('channel_name' => $channel_name));
-				
 				$channel_data = $this->EE->channel_model->get_channels(NULL, array('channel_id, field_group'), 
 					array(array('channel_name' => $channel_name))
 				)->row();
@@ -341,7 +334,7 @@ Class Gmap {
 				if(count($channel_data) > 0)
 				{	
 					//$this->EE->db->or_where('channel_id', $channel_data->channel_id);
-					$where .= '`exp_channel_titles`.`channel_id` = \''.$channel_data->channel_id.'\' AND ';
+					$where .= '`channel_id` = \''.$channel_data->channel_id.'\' AND ';
 					
 					if(is_array($prep_fields))
 					{				
@@ -405,12 +398,14 @@ Class Gmap {
 	
 	private function _create_id_string($results)
 	{		
-		$id = NULL;
+		$ids = array();
 		
 		foreach($results as $row)
-			$id .= $row->entry_id . '|';
+		{
+			$ids[] = $row->entry_id;
+		}
 		
-		return rtrim($id, '|');
+		return implode('|', $ids);
 	}
 	
 	private function _convert_metric($metric = 'miles')
@@ -461,73 +456,52 @@ Class Gmap {
 												
 			//Creates the SQL field name by removed the reserved terms
 			$sql_field_name = str_replace($this->reserved_terms, '', $field_name);
+			
+			//Gets the field data and if the field exists, the sql statement is created
+			$field_data = $this->EE->field_model->get_fields('', array('field_name' => $sql_field_name));
 						
-			if(in_array($sql_field_name, $this->reserved_fields))
-			{
-				$operator = $this->_prep_value($field_name, $value);
-				$string[] = '`'.$sql_field_name.'` '.$operator;
-			}
-			else
-			{
-				//Gets the field data and if the field exists, the sql statement is created
-				$field_data = $this->EE->field_model->get_fields('', array('field_name' => $sql_field_name));									
-				if($field_data->num_rows() > 0)
-				{	
-					//Validates that a value is not FALSE
-					if($value !== FALSE && !empty($value) || $to_append == FALSE)
-					{
-						//If to_append is TRUE, then the operator is appended
-						if($to_append == TRUE)
-						{			
-							//Converts a value string to a variable
-							$values = is_array($value) ? $value : array($value);
-							
-							//Loops through the values array and creates the SQL conditions
-							foreach($values as $value)
-							{
-								$field_id = $field_data->row('field_id');
-								$operator = $this->_prep_value($field_name, $value, $field_id);
-								
-								$string[] = '`field_id_'.$field_id.'` '.$operator;
-							}
-						}
-						else
-						{					
-							$string[] = '`field_id_'.$field_data->row('field_id').'`';
+			if($field_data->num_rows() > 0)
+			{	
+				//Validates that a value is not FALSE
+				if($value !== FALSE && !empty($value) || $to_append == FALSE)
+				{
+					//If to_append is TRUE, then the operator is appended
+					if($to_append == TRUE)
+					{			
+						//Converts a value string to a variable
+						$values = is_array($value) ? $value : array($value);
+						
+						//Loops through the values array and creates the SQL conditions
+						foreach($values as $value)
+						{
+							$operator = $this->_prep_value($field_name, $value);
+														
+							$string[] = '`field_id_'.$field_data->row('field_id').'` '.$operator;
 						}
 					}
-				}			
-			}
+					else
+					{					
+						$string[] = '`field_id_'.$field_data->row('field_id').'`';
+					}
+				}
+			}			
 		}
 		
 		return $string;
 	}
 	
-	private function _prep_value($field_name, $value, $field_id = FALSE)
+	private function _prep_value($field_name, $value)
 	{
 		//Preps conditional statement by testing the field_name for keywords
 		if(strpos($field_name, '_min'))
-		{
 			$operator = ' >= \''.$value.'\'';
-		}
 		else if(strpos($field_name, '_max'))
-		{
 			$operator = ' <= \''.$value.'\'';
-		}
 		else if(strpos($field_name, '_like'))
-		{
 			$operator = ' LIKE \'%'.$value.'%\'';
-		}
-		else if(strpos($field_name, '_day') && $field_id)
-		{
-			$date = strtotime(date('Ymd 23:59:59', $value).'+1 day');
-			$operator = ' >= '.$value.' AND `field_id_'.$field_id.'` <= '.$date;
-		}
 		else
-		{
-			$operator = ' = \''.$value.'\'';
-		}
-		
+			$operator = ' = \''.$value.'\' ';
+	
 		return $operator;
 	}
 	
@@ -566,7 +540,6 @@ Class Gmap {
 		$geocode_fields		= explode('|', $this->EE->TMPL->fetch_param('geocode_field'));
 		
 		$location = '';
-		
 		
 		foreach($geocode_fields as $geocode_field)
 		{	
@@ -608,7 +581,7 @@ Class Gmap {
 			foreach($channel_fields as $index => $channel_field)
 			{
 				$field = $this->EE->field_model->get_field($channel_field->field_id)->row();
-				$field_name = str_replace(array('_min', '_max',), array('', ''), $field->field_name);
+				$field_name = str_replace(array('_min', '_max'), array('', ''), $field->field_name);
 								
 				$fields = array();
 				
@@ -616,43 +589,35 @@ Class Gmap {
 				foreach($field_loop as $append)
 				{
 					$field_appendage = $field_name . $append;
-						
-					$input = $this->EE->input->post($field_appendage);
-					
-					if(!is_array($input))
-					{
-						$input = $input ? array(trim($input)) : '';
-					}
-					else
-					{
-						foreach($input as $input_index => $input_value)
-							$input[$input_index] = trim($input_value);
-					}
 										
+					$input = $this->EE->input->post($field_appendage) ?
+					    	 $this->EE->input->post($field_appendage) : '';
+					    										
 					//If list items exist, it build the option:field_name array
 					if(!empty($field->field_list_items))
 					{					
 						$list_items = explode("\n", $field->field_list_items);
-						
+								
 						if(count($list_items) > 0)
 						{
 							//Loops through the list items for the fieldtype
 							foreach($list_items as $item)
 							{
-								$item = trim($item);
 								$checked = '';
 								$selected = '';
 								
 								//Checks to see if the entry should be checked or selected
 								if($this->EE->input->post($field_appendage) !== FALSE)
-								{											
-									if($this->_is_checked_or_selected($input, $item))
+								{
+									$post = $this->EE->input->post($field_appendage);
+																		
+									if($this->_is_checked_or_selected($post, $item))
 									{
 										$checked = $checked_true;
 										$selected = $selected_true;
-									}								
+									}
 								}
-																
+								
 								//Adds all the data to the template variable
 								$vars[0]['options:'.$field_appendage][] = array(
 									'option_name'  => ucfirst($item),
@@ -829,13 +794,7 @@ Class Gmap {
 		if(is_array($post))
 		{
 			foreach($post as $post_index => $post_value)
-			{			
-					
-			if($item == 'equipment-truck')
-			{
-				$post;exit();
-			}
-									
+			{											
 				if($item == $post_value)
 				{
 					return TRUE;
@@ -1272,10 +1231,12 @@ Class Gmap {
 		
 		if($tagdata != '')
 		{
+			$tagdata = trim(preg_replace("/[\n\r\t]/","",str_replace('"', '\"', $this->EE->TMPL->advanced_conditionals($this->EE->TMPL->tagdata))));
+			
 			$marker .= '
 			if(new_location) {
 				
-				var html = "'.preg_replace("/[\n\r\t]/","",str_replace("\"", "\\\"", $this->EE->TMPL->tagdata)).'"		
+				var html = "'.$tagdata.'";		
 				if('.$this->args['plugin']['id'].'_html['.$this->args['plugin']['id'].'_count-1] == "" || '.$this->args['plugin']['id'].'_html['.$this->args['plugin']['id'].'_count] == "{title}")
 					'.$this->args['plugin']['id'].'_html['.$this->args['plugin']['id'].'_count-1] = html;
 				
@@ -1308,12 +1269,14 @@ Class Gmap {
 	
 	function _add_to_dropdown($tagdata = FALSE)
 	{
+		$tagdata = trim(preg_replace("/[\n\r\t]/","",str_replace('"', '\"', $this->EE->TMPL->advanced_conditionals($this->EE->TMPL->tagdata))));
+			
 		if(!$tagdata || $this->args['plugin']['add_title_to_dropdown'])
 			$script = '
 			'.$this->args['plugin']['id'].'_html['.$this->args['plugin']['id'].'_count] = "{title}";';
 		else
 			$script = '
-			'.$this->args['plugin']['id'].'_html['.$this->args['plugin']['id'].'_count] = "'.preg_replace("/[\n\r\t]/","",str_replace("\"", "\\\"", $tagdata)).'";';
+			'.$this->args['plugin']['id'].'_html['.$this->args['plugin']['id'].'_count] = "'.$tagdata.'";';
 		
 		$script .= '
 		'.$this->args['plugin']['id'].'_markers['.$this->args['plugin']['id'].'_count] = marker;
@@ -1375,6 +1338,7 @@ Class Gmap {
 		$params = array();
 		
 		/* Loops through the arguments and initializes the array */
+		
 		foreach($this->args as $group => $fields)
 		{
 			$tmp = $fields;

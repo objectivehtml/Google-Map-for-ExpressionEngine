@@ -3,7 +3,7 @@
  * Fieldtype - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.3 Beta - Build 20111011
+ * @version			2.4 - Build 20111227
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -15,7 +15,7 @@ class Gmap_ft extends EE_Fieldtype {
 
 	var $info = array(
 		'name'		=> 'Google Maps for ExpressionEngine',
-		'version'	=> '2.3'
+		'version'	=> '2.4'
 	);
 	
 	// --------------------------------------------------------------------
@@ -354,6 +354,48 @@ class Gmap_ft extends EE_Fieldtype {
 		$this->EE->cp->add_to_head('<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>');
 		
 		$this->EE->javascript->output('
+
+            var timer = setInterval(shouldInit, 1000);  // check if map should be inited
+            var mapInited = false;
+
+            var gmap_canvas;
+            var gmap;
+
+            function shouldInit()
+            {
+                if(mapInited) return;
+
+                if($("#gmap_wrapper").is(":visible")) {
+
+                    mapInited = true;
+                    clearInterval(timer);
+
+                    gmap_canvas = $("#gmap_canvas").get(0);
+
+                    var location 		= new google.maps.LatLng('.$data['gmap_latitude'].', '.$data['gmap_longitude'].');
+                    var gmap_geocoder	= new google.maps.Geocoder();
+
+                    var myOptions = {
+                        zoom: '.$data['gmap_zoom'].',
+                        center: location,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    }
+
+                    gmap = new google.maps.Map(gmap_canvas, myOptions);
+
+                    google.maps.event.addListener(gmap, \'center_changed\', function() {
+                        var center = gmap.getCenter();
+                        $("#gmap_latitude").val(center.lat());
+                        $("#gmap_longitude").val(center.lng());
+                    });
+
+                    google.maps.event.addListener(gmap, \'zoom_changed\', function() {
+                        var zoom = gmap.getZoom();
+                        $("#gmap_zoom").val(zoom);
+                    });
+                }
+            }
+          
 			var gmap_canvas = $("#gmap_canvas").get(0);
 			
 			var location 		= new google.maps.LatLng('.$data['gmap_latitude'].', '.$data['gmap_longitude'].');
