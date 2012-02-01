@@ -1,10 +1,21 @@
 /**
 * Google Maps for ExpressionEngine
 * Author: Justin Kimbrell
-* Build: 2.3 BETA - July 20, 2011
+* Build: 2.5 - Jan 31, 2012
 * Copyright 2011 - All rights reserved
 * http://objectivehtml.com, http://inthesaucepan.com
 */
+
+Version 2.5
+-----------
+Version 2.x has officially come to a close. I am only leaving it available for those that need a free solution. This version will not be officially supported. Everyone is encouraged to upgrade to v3. I put A LOT of time and hard work into v3 and is something I am extremely proud of. Thanks for everyone who supported this add-on, and I hope you continue to support v3.
+
+I also updated the download package with the original documentation and examples, as they are no longer available online.
+
+Version 2.4 12/28/2011
+----------------------
+Merged a pull request, bug fixes, and deleted all the code for advanced features rendering this the "free" version of Google Maps for ExpressionEngine. All features in the previous v2.3 beta have been merged into the v3 release. Commercial release is coming soon with all new advanced features and a complete rewrite of the code based.
+
 
 Version 2.3 BETA Build 7/20/2011
 --------------------------------
