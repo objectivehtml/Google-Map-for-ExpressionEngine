@@ -1,0 +1,3894 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+
+<head>
+
+	<title>Objective HTML by Justin Kimbrell - Google Maps for ExpressionEngine</title>
+	
+	<meta charset="utf-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
+<meta name="description" content="" />
+<meta name="keywords" content="object-oriented jquery ExpressionEngine javascript web mobile objective html html5 CSS3 standards " />
+
+<meta name="author" content="Justin Kimbrell" />
+<meta name="Copyright" content="Copyright objectivehtml.com 2010. All Rights Reserved." />
+
+<meta name="DC.title" content="objectivehtml.com" />
+<meta name="DC.subject" content="Objectively written web applications and plugins." />
+<meta name="DC.creator" content="Justin Kimbrell" />
+
+<meta name="google-site-verification" content="" />
+
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=no;" />
+		
+<link rel="shortcut icon" href="/-/media/favicon.png" />
+	
+<link rel="stylesheet" href="/-/css/master.css" media="screen" />
+
+<style type="text/css">
+	html, body {
+	font-family: Arial,sans-serif;
+	margin: 0;
+	padding: 0;
+	background: rgb(14, 14, 14);
+	color: rgb(64, 64, 64);
+	}
+	
+	.body {
+		background: rgb(222, 222, 222);
+		}
+
+
+/* Global Styles */
+
+h1 { 
+	font-family: "adrianna-1","adrianna-2",sans-serif; 
+	font-weight: 100;
+	}
+	
+h2, h2 a {
+	font-size: 1.65em;
+	font-family: "comenia-sans-web-1","comenia-sans-web-2",sans-serif;
+	text-shadow: 0 1px 0 rgb(222, 222, 222);
+	color: rgb(64, 64, 64);
+	text-decoration: none;
+	margin: 2em 0 1em 0;
+	}
+		
+h3, button, h3 a {
+	font-family: "comenia-sans-web-1","comenia-sans-web-2",sans-serif;
+	text-shadow: 0 1px 0 rgb(222, 222, 222);
+	color: rgb(64, 64, 64);
+	text-decoration: none;
+	}
+
+h4 {
+	font-family: "lemonde-journal-1","lemonde-journal-2",serif;
+	font-size: 1.1em;
+	font-weight: normal;
+	padding: 1em 0;
+	}
+
+	h4 a {
+		color: rgb(77, 77, 77);
+		}
+		
+h5 {
+	font-weight: bold;
+	font-size: 1.1em;
+	}
+		
+	h5 a {
+		color: rgb(64, 64, 64);
+		text-decoration: none;
+		}
+		
+		h5 a:hover {
+			text-decoration: underline;
+			}
+	
+a {}
+
+p { margin-bottom: 1em; }
+
+input {
+	padding: 5px 7px 6px;
+	background: white;
+	border: none;
+	font-size: 14px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow:inset 0 0 5px rgba(0, 0, 0, .5);
+   	-webkit-box-shadow:inset 0 0 5px rgba(0, 0, 0, .5);
+   	box-shadow:inset 0 0 5px rgba(0, 0, 0, .5);
+	}
+	
+/* Self-clearing Floats */
+
+.group:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+	}
+	
+	
+/* Header */
+
+header {
+	padding: 1.1em .5em 1.1em 2em;
+	background-color: black;
+	position: relative;
+	margin-bottom: 2em;
+	min-height: 25px;
+	background: #0e0e0e; /* old browsers */
+	background: -moz-linear-gradient(top, #0e0e0e 11%, #444444 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(11%,#0e0e0e), color-stop(100%,#444444)); /* webkit */
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e0e', endColorstr='#444444',GradientType=0 ); /* ie */
+	}
+	
+	header a {
+		color: rgb(255, 255, 255); 
+		text-decoration: none;
+		}
+	
+	h1 {
+		float: left;
+		}
+		
+		h1 a { 
+			font-size: 2em;
+			letter-spacing: 2px;
+			color: rgb(238, 223, 113);
+			}
+			
+			h1 a:hover {
+				text-shadow: 0 0 10px rgb(238, 223, 113);
+				}
+		
+	nav {
+		float: right;
+		margin-top: .5em;
+		}
+		
+		nav ul {}
+		
+			nav li {
+				display: inline;
+				float: left;
+				}
+
+				nav li a {
+					padding: 25px 20px 22px;
+					font-size: 18px;
+					border-left: 1px solid rgba(0, 0, 0, 0.3);
+					border-right: 1px solid rgba(255, 255, 255, .1);
+					text-shadow: 0px -1px 0px rgb(63, 63, 63);
+					color: rgb(198, 198, 198);
+					}
+					
+					nav li a:hover {
+						text-shadow: 0 0 15px #fff;
+						}
+				
+				nav li a.first { border-left: none; }
+				nav li a.last { border-right: none; }
+				
+				body.articles nav .articles,
+				body.examples nav .examples,
+				body.plugins nav .plugins {
+					background: #444444; /* old browsers */
+					background: -moz-linear-gradient(top, #444444 0%, #232323 50%, #444444 99%); /* firefox */
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#444444), color-stop(50%,#232323), color-stop(99%,#444444)); /* webkit */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444444', endColorstr='#444444',GradientType=0 ); /* ie */
+					text-shadow: none;
+					}
+
+				body.articles nav .articles {
+					border-left: 1px solid rgba(255, 255, 255, .1);
+					}
+/* Body */
+
+#page {
+	clear: left;
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto 80px;
+	padding: 0 50px;
+	}
+	
+	.article #page {
+		}
+	
+	#page h3 {
+		font-size: 1.6em;
+		padding: 1em 0 .75em;
+		text-shadow: 0px 1px 0px rgb(255, 255, 255);
+		}
+		
+		#page h3.month {
+			padding: .5em 0 0;
+			font-size: 1.6em;
+			}
+		
+	#page article {
+		margin-bottom: 1em;
+		padding: .75em;
+		line-height: 1.3em;
+		}
+					
+		#page article p {
+			line-height: 1.5em;
+			}
+		
+		#page article a {
+			color: rgb(105, 155, 3);
+			}
+			
+	
+	/*-------------------------------------------    
+		Documentation
+	-------------------------------------------*/
+	
+	.documentation #page h2 { display: none; }
+	
+	.documentation #page h3 {
+		padding: 1em 0 0;
+		}
+	
+	#page .documentation { padding:0 1em .5em;}
+		
+		#page .documentation h4 {
+			padding: .6em 0;
+			font-weight: bold;
+			}
+		
+		#page .documentation .links {
+			float: right;
+			}
+			
+			.documentation.list #page .documentation .links,
+			.documentation.list #page .documentation .table-of-contents {
+				display: none;
+				}
+								
+			#page .documentation ol { 
+				margin: 0 0 2em 2em;
+				}
+				
+			#page .documentation .links li {
+				display: block;
+				list-style-type: none;
+				padding: .25em 0;
+				}
+				
+				#page .documentation .links li a {
+					text-decoration: none;
+					padding: 1em 35px;
+					}
+			
+				#page .documentation .links .examples {
+					background: url(/-/media/html_file.png) left 13px no-repeat;
+					}
+					
+				#page .documentation .links .download {
+					background: url(/-/media/save.png) left 10px no-repeat;
+					}
+		
+		#page .documentation .tab { margin-bottom: 30px; }
+		
+		#page .documentation h5 {
+			display: block;
+			margin: .75em 0;
+			}
+			
+		#page .documentation .description { display: none; }
+		
+			.list #page .documentation .description { display: block; }
+		
+		#page .documentation .examples { float: right; }
+		
+		#page .documentation .release-notes {
+			overflow: hidden;
+			margin: 1.5em 0;
+			}
+			
+			#page .documentation .release-notes dt {
+				display: inline;
+				float: left;
+				clear: left;
+				width: 120px;
+				padding: 3px 0;
+				}
+			
+			#page .documentation .release-notes dd {
+				display: inline;
+				float: left;
+				padding: 3px 0;
+				}
+					
+		#page .documentation p {
+			line-height: 1.25em;
+			}
+			
+		#page .documentation .features ul { 
+			padding: 0 20px;
+			margin-bottom: 30px;
+			}
+			
+			#page .documentation .features li {
+				line-height: 1.3em;
+				}
+	
+		#page .option-description dl { padding: 10px; }
+			
+			#page .option-description dt {
+				font-weight: bold;
+				}
+				
+			#page .option-description dd {
+				padding: 5px;
+				margin-bottom: 10px;
+				}
+	
+	.documentation.list .documentation dl,
+	.documentation.list .documentation div { display: none; }
+	.documentation.list .documentation div.description h5 {display: none !important;}
+	
+		.documentation.list .documentation div.description { 
+			display: block;
+			padding: 1em 1em 0;
+			}
+	
+	.documentation.list  #page article { 
+		margin-bottom: 0;
+		padding-top: 0;
+		}
+
+		.documentation.list #page h3 {
+			padding-bottom: .5em;
+			}
+			
+		.documentation.list #page h4 {
+			display: none;
+			}
+					
+					
+	
+	/* Examples */
+	
+	.examples #page {
+		padding-top: .5em;
+		}
+			
+		.examples h2 { 
+			display: none;		
+			margin-bottom: 0;
+			}
+		
+		.example h2 .reference-link {
+			font-size: .65em;
+			margin: .5em 0 0;
+			font-family: "lemonde-journal-1","lemonde-journal-2",serif;
+			color: rgb(105, 155, 3);
+			font-weight: normal;
+			float: right;
+			}
+			
+			.example h2 a.reference-link:hover {
+				text-decoration: underline;
+				}
+			
+		.examples #page li { 
+			list-style-type: none;
+			padding-bottom: 2em;
+			}
+			
+	.examples.list #page article ul {
+		margin: 0 1em;
+		}
+		
+		.examples.list #page article li p {
+			margin: .5em .2em;
+			}
+		
+	.example time { display: none !important; }
+	
+	.example #page .example {
+		clear: both;
+		padding: 2em 0;
+		}
+		
+		.example #page .example form {
+			margin: 1em 0;
+			}
+			
+			.example #page input.invalid {
+				border: 2px solid red;
+				}
+			
+			.example #page input.valid {
+				border: 2px solid green;
+				}
+						
+		.example #page .example h4.author {
+			display: none;
+			}
+			
+		.example #page .example .map {
+			width: 400px;
+			height: 250px;
+			float: right;
+			}
+		
+		.example #page .example .box {
+			padding: .5em .6em;
+			background-color: rgb(203, 224, 252);
+			margin: 2em 0 1em;
+			display: block;
+			}
+			
+		.example #page .example-2 {
+			position: relative;
+			}
+		
+			.example #page .example-2 .input-wrapper {
+				background: rgb(238, 223, 113);
+				position: relative;
+				margin-bottom: 3em;
+				}
+				
+				.example #page .example-2 label {
+					text-shadow: 0 1px 0 rgb(255, 252, 174);
+					font-size: 1.2em;
+					padding: .6em .5em .6em .75em;
+					display: inline-block;
+					border-right: 1px solid rgb(255, 254, 165);
+					float: left;
+					}
+				
+				.example #page .example-2 input { 
+					border: none;
+					background: rgb(238, 223, 113);
+					border-left: 1px solid rgb(153, 143, 73);
+					padding: 0.55em 0.5em 0.65em 0.7em;
+					float: left;
+					display: inline;
+					-webkit-box-shadow: none;
+					-moz-box-shadow: none;
+					box-shadow: none;
+					-webkit-border-radius: 0;
+					-moz-border-radius: 0;
+					border-radius: 0;
+					color: rgb(64, 64, 64);
+					width: 680px;
+					}
+					
+				.example #page .example-2 input.placeholder,
+				.example #page .example-2 input {
+					text-shadow: 0 1px 0 rgb(255, 252, 174);
+					font-size: 1.1em;
+					}
+					
+				.example #page .example-2 input.placeholder {
+					color: rgb(64, 64, 64);
+					}
+							
+				.example #page .example-2 .representative-state {
+					position: absolute;
+					right: 0;
+					top: 2.5em;
+					padding: .6em .5em .6em .75em;
+					}
+					
+					.example #page .example-2 .representative-state .before-active,
+					.example #page .example-2 .representative-state .active,
+					.example #page .example-2 .representative-state .after-active,
+					.example #page .example-2 .representative-state .valid,
+					.example #page .example-2 .representative-state .invalid,
+					.example #page .example-2 .representative-state .placeholder,
+					.example #page .example-2 .representative-state .focus { 
+						display: none;
+						padding: .6em .5em .6em .75em;
+						}
+				
+					/* Invalid State */
+					
+					.example #page .example-2 .invalid {
+						background: rgb(255, 178, 177);
+						}
+
+						.example #page .example-2 .invalid .invalid {
+							display: inline;
+							background: none;
+							}
+
+						.example #page .example-2 .invalid label {
+							background: red;
+							color: rgb(255, 255, 255);
+							text-shadow: 0 1px 0 rgb(0, 0, 0);
+							border-right: 1px solid rgb(136, 0, 0);
+							}
+						
+						.example #page .example-2 .invalid input {
+							background: rgb(255, 178, 177);
+							border-left: 1px solid rgb(255, 213, 221);
+							color: rgb(136, 0, 0);
+							}
+						
+					.example #page .example-2 .valid label {
+						background: green;
+						color: rgb(255, 255, 255);
+						text-shadow: 0 1px 0 rgb(0, 0, 0);
+						}
+					
+					/* Valid State */	
+					
+					.example #page .example-2 .valid {
+						background: green;
+						}
+						
+						.example #page .example-2 .valid .valid {
+							display: inline;
+							background: none;
+							}
+						
+						.example #page .example-2 .valid label {
+							border-right: 1px solid rgb(0, 88, 0);
+							color: white;
+							text-shadow: 0px 1px 0 rgb(0, 0, 0);
+							}
+							
+						.example #page .example-2 .valid input {
+							background: green;
+							color: white;
+							text-shadow: 0px 1px 0 rgb(0, 0, 0);
+							border-left: 1px solid rgb(116, 191, 121);
+							}
+										
+					/* Before validate */
+					
+					.example #page .example-2 .before-active {
+						}
+					
+						.example #page .example-2 .before-active .before-active {
+							display: inline;
+							}
+						
+					/* Active */
+					
+					.example #page .example-2 .active {
+						}
+					
+						.example #page .example-2 .active .active {
+							display: inline;
+							}
+							
+					/* After validate */
+					
+					.example #page .example-2 .after-active {
+						}
+										
+						.example #page .example-2 .after-active .after-active {
+							display: inline;
+							}
+							
+					/* Focus */
+					
+					.example #page .example-2 .focus {
+						-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+						-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+						box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+						}
+					
+						.example #page .example-2 .focus .focus {
+							box-shadow: none;
+							display: inline;						
+							-moz-box-shadow: none;
+							-webkit-box-shadow: none;
+							box-shadow: none;
+							}
+							
+					/* Placeholder */
+					
+					.example #page .example-2 .placeholder {
+						}
+												
+						.example #page .example-2 .placeholder .placeholder {
+							display: block;
+							}
+		
+		.example #page .example-4 {}
+		
+			.example #page .example-4 ul { margin: 0 1em; }
+			
+			.example #page .example-4 form {
+				padding: 1em;
+				width: 415px;
+				background: rgb(112, 112, 112);
+				border-top: 1px solid rgb(163, 163, 163);
+				border-left: 1px solid rgb(163, 163, 163);
+				border-right: 1px solid rgb(240, 240, 240);
+				border-bottom: 1px solid rgb(240, 240, 240);
+				position: relative;
+				}
+			
+			.example #page .example-4 form ul {
+				margin: 0;
+				}	
+			
+				.example #page .example-4 form ul li {
+					list-style-type: none;
+					padding: 0 0 1em;
+					}
+					
+					.example #page .example-4 form ul li.confirm {
+						padding-bottom: .5em;
+						}
+						
+					.example #page .example-4 form ul li label {
+						display: block;
+						font-size: 1.1em;
+						color: rgb(255, 255, 255);
+						text-shadow: 0 1px 0 rgb(5, 5, 5);
+						}
+					
+					.example #page .example-4 form ul li input {
+						-moz-border-radius: 0;
+						-webkit-border-radius: 0;
+						border-radius: 0;
+						-moz-box-shadow: none;
+						-webkit-box-shadow: none;
+						box-shadow: none;
+						margin: .25em 0;
+						border-top: 1px solid rgb(163, 163, 163);
+						border-left: 1px solid rgb(163, 163, 163);
+						border-right: 1px solid rgb(208, 208, 208);
+						border-bottom: 1px solid rgb(208, 208, 208);
+						padding: 5px;
+						background: rgb(210, 210, 210);
+						color: rgb(62, 62, 62);
+						width: 400px;
+						}
+					
+					.example #page .example-4 form button {
+						margin: .6em 0 0;
+						}
+					
+					.example #page .example-4 form ul li input.invalid {
+						background: rgb(238, 160, 128);
+						border-top: 1px solid rgb(157, 106, 84);
+						border-left: 1px solid rgb(157, 106, 84);
+						border-right: 1px solid rgb(255, 188, 163);
+						border-bottom: 1px solid rgb(255, 188, 163);
+						color: rgb(103, 69, 55);
+						}
+						
+					.example #page .example-4 form ul li input.valid {
+						background: rgb(182, 205, 77);
+						color: rgb(66, 75, 28);
+						}
+						
+					.example #page .example-4 form .status {
+						position: absolute;
+						bottom: 10px;
+						left: 7.5em;
+						color: rgb(255, 255, 255);
+						text-shadow: 0 1px 0 rgb(0, 0, 0);
+						}
+						
+		.example #page .thanks,
+		.example #page .pagination {
+			clear: both;
+			padding: 5em 0 0;
+			font-size: .9em;
+			float: right;
+			}
+		
+		
+	/* Plugin Reference UI */
+		
+	#page .reference {
+		margin: 3em 0;
+		}
+		
+		#page .reference ol li { }
+		
+		#page .reference ul { }
+			
+			#page .reference ul li {
+				margin: 5px 0;
+				list-style-type: none;
+				background: rgb(247, 247, 247);
+				border-top: 1px solid rgb(212, 212, 212);
+				border-bottom: 1px solid rgb(212, 212, 212);
+				}
+				
+				#page .reference .option-header {
+					padding: 8px;
+					cursor: pointer;
+					}
+									
+					#page .reference .option-header a {
+						background: url(/-/media/spindown-closed.gif) no-repeat center left;
+						padding: 0 17px;
+						color: rgb(56, 152, 222);
+						}
+						
+						
+						#page .reference .open .option-header a { background: url(/-/media/spindown-open.gif) no-repeat center left; }
+						
+					#page .reference .option-header dl { 
+						float: right;
+						width: 65%;
+						}
+						
+						#page .reference .option-header dt {display: inline;}
+						
+							#page .reference .option-header .option-type-label { display: none; }
+							
+							#page .reference .option-header .option-default-label {
+								color: rgb(153, 153, 153);
+								padding-right: 6px;
+								}
+						
+						#page .reference .option-header dd { display: inline-block;}
+							
+							#page .reference .option-header .option-type { width: 35%; }
+															
+								#page .reference .option-header .option-type span {
+									border-bottom: 1px dotted #000;
+									padding-bottom: 2px;
+									}
+							
+							#page .reference .option-header .option-default {}
+							
+				#page .reference .option-description {
+					display: none;
+					padding: 10px;
+					}
+					
+					#page .reference .open .option-description { display: block; }
+		
+					#page .reference .open .option-description h6 {
+						font-size: 16px;
+						margin: 15px 0 5px;
+						}
+				
+					#page .reference .option-description form {
+						margin: 10px 0 10px;
+						}
+					
+						#page .reference .option-description label { 
+							display: block;
+							font-size: 16px;
+							}
+						
+						#page .reference .option-description input {}
+						
+						#page .reference .option-description input.invalid {
+							border: 2px solid rgb(255, 0, 0);
+							-moz-box-shadow:inset 0 0 10px rgba(255, 0, 0, .5);
+						   	-webkit-box-shadow:inset 0 0 10px rgba(255, 0, 0, .5);
+						   	box-shadow:inset 0 0 10px rgba(255, 0, 0, .5);
+							}
+	
+
+/*-------------------------------------------    
+	Profile
+-------------------------------------------*/
+
+.profile {}
+
+	.profile h3 {
+		width: auto;
+		float: left;
+		}
+	
+	.profile .url {
+		margin: 1em 0 0 1.3em;
+		float: left;
+		}
+		
+	.profile .url {
+		margin: 1em 0 0 1.3em;
+		float: left;
+		}
+		
+		.profile .url a {
+			margin: 1em 0 0 0;
+			}
+		
+	.profile img {
+		width: 200px;
+		height: 200px;
+		clear: left;
+		}
+		
+	.profile .bio {
+		width: 500px;
+		margin-left: 20px;
+		}
+			
+
+/* Footer
+--------------------------------------------- */
+
+footer {
+	padding: 30px 0 0 0;
+	background: #7d7e7d; /* old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #0e0e0e 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* ie */
+	border-top: 5px rgb(116, 116, 116) solid;
+	}
+	
+	footer a {
+		text-decoration: none;
+		}
+		
+	.secondary {
+		padding: 30px 0 0 0;
+		}
+
+		.secondary h4 {
+			margin: 0 0 20px 0;
+			padding: 0 0 0 5px;
+			color: rgb(238, 223, 113);
+			font-size: 20px;
+			line-height: 25px;
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, .7);
+			text-transform: uppercase;
+			}
+					
+		.secondary .inner-wrapper {
+			width: 900px;
+			margin: 0 auto 30px auto;
+			}
+							
+			.secondary form {
+				position: relative;
+				float: left;
+				display: inline;
+				width: 420px;
+				height: 250px;
+				margin: 0 40px 0 0;
+				z-index: 1;
+				}
+				
+				.secondary form .overlay {
+					position: absolute;
+					width: 400px;
+					height: 161px;
+					padding: 10px;
+					background: rgb(178, 178, 178);
+					background: rgba(0, 0, 0, .8);
+					-moz-border-radius: 7px;
+					-webkit-border-radius: 7px;
+					border-radius: 7px;
+					color: rgb(255, 255, 255);	
+					display: none;		
+					}
+					
+					.secondary form .overlay ul {}
+						
+						.secondary form .overlay a {
+							padding: 1.5em 1em 0;
+							color: #fff;
+							font-size: .8em;
+							text-decoration: underline;
+							}
+						
+						.secondary form .overlay ul li {
+							list-style-type: none;
+							padding: 10px;
+							}
+							
+							.secondary form .overlay li input {
+								width: 365px;
+								margin: auto;
+								}
+							
+							.secondary .invalid input {
+								background-color: rgb(238, 223, 113);
+								color: rgb(24, 24, 24);
+								text-shadow: 0 1px 0 rgb(240, 240, 240);
+								}
+								
+				.secondary form .bubble {
+					width: 400px;
+					height: 158px;
+					padding: 10px 10px 40px 10px;
+					background: transparent url(/-/media/question-bubble.png) no-repeat;
+					}
+					
+					.secondary form .bubble.overlaid textarea {
+						color: rgb(255, 255, 255);
+						color: rgba(255, 255, 255, 0);
+						}
+
+					.secondary form textarea {
+						width: 395px;
+						max-width: 395px;
+						height: 158px;
+						max-height: 158px;
+						color: rgb(125, 126, 125);
+						border: none;
+						font-family: "ff-nuvo-web-pro-1", "ff-nuvo-web-pro-2", Helvetica, Arial, sans-serif;
+						font-size: 18px;
+						line-height: 23px;
+						}
+
+				.secondary form button {
+					position: absolute;
+					left: 0;
+					bottom: 0;
+					display: block;
+					width: 125px;
+					}
+
+			.secondary div.column {
+				float: left;
+				display: inline;
+				width: 200px;
+				margin: 0 20px 0 0;
+				}
+
+				.secondary div.column ul {
+					list-style: none;
+					}
+
+					.secondary div.column li {
+						font-size: 16px;
+						line-height: 21px;
+						text-shadow: 0 -1px 0 rgba(0, 0, 0, .35);
+						border-bottom: 1px solid rgba(0, 0, 0, .30);
+						-webkit-box-shadow: 0 1px rgba(255, 255, 255, .30);
+						-moz-box-shadow: 0 1px rgba(255, 255, 255, .30);
+						}
+
+					.secondary div.column li:last-child {
+						border: none;
+						-webkit-box-shadow: none;
+						-moz-box-shadow: none;
+						}
+
+						.secondary div.column li a {
+							display: block;
+							margin: 5px;
+							color: rgb(255, 255, 255);
+							background: url(/-/media/right-arrow.png) right center no-repeat;
+							}
+
+						.secondary div.column li a:hover { opacity: 0.65; }
+			
+			.secondary div.column.twitter {}
+				
+				.secondary div.column.twitter p.handle {
+					margin-left: 5px;
+					color: rgb(255, 255, 255);
+					}
+								
+				.secondary div.column.twitter a {
+					color: rgb(186, 238, 54);
+					}
+					
+					.secondary div.column.twitter a:hover { text-decoration: underline; }
+				
+				.secondary div.column .tweet {
+					background-color: rgb(74, 75, 74);
+					background-color: rgba(255, 255, 255, .1);
+					padding: 10px;
+					-moz-border-radius: 5px;
+					-webkit-border-radius: 5px;
+					border-radius: 5px;
+					border: 1px solid rgba(0, 0, 0, .3);
+					font-size: .8em;
+					line-height: 1.3em;
+					color: rgb(255, 255, 255);
+					}
+					
+					
+		.copyright {
+			border-top: 1px solid rgba(255, 255, 255, .30);
+			-webkit-box-shadow: 0 -1px rgba(0, 0, 0, .30);
+			-moz-box-shadow: 0 -1px rgba(0, 0, 0, .30);
+			clear: left;
+			}
+			
+			.copyright p .license {
+				position: absolute;
+				left: 1em;
+				}
+			
+			.copyright p {
+				margin: 0 auto;
+				padding: 20px 0;
+				color: rgb(255, 255, 255);
+				font-size: 14px;
+				line-height: 21px;
+				text-shadow: 0 -1px 0 rgba(0, 0, 0, .35);
+				text-align: center;
+				}
+
+				.copyright a { color: rgb(255, 255, 255); }
+
+				.copyright a:hover { border-bottom: 1px solid rgb(255, 255, 255); }
+				
+/* Photo Scroller */
+
+.photo-scroller {
+	float: right;
+	width: 40%;
+	margin: 10px 0 10px 10px;
+	}
+
+	.photo-scroller img.display {
+		width: 100%;
+		height: 275px;
+		margin: 0 auto;
+		}
+			
+	.photo-scroller ul {
+		padding: 4px 2px;
+		}
+	
+		.photo-scroller ul li {
+			list-style-type: none;
+			display: inline;
+			float: left;
+			padding: 0 1px;
+			}
+			
+			.photo-scroller ul li.first { padding-left: 0;}
+			.photo-scroller ul li.last { padding-right: 0;}
+		
+			.photo-scroller ul li img {
+				width: 55px;
+				cursor: pointer;
+				border: 2px solid rgb(222, 222, 222);
+				}
+			
+			.photo-scroller ul li.active img { 
+				border: 2px solid rgb(238, 223, 113);
+				-moz-box-shadow: 0px 0px 10px rgb(238, 223, 113);
+				-webkit-box-shadow: 0px 0px 10px rgb(238, 223, 113);
+				box-shadow: 0px 0px 10px rgb(238, 223, 113);
+				}
+			
+			.photo-scroller ul li caption { display: none; }
+			
+				
+/* Convenience Objects */
+
+.hidden { display: none; }
+.active { display: block; }
+.float-left { float: left; }
+.float-right { float: right; }
+.placeholder { color: rgb(169, 169, 169)}
+.span-screen { width: 100% !important; }
+.button {
+	padding: 7px;
+	font-size: 20px;
+	line-height: 25px;
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, .35);
+	border: 2px solid rgb(105, 155, 3);
+	color: rgb(255, 255, 255);
+	border-radius: 7px;
+	cursor: pointer;
+	background: #bfd255; /* old browsers */
+	background: -moz-linear-gradient(top, #bfd255 0%, #8eb92a 50%, #72aa00 51%, #9ecb2d 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bfd255), color-stop(50%,#8eb92a), color-stop(51%,#72aa00), color-stop(100%,#9ecb2d)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', endColorstr='#9ecb2d',GradientType=0 ); /* ie */
+	}
+	
+					
+					
+header:after,
+footer:after,
+#page:after,
+footer ul:after {
+	content: "."; 
+	display: block; 
+	height: 0; 
+	clear: both; 
+	visibility: hidden;
+}
+
+
+
+@media only screen and (max-device-width: 480px), only screen and (max-width: 640px) {
+	
+	#page { 
+		padding: 0 2.5%;
+		width: 95%;
+		}
+	
+		#page h3 { 
+			padding: 0 0 .5em 0;
+			font-size: 1.65em;
+			}
+		
+		#page article h4 { font-size: 1.3em; }
+		
+		.article #page article h4 { font-size: 1.5em; }
+		
+	footer { padding: 0;}
+	
+	
+	
+	header {
+		padding: 0 0 1.4em;
+		}
+	
+	h1 {
+		float: left;
+		display: block;
+		position: static;
+		width: 100%;
+		text-align: center;
+		padding-top: .5em;
+		}
+	
+	nav {
+		margin: 1em 2.5% 0;
+		clear: left;
+		float: left;
+		width: 95%;
+		}
+		
+		nav li {
+			width: 33%;
+			text-align: center;
+			}
+			
+			nav li a {
+				padding: .6em;
+				border: none;
+				text-align: center;
+				}
+				
+				body.articles nav .articles,
+				body.examples nav .examples,
+				body.plugins nav .plugins {
+					background: rgba(0, 0, 0, .3);
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444444', endColorstr='#444444',GradientType=0 ); /* ie */
+					text-shadow: none;
+					-moz-border-radius: 5px;
+					-webkit-border-radius: 5px;
+					border-radius: 5px;
+					}
+		
+	.article #page article .main-photo,
+	.secondary form textarea,
+	.secondary div.column,		
+	.secondary form,	
+	.secondary .inner-wrapper,
+	.secondary .inner-wrapper {
+		width: 100%;
+		max-width: 100%;
+		min-width: 100%;
+		}
+	
+	.examples #page li
+	.secondary form .bubble { background: none; margin: 0 auto;}
+	.secondary form button { margin: 1em 2.5% 0; }
+	.secondary form .bubble,
+	.secondary form button {
+		margin: 0 2.5% 1em;
+		padding: 0;
+		width: 95%;
+		position: static;
+		}
+		
+	.secondary .column.twitter,
+	.secondary .column.links {
+		min-width: 95%;
+		max-width: 95%;
+		width: 95%;
+		margin: 0 2.5% 1.5em !important;
+		}
+}
+
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+		$('.table-of-contents').change(function() {
+			var $t = $(this);
+					
+			window.location = '#'+$t.val();
+		});
+		
+		$('.reference .option-header').click(function() {
+			var $t = $(this);
+			var parent = $t.parent()
+			
+			if(parent.hasClass('open'))
+				parent.removeClass('open');
+			else
+				parent.addClass('open');
+		});
+	
+	});
+	
+</script>
+
+
+<!--[if lte IE 8]>
+	<script src="/-/script/modernizr.js"></script>
+  <script src="/-/script/selectivizr.js"></script>
+<![endif]-->
+
+<!--[if IE 6]>
+	<script src="/-/script/transparency.js"></script>
+	<script src="/-/script/png.js"></script>
+<![endif]-->
+
+</head>
+
+<body class="example">
+	
+	<div class="body">
+	
+		<header>
+	<h1><a href="/">Objective HTML</a></h1>
+	
+	<nav>
+		<ul>
+			<li><a href="docs.html" class="articles first">Docs</a></li>
+
+			<li><a href="examples1.html" class="examples">Examples 1</a></li>
+			<li><a href="examples2.html" class="documentation last">Examples 2</a></li>
+		</ul>
+	</nav>
+</header>
+		
+		<section id="page">
+		
+
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=true"></script>
+	
+	<h2>Google Maps for ExpressionEngine</h2>
+		
+	<article class="example">
+
+	
+		<p class="example-headers">
+			<h4 class="author">Written By <a href="#">Justin Kimbrell</a></h4>
+		
+			<time datetime="{entry_date format="%Y-%m-%d"}" class="human">{entry_date format="%F %j%S, %Y %h:%m %a"}</time>
+			<time datetime="{entry_date format="%Y-%m-%d"}" class="actual">{entry_date format="%Y-%m-%s %H:%m:%s"}</time>
+			<time datetime="{entry_date format="%Y-%m-%d"}" class="relative">Posted {relative_date} ago</time>
+		</p>
+
+		
+				
+			<h3>Overview</h3>
+			
+			<p>So a client asks you, "Can't you just make a Google Map that I can plot my own points by entering the address' in the admin panel?" Alternatively, they just want their business location plotted on a map within a specific page on the site. Whether it's a map with single point on a contact page, or an array of points from a database, the process is relatively the same. This feature is requested on almost every site I have put together for a client.</p>
+	
+			<p>Google Maps takes much of the pain away, but the platform is so robust, it can be overwhelming to implement basic features without spending an hour (or more) of your time. (And it required the knowledge of JavaScript.) This plugin tries to make the process even easier by providing the easiest Google Map implementation possible, but at the same time providing an extremely diverse and powerful way to build maps using complex dynamic datasets.</p>
+			
+			<p>This plugin combines the entire <code>exp:channel:entries</code> tag and <a href="http://expressionengine.com/user_guide/modules/channel/parameters.html">all the parameters</a> with <a href="http://code.google.com/apis/maps/documentation/javascript/reference.html#MapOptions">all the properties</a> used to initialize a Google Map. The end result with save you loads of time and create virtually any Google Map you desire.</p>
+
+			
+			<div class="example example-1" id="example-1">
+				<h3>Example #1 - Geocode a single address and add it to the map</h3>
+				
+				<code class="box">&#123;exp:gmap:init id="map1" class="map" address="Indianapolis, IN"&#125;Indianapolis, IN&#123;/exp:gmap:init&#125;</code>
+				
+				
+		<div class="map" id="map1" style=""></div>
+
+		<script type="text/javascript">
+	
+		var map1 = document.getElementById('map1');
+		var map1_bounds = new google.maps.LatLngBounds(); 
+		var map1_center = new google.maps.LatLng(0, 0);
+		var map1_geocoder = new google.maps.Geocoder();
+		var map1_window;
+		var map1_markers = [];
+		var map1_windows = [];
+		var map1_html = [];
+		var map1_count = 0;
+		
+			
+		
+		var map1_options = {
+			center: map1_center,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+		
+		var map1_canvas = new google.maps.Map(map1, map1_options);
+			coord_string = '(39.7683765, -86.15804229999998)';
+			coords = coord_string.split(')(');
+			
+			if(coord_string != '') {
+			
+				for(i = 0; i < coords.length; i++) {
+				
+					var coord = coords[i].split(', ');
+															
+					var new_latitude 	= coord[0].replace('(', '').replace(')', '');
+					var new_longitude 	= coord[1].replace(')', '').replace('(', '');
+					
+					(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */					
+						new_location = false;
+					
+						if(new_latitude != '' && new_longitude != '') {
+						
+						new_location = new google.maps.LatLng(new_latitude, new_longitude);
+									       	
+				    	var marker = new google.maps.Marker({
+				        	map: map1_canvas, 
+				       	 	position: new_location
+				    	});
+						
+						
+			map1_html[map1_count] = "Indianapolis, IN";
+		map1_markers[map1_count] = marker;
+    	map1_count++;
+	    		map1_bounds.extend(new_location);
+	    		map1_canvas.fitBounds(map1_bounds);
+	    		}
+				    	
+			if(new_location) {
+				
+				var html = "Indianapolis, IN";		
+				if(map1_html[map1_count-1] == "" || map1_html[map1_count] == "{title}")
+					map1_html[map1_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map1_windows[map1_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map1_canvas, marker);
+					map1_window = infowindow;
+				});
+			}})(); /* End bug fix */			
+				}
+			}	
+		
+					
+		</script>
+				
+				<p>This is the most basic implementation of the plugin. Just add an address and give the map an id. We also added a class so we could tell the Map to be 400 x 250 and float right within the stylesheet, this attribute is not required.</p>
+
+				
+				<p>Additionally, you can create an info window (for every location) by adding some inner content to the tag. You may enter HTML and channel variables, relationships, and conditional statements. Anything supported within the <code>exp:channel:entries</code> will work in this plugin.</p>
+				
+				<p>Note, if you plan on making info window's you must close all the tags, even if ther are intended don't have them. This is an issue with the EE parsing engine, not the plugin.</p>
+				
+				<p><em>The id is required and must only contain alphabetical and numerical characters with the exception of an underscore. Any other characters will result in a JavaScript error.</em></p>
+				
+			</div>
+			
+			<div class="example example-2" id="example-2">
+				<h3>Example #2 - Define a custom zoom</h3>
+
+				
+				<code class="box">&#123;exp:gmap:init id="map1" class="map" address="Indianapolis, IN" zoom="12"&#125;Indianapolis, IN&#123;/exp:gmap:init&#125;</code>
+				
+				
+		<div class="map" id="map2" style=""></div>
+
+		<script type="text/javascript">
+	
+		var map2 = document.getElementById('map2');
+		var map2_bounds = new google.maps.LatLngBounds(); 
+		var map2_center = new google.maps.LatLng(0, 0);
+		var map2_geocoder = new google.maps.Geocoder();
+		var map2_window;
+		var map2_markers = [];
+		var map2_windows = [];
+		var map2_html = [];
+		var map2_count = 0;
+		
+			
+		
+		var map2_options = {
+			center: map2_center,
+			mapTypeId: google.maps.MapTypeId.ROADMAP, 
+			zoom: 12
+			}
+		
+		var map2_canvas = new google.maps.Map(map2, map2_options);
+			coord_string = '(39.7683765, -86.15804229999998)';
+			coords = coord_string.split(')(');
+			
+			if(coord_string != '') {
+			
+				for(i = 0; i < coords.length; i++) {
+				
+					var coord = coords[i].split(', ');
+															
+					var new_latitude 	= coord[0].replace('(', '').replace(')', '');
+					var new_longitude 	= coord[1].replace(')', '').replace('(', '');
+					
+					(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */					
+						new_location = false;
+					
+						if(new_latitude != '' && new_longitude != '') {
+						
+						new_location = new google.maps.LatLng(new_latitude, new_longitude);
+									       	
+				    	var marker = new google.maps.Marker({
+				        	map: map2_canvas, 
+				       	 	position: new_location
+				    	});
+						
+						
+			map2_html[map2_count] = "Indianapolis, IN";
+		map2_markers[map2_count] = marker;
+    	map2_count++;
+    				map2_canvas.setZoom(12)
+	    			map2_canvas.setCenter(new_location)
+	    			}
+				    	
+			if(new_location) {
+				
+				var html = "Indianapolis, IN";		
+				if(map2_html[map2_count-1] == "" || map2_html[map2_count] == "{title}")
+					map2_html[map2_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map2_windows[map2_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map2_canvas, marker);
+					map2_window = infowindow;
+				});
+			}})(); /* End bug fix */			
+				}
+			}	
+		
+					
+		</script>
+				
+				<p>By taking the previous example a little further, let's adjust the zoom to get a better feel for the location. By default, the zoom and center point are calculated automatically which can be overridden by appending the zoom attribute with a numerical value (1-20).</p>
+				
+				<p>You also change the center point by adding a <code>center</code> attribute with an address as the value. In this case, we left the pin point as the center.</p>
+
+			</div>
+			
+			<div class="example example-3" id="example-3">
+				<h3>Example #3 - Geocode multiple address' from a string</h3>
+				
+				<code class="box">&#123;exp:gmap:init id="map3" class="map" address="Indianapolis|Maine|California"&#125;Indianapolis, IN&#123;/exp:gmap:init&#125;</code>
+				
+				
+		<div class="map" id="map3" style=""></div>
+
+		<script type="text/javascript">
+	
+		var map3 = document.getElementById('map3');
+		var map3_bounds = new google.maps.LatLngBounds(); 
+		var map3_center = new google.maps.LatLng(0, 0);
+		var map3_geocoder = new google.maps.Geocoder();
+		var map3_window;
+		var map3_markers = [];
+		var map3_windows = [];
+		var map3_html = [];
+		var map3_count = 0;
+		
+			
+		
+		var map3_options = {
+			center: map3_center,
+			mapTypeId: google.maps.MapTypeId.ROADMAP, 
+			scrollwheel: false
+			}
+		
+		var map3_canvas = new google.maps.Map(map3, map3_options);
+		address = 'Indianapolis';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map3_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map3_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map3_html[map3_count] = "{title}";
+		map3_markers[map3_count] = marker;
+    	map3_count++;
+	    		map3_bounds.extend(new_location);
+	    		map3_canvas.fitBounds(map3_bounds);
+	    		})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = 'Maine';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map3_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map3_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map3_html[map3_count] = "{title}";
+		map3_markers[map3_count] = marker;
+    	map3_count++;
+	    		map3_bounds.extend(new_location);
+	    		map3_canvas.fitBounds(map3_bounds);
+	    		})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = 'California';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map3_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map3_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map3_html[map3_count] = "{title}";
+		map3_markers[map3_count] = marker;
+    	map3_count++;
+	    		map3_bounds.extend(new_location);
+	    		map3_canvas.fitBounds(map3_bounds);
+	    		})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+					
+		</script>
+
+				
+				<p>Again, iterating on the last example, you can add more than one address to the address field by separating them with a <code>|</code> character.</p>			
+			</div>
+			
+			<div class="example example-4" id="example-4">
+				<h3>Example #4 - Using Google Map's API parameters</h3>
+				
+				<code class="box">&#123;exp:gmap:init id="map4" class="map" latitude="30.27" longitude="-86" zoom="12" maxZoom="15" minZoom="10" scrollwheel="false" draggable="false"&#125;Indianapolis, IN&#123;/exp:gmap:init&#125;</code>
+
+				
+		<div class="map" id="map4" style=""></div>
+
+		<script type="text/javascript">
+	
+		var map4 = document.getElementById('map4');
+		var map4_bounds = new google.maps.LatLngBounds(); 
+		var map4_center = new google.maps.LatLng(30.27, -86);
+		var map4_geocoder = new google.maps.Geocoder();
+		var map4_window;
+		var map4_markers = [];
+		var map4_windows = [];
+		var map4_html = [];
+		var map4_count = 0;
+		
+			
+		
+		var map4_options = {
+			center: map4_center,
+			draggable: false, 
+			mapTypeId: google.maps.MapTypeId.ROADMAP, 
+			maxZoom: 15, 
+			minZoom: 10, 
+			scrollwheel: false, 
+			zoom: 12
+			}
+		
+		var map4_canvas = new google.maps.Map(map4, map4_options);
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '30.27';
+			new_longitude = '-86';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map4_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map4_html[map4_count] = "Indianapolis, IN";
+		map4_markers[map4_count] = marker;
+    	map4_count++;
+			}
+	    			if(new_location) {
+    				map4_canvas.setZoom(12)
+	    			map4_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = "Indianapolis, IN";		
+				if(map4_html[map4_count-1] == "" || map4_html[map4_count] == "{title}")
+					map4_html[map4_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map4_windows[map4_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map4_canvas, marker);
+					map4_window = infowindow;
+				});
+			}})(); /* End bug fix */
+					
+		</script>
+				
+				<p>This example demonstrates how you would incorporate different Google Map options to change the interaction of the map. You can add any number of these <a href="http://code.google.com/apis/maps/documentation/javascript/reference.html#MapOptions">properties</a> to customize your map. In this example we removed the scrollwheel zooming features, limited the minimum and maximum zoom, and set the default zoom to 12.</p>			
+			</div>
+					
+			<div class="example example-5" id="example-5">
+				<h3>Example #5 - Using the channel:entries tag to geocode</h3>
+
+				
+				<code class="box">&#123;exp:gmap:init id="map5" class="map" channel="map_demo" address_field="map_address" city_field="map_city" state_field="map_state" zipcode_field="map_zipcode" country_field="map_country"&#125;&#123;/exp:gmap:init&#125;</code>
+				
+				
+		<div class="map" id="map5" style=""></div>
+
+		<script type="text/javascript">
+	
+		var map5 = document.getElementById('map5');
+		var map5_bounds = new google.maps.LatLngBounds(); 
+		var map5_center = new google.maps.LatLng(0, 0);
+		var map5_geocoder = new google.maps.Geocoder();
+		var map5_window;
+		var map5_markers = [];
+		var map5_windows = [];
+		var map5_html = [];
+		var map5_count = 0;
+		
+			
+		
+		var map5_options = {
+			center: map5_center,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+		
+		var map5_canvas = new google.maps.Map(map5, map5_options);
+		address = '    ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "Test Page Title")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = '    ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "Test Page Title")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = '    ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "Test Page Title")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = '936 Maple St Noblesville IN 46060 ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "936 Maple StNoblesvilleIN46060";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "936 Maple StNoblesvilleIN46060";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "936 Maple St")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = '    ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "random-places-not-in-us")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = '    North America';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "Random Place #3")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = ' Salt Lake City UT 84101 ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "Salt Lake CityUT84101";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "Salt Lake CityUT84101";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "Salt Lake City")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = '    North America';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "Random Place #2")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = '    ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "Random Places")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = '    ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "Haiwiai")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = ' Shuswap A BC  Canada';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "Shuswap ABC";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "Shuswap ABC";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "Glacier National Park Columbia")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = ' Key West FL  ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "Key WestFL";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "Key WestFL";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "The Florida Keys")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = ' Gatlinburg TN 37738 ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "GatlinburgTN37738";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "GatlinburgTN37738";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "107 Park Headquarters Road")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+		address = '    ';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map5_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map5_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map5_html[map5_count] = "";
+		map5_markers[map5_count] = marker;
+    	map5_count++;
+	    		map5_bounds.extend(new_location);
+	    		map5_canvas.fitBounds(map5_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "";		
+				if(map5_html[map5_count-1] == "" || map5_html[map5_count] == "Golden Gate Bridge San Francisco, California 94129")
+					map5_html[map5_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map5_windows[map5_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map5_canvas, marker);
+					map5_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+					
+		</script>
+	
+				<p>This example illustrates how to plot points on a map using ExpressionEngine's channel data. When retrieving data from channels, you must define the fields that contain the address data. There are 5 fields thats can be used to make up a the full address, but you can use only one field if desired, depending on your database schema. (For instance, you may store the entire address in a single field, or break it out into multiple fields. It's up to you.)</p>
+				
+				<p>The values of these field(s) should be the same and the corresponding custom field name. <i>(They are concatenated in the following order: address_field, city_field, state_field, zipcode_field, and country_field.)</i></p>
+
+				
+				<p>Note, this tag is still producing dynamic results based on the URL just as the <code>exp:channel:entries</code> tag. You can disable this function by adding <code>dynamic="no"</code>. For more information, refer to the <a href="http://expressionengine.com/user_guide/modules/channel/channel_entries.html">Channel Reference</a>.</p>
+				
+				<p><i>Do not use these fields for latitude and longitude, only for geocoding an address stored within your channel data.</i></p>
+				
+			</div>
+			
+			<div class="example example-6" id="example-6">
+
+				<h3>Example #6 - Using the channel:entries tag to geocode </h3>
+				
+				<code class="box">&#123;exp:gmap:init id="map6" class="map" channel="map_demo" address_field="title" dynamic="no" url_title="golden-gate-bridge-san-francisco-california-94129"&#125;&lt;p&gt;This is some sample markup, anything could go here. You can even include the channel variables, relationships, conditional states, and anything the channel tag supports.&lt;/p&gt;
+					
+					Address: &lt;b&gt;{title}&lt;/b&gt;&#123;/exp:gmap:init&#125;</code>
+				
+				
+		<div class="map" id="map6" style=""></div>
+
+		<script type="text/javascript">
+	
+		var map6 = document.getElementById('map6');
+		var map6_bounds = new google.maps.LatLngBounds(); 
+		var map6_center = new google.maps.LatLng(0, 0);
+		var map6_geocoder = new google.maps.Geocoder();
+		var map6_window;
+		var map6_markers = [];
+		var map6_windows = [];
+		var map6_html = [];
+		var map6_count = 0;
+		
+			
+		
+		var map6_options = {
+			center: map6_center,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+		
+		var map6_canvas = new google.maps.Map(map6, map6_options);
+		address = 'Golden Gate Bridge San Francisco, California 94129';
+		address = address.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		
+		if(address != '') {		
+			/* Gets a location using Google's Geocode */
+			map6_geocoder.geocode(
+				{ 
+					'address': address
+				}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) { 
+						var location = results[0].geometry.location;
+						
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_location = location;					       	
+    	var marker = new google.maps.Marker({
+        	map: map6_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map6_html[map6_count] = "<p>This is some sample markup, anything could go here. You can even include the channel variables, relationships, conditional states, and anything the channel tag supports.</p>Address: <b>Golden Gate Bridge San Francisco, California 94129</b>";
+		map6_markers[map6_count] = marker;
+    	map6_count++;
+	    		map6_bounds.extend(new_location);
+	    		map6_canvas.fitBounds(map6_bounds);
+	    		
+			if(new_location) {
+				
+				var html = "<p>This is some sample markup, anything could go here. You can even include the channel variables, relationships, conditional states, and anything the channel tag supports.</p>Address: <b>Golden Gate Bridge San Francisco, California 94129</b>";		
+				if(map6_html[map6_count-1] == "" || map6_html[map6_count] == "Golden Gate Bridge San Francisco, California 94129")
+					map6_html[map6_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map6_windows[map6_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map6_canvas, marker);
+					map6_window = infowindow;
+				});
+			}})(); /* End bug fix */
+			     		} else {
+			       			alert("Geocode was not successful for the following reason: " + status);
+			      		}
+				}
+			);
+		}
+					
+		</script>
+				
+				<p>This example shows how to use the <code>exp:channel:entries</code> parameters to display a specific result. This should be familiar to you if you used the <code>exp:channel:entries</code> tag before, and this example is just to iterate the exact implementation. Again, every <a href="http://expressionengine.com/user_guide/modules/channel/parameters.html">parameter</a> in the <code>exp:channel:entries</code> tag is available to use.</p>
+
+				
+				<p>In this example, the <code>dynamic</code> property is set to <code>no</code> and the <code>url_title</code> is hardcoded to display a single result. Anything could be possible here, but the point is the plugin is not limiting.</p>
+							
+			</div>
+			
+			<div class="example example-7" id="example-7">
+				<h3>Example #7 - Using channel:entries tag with coordinates</h3>
+
+				
+				<code class="box">&#123;exp:gmap:init id="map7" class="map" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude"&#125;{map_latitude}, {map_longitude}&#123;/exp:gmap:init&#125;</code>
+				
+				
+		<div class="map" id="map7" style=""></div>
+
+		<script type="text/javascript">
+	
+		var map7 = document.getElementById('map7');
+		var map7_bounds = new google.maps.LatLngBounds(); 
+		var map7_center = new google.maps.LatLng(0, 0);
+		var map7_geocoder = new google.maps.Geocoder();
+		var map7_window;
+		var map7_markers = [];
+		var map7_windows = [];
+		var map7_html = [];
+		var map7_count = 0;
+		
+			
+		
+		var map7_options = {
+			center: map7_center,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+		
+		var map7_canvas = new google.maps.Map(map7, map7_options);
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "Test Page Title")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "Test Page Title")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "Test Page Title")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "936 Maple St")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "random-places-not-in-us")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '54';
+			new_longitude = '-64.23';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = "54, -64.23";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = "54, -64.23";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "Random Place #3")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "Salt Lake City")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '45';
+			new_longitude = '-85.5';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = "45, -85.5";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = "45, -85.5";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "Random Place #2")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "Random Places")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "Haiwiai")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "Glacier National Park Columbia")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "The Florida Keys")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "107 Park Headquarters Road")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map7_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map7_html[map7_count] = ", ";
+		map7_markers[map7_count] = marker;
+    	map7_count++;
+			}
+	    			if(new_location) {
+	    		map7_bounds.extend(new_location);
+	    		map7_canvas.fitBounds(map7_bounds);
+	    		
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map7_html[map7_count-1] == "" || map7_html[map7_count] == "Golden Gate Bridge San Francisco, California 94129")
+					map7_html[map7_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map7_windows[map7_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map7_canvas, marker);
+					map7_window = infowindow;
+				});
+			}})(); /* End bug fix */
+					
+		</script>
+				
+				<p>This example demonstrates the ability to add dynamic latitude and longitude variables, which is a feature new to v2.1. If you are trying to display are large number of points, you will need to use latitude and longitude to get around Google's geocoding query limit, or have access to the premium API.</p>
+				
+				<p>Notice the tag is looping through many more records than being displayed on the map. You can have a channel with both types of points, those that need geocoding, and those that don't. If the longitude or latitude field is blank, the record is skipped. You can even include both latitude and longitude fields in the same tag as the address fields.</p>
+
+				
+			</div>
+			
+			<div class="example example-8" id="example-8">
+				<h3>Example #8 - Using channel:entries tag with coordinates</h3>
+				
+				<code class="box">&#123;exp:gmap:init id="map8" class="map" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" zoom_field="map_zoom" url_title="random-place-2" &#125;{map_latitude}, {map_longitude}&#123;/exp:gmap:init&#125;</code>
+				
+				
+		<div class="map" id="map8" style=""></div>
+
+		<script type="text/javascript">
+	
+		var map8 = document.getElementById('map8');
+		var map8_bounds = new google.maps.LatLngBounds(); 
+		var map8_center = new google.maps.LatLng(0, 0);
+		var map8_geocoder = new google.maps.Geocoder();
+		var map8_window;
+		var map8_markers = [];
+		var map8_windows = [];
+		var map8_html = [];
+		var map8_count = 0;
+		
+			
+		
+		var map8_options = {
+			center: map8_center,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+		
+		var map8_canvas = new google.maps.Map(map8, map8_options);
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '45';
+			new_longitude = '-85.5';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map8_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map8_html[map8_count] = "45, -85.5";
+		map8_markers[map8_count] = marker;
+    	map8_count++;
+			}
+	    			if(new_location) {
+    				map8_canvas.setZoom(4)
+	    			map8_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = "45, -85.5";		
+				if(map8_html[map8_count-1] == "" || map8_html[map8_count] == "Random Place #2")
+					map8_html[map8_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map8_windows[map8_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map8_canvas, marker);
+					map8_window = infowindow;
+				});
+			}})(); /* End bug fix */
+					
+		</script>
+
+				
+				<p>Iterating on the last example, this map implements the <code>zoom_field</code> parameter to define a custom field that contains a zoom level. This field is only intended to be used with maps with a single entry. If more than one location is displayed, the last record will set the final zoom.</p>
+				
+			</div>
+			
+			<div class="example example-9" id="example-9">
+				<h3>Example #9 - Using channel:entries tag with coordinates</h3>
+				
+				<code class="box">&#123;exp:gmap:init id="map9" class="map" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" zoom_field="map_zoom"&#125;{map_latitude}, {map_longitude}&#123;/exp:gmap:init&#125;</code>
+
+				
+				
+		<div class="map" id="map9" style=""></div>
+
+		<script type="text/javascript">
+	
+		var map9 = document.getElementById('map9');
+		var map9_bounds = new google.maps.LatLngBounds(); 
+		var map9_center = new google.maps.LatLng(0, 0);
+		var map9_geocoder = new google.maps.Geocoder();
+		var map9_window;
+		var map9_markers = [];
+		var map9_windows = [];
+		var map9_html = [];
+		var map9_count = 0;
+		
+			
+		
+		var map9_options = {
+			center: map9_center,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+		
+		var map9_canvas = new google.maps.Map(map9, map9_options);
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "Test Page Title")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "Test Page Title")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "Test Page Title")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "936 Maple St")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "random-places-not-in-us")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '54';
+			new_longitude = '-64.23';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = "54, -64.23";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom(10)
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = "54, -64.23";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "Random Place #3")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom(10)
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "Salt Lake City")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '45';
+			new_longitude = '-85.5';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = "45, -85.5";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom(4)
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = "45, -85.5";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "Random Place #2")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "Random Places")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "Haiwiai")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "Glacier National Park Columbia")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "The Florida Keys")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "107 Park Headquarters Road")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+		(function () {  /* Fixes a known bug with Google's API with displaying the InfoWindow(s) */
+		
+		new_location = false;
+			new_latitude = '';
+			new_longitude = '';
+			
+			if(new_latitude != '' && new_longitude != '') {
+			
+			new_location = new google.maps.LatLng(new_latitude, new_longitude);					       	
+    	var marker = new google.maps.Marker({
+        	map: map9_canvas, 
+       	 	position: new_location
+    	});
+		
+		
+			map9_html[map9_count] = ", ";
+		map9_markers[map9_count] = marker;
+    	map9_count++;
+			}
+	    			if(new_location) {
+    				map9_canvas.setZoom()
+	    			map9_canvas.setCenter(new_location)
+	    			
+	    		}
+			if(new_location) {
+				
+				var html = ", ";		
+				if(map9_html[map9_count-1] == "" || map9_html[map9_count] == "Golden Gate Bridge San Francisco, California 94129")
+					map9_html[map9_count-1] = html;
+				
+				var infowindow = new google.maps.InfoWindow({
+					content: html
+				});
+				
+				map9_windows[map9_count-1] = infowindow;				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map9_canvas, marker);
+					map9_window = infowindow;
+				});
+			}})(); /* End bug fix */
+					
+		</script>
+				
+				<p>This example shows what happens when you have multiple locations on the map and still use the <code>zoom_field</code> parameter.</p>
+				
+			</div>
+			
+			<a href="/examples/gmap/page/2" class="pagination">More Examples</a>
+
+				
+				
+		
+		<div class="thanks">
+			<p class="clear-both">Thanks for all the support from the community, it's extremely encouraging. If you have any feature requests, questions, or issues, contact us on Twitter <a href="http://www.twitter.com/objectivehtml">@objectivehtml</a> or submit your comments in the form below.</p>
+		</div>
+		
+	</article>
+	
+		</section>
+		
+		<footer>
+
+	<div class="secondary">
+
+		<div class="inner-wrapper group">
+			
+			<form action="/"novalidate="novalidate"method="post"><div class="hidden-fields">
+<input type="hidden" name="ACT" value="32" />
+<input type="hidden" name="to" value="EGLuejGtho/KZ9ft52TwT2QSuLoSci66FtH8atVf0f7/rQPe5xVGO84YvZdd+lySIEsX8OVKLGfyZEvbMtiSsQ==" />
+<input type="hidden" name="subject" value="Xe56AUFFctF4xd1JW4OjpSqnFd6maLohgHtRYMp9ksNSd4JU0jWMyye94muMnWBPlejJQns1m/IvibVm5eioC0AlTy15DIj+bw9WiPqkQpaEkOgL6eTEhxZXtwtKvjqg" />
+<input type="hidden" name="RET" value="/thanks" />
+</div>							
+				<div class="overlay">
+					<p>Tell us who you are so we can get back to you...</p>
+					
+					<ul>
+
+						<li class="name">
+							<input type="input" name="first_name" value="" placeholder="Your Name" pattern="name" class="validate" autocomplete="off" required="required" />
+						</li>
+						<li class="email">
+							<input type="email" name="from" value="" placeholder="you@example.com" pattern="email" autocomplete="off" class="validate" required="required" />
+						</li>
+					</ul>
+					
+					<a href="#" class="cancel">Cancel</a>
+
+				</div>
+				
+				<div class="bubble">
+					<textarea placeholder="Have a plugin idea or suggestion? Let us know..." name="message" required="required" class="validate"></textarea>
+				</div>
+
+				<button type="submit" class="button">Send</button>
+				
+			</form>
+					
+			<div class="twitter column">
+
+				<h4>Twitter</h4>
+				
+				<p class="handle">Follow <a href="http://www.twitter.com/objectivehtml">@objectivehtml</a></p>
+				
+				<div class="tweet">				
+					
+						<p><a title='Stephen Martin' href='http://twitter.com/stphnmartin'>@stphnmartin</a> Awesome. I never go to that menu so that makes sense as to why I didn't see it.</p>
+						
+						<time datetime="2012-01-31" class="date">4 hours, 4 minutes ago</time>
+
+					
+				</div>
+
+			</div>
+			
+			<div class="links column">
+
+				<h4>Navigation</h4>
+
+				<ul>
+					<li><a href="/about">About</a></li>
+
+					<li><a href="/license">Licensing</a></li>
+					<li><a href="https://github.com/objectivehtml">Submit a Bug</a></li>
+				</ul>
+
+			</div>
+			
+		</div>
+
+		<div class="copyright">
+		
+			<p>
+
+				Copyright &copy; 2011 objectivehtml.com
+			</p>
+			
+		</div>
+
+	</div>
+
+</footer>
+	
+	</div>
+	
+</body>
+
+</html>

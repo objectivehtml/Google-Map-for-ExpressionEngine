@@ -3,7 +3,7 @@
  * Config file - Google Maps for ExpressionEngine
  *
  * @package			Google Maps for ExpressionEngine
- * @version			2.2.1
+ * @version			2.5
  * @author			Justin Kimbrell <http://objectivehtml.com>
  * @copyright 		Copyright (c) 2011 Justin Kimbrell <http://objectivehtml.com>
  * @license 		Creative Commons Attribution 3.0 Unported License -
@@ -26,17 +26,7 @@ $config['name']		= 'Google Maps For ExressionEngine';
 | -------------------------------------------------------------------
 */
 
-$config['version']	= '2.2.1';
-
-
-/*
-| -------------------------------------------------------------------
-|  NSM Add-on Updater Feed
-| -------------------------------------------------------------------
-*/
-
-
-$config['nsm_addon_updater']['versions_xml'] = 'http://objectivehtml.com/rss/updates/google-maps-for-expressionengine';
+$config['version']	= '2.5';
 
 
 /* End of file gmap.php */

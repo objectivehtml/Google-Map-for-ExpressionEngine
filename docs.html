@@ -1,0 +1,3693 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+
+<head>
+
+	<title>Objective HTML by Justin Kimbrell - Google Maps for ExpressionEngine</title>
+	
+	<meta charset="utf-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
+<meta name="description" content="" />
+<meta name="keywords" content="object-oriented jquery ExpressionEngine javascript web mobile objective html html5 CSS3 standards " />
+
+<meta name="author" content="Justin Kimbrell" />
+<meta name="Copyright" content="Copyright objectivehtml.com 2010. All Rights Reserved." />
+
+<meta name="DC.title" content="objectivehtml.com" />
+<meta name="DC.subject" content="Objectively written web applications and plugins." />
+<meta name="DC.creator" content="Justin Kimbrell" />
+
+<meta name="google-site-verification" content="" />
+
+<meta name="viewport" content="width=device-width; initial-scale=1; maximum-scale=1; user-scalable=no;" />
+		
+<link rel="shortcut icon" href="/-/media/favicon.png" />
+	
+<link rel="stylesheet" href="/-/css/master.css" media="screen" />
+
+<style type="text/css">
+	html, body {
+	font-family: Arial,sans-serif;
+	margin: 0;
+	padding: 0;
+	background: rgb(14, 14, 14);
+	color: rgb(64, 64, 64);
+	}
+	
+	.body {
+		background: rgb(222, 222, 222);
+		}
+
+
+/* Global Styles */
+
+h1 { 
+	font-family: "adrianna-1","adrianna-2",sans-serif; 
+	font-weight: 100;
+	}
+	
+h2, h2 a {
+	font-size: 1.65em;
+	font-family: "comenia-sans-web-1","comenia-sans-web-2",sans-serif;
+	text-shadow: 0 1px 0 rgb(222, 222, 222);
+	color: rgb(64, 64, 64);
+	text-decoration: none;
+	margin: 2em 0 1em 0;
+	}
+		
+h3, button, h3 a {
+	font-family: "comenia-sans-web-1","comenia-sans-web-2",sans-serif;
+	text-shadow: 0 1px 0 rgb(222, 222, 222);
+	color: rgb(64, 64, 64);
+	text-decoration: none;
+	}
+
+h4 {
+	font-family: "lemonde-journal-1","lemonde-journal-2",serif;
+	font-size: 1.1em;
+	font-weight: normal;
+	padding: 1em 0;
+	}
+
+	h4 a {
+		color: rgb(77, 77, 77);
+		}
+		
+h5 {
+	font-weight: bold;
+	font-size: 1.1em;
+	}
+		
+	h5 a {
+		color: rgb(64, 64, 64);
+		text-decoration: none;
+		}
+		
+		h5 a:hover {
+			text-decoration: underline;
+			}
+	
+a {}
+
+p { margin-bottom: 1em; }
+
+input {
+	padding: 5px 7px 6px;
+	background: white;
+	border: none;
+	font-size: 14px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-box-shadow:inset 0 0 5px rgba(0, 0, 0, .5);
+   	-webkit-box-shadow:inset 0 0 5px rgba(0, 0, 0, .5);
+   	box-shadow:inset 0 0 5px rgba(0, 0, 0, .5);
+	}
+	
+/* Self-clearing Floats */
+
+.group:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+	}
+	
+	
+/* Header */
+
+header {
+	padding: 1.1em .5em 1.1em 2em;
+	background-color: black;
+	position: relative;
+	margin-bottom: 2em;
+	min-height: 25px;
+	background: #0e0e0e; /* old browsers */
+	background: -moz-linear-gradient(top, #0e0e0e 11%, #444444 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(11%,#0e0e0e), color-stop(100%,#444444)); /* webkit */
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e0e', endColorstr='#444444',GradientType=0 ); /* ie */
+	}
+	
+	header a {
+		color: rgb(255, 255, 255); 
+		text-decoration: none;
+		}
+	
+	h1 {
+		float: left;
+		}
+		
+		h1 a { 
+			font-size: 2em;
+			letter-spacing: 2px;
+			color: rgb(238, 223, 113);
+			}
+			
+			h1 a:hover {
+				text-shadow: 0 0 10px rgb(238, 223, 113);
+				}
+		
+	nav {
+		float: right;
+		margin-top: .5em;
+		}
+		
+		nav ul {}
+		
+			nav li {
+				display: inline;
+				float: left;
+				}
+
+				nav li a {
+					padding: 25px 20px 22px;
+					font-size: 18px;
+					border-left: 1px solid rgba(0, 0, 0, 0.3);
+					border-right: 1px solid rgba(255, 255, 255, .1);
+					text-shadow: 0px -1px 0px rgb(63, 63, 63);
+					color: rgb(198, 198, 198);
+					}
+					
+					nav li a:hover {
+						text-shadow: 0 0 15px #fff;
+						}
+				
+				nav li a.first { border-left: none; }
+				nav li a.last { border-right: none; }
+				
+				body.articles nav .articles,
+				body.examples nav .examples,
+				body.plugins nav .plugins {
+					background: #444444; /* old browsers */
+					background: -moz-linear-gradient(top, #444444 0%, #232323 50%, #444444 99%); /* firefox */
+					background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#444444), color-stop(50%,#232323), color-stop(99%,#444444)); /* webkit */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444444', endColorstr='#444444',GradientType=0 ); /* ie */
+					text-shadow: none;
+					}
+
+				body.articles nav .articles {
+					border-left: 1px solid rgba(255, 255, 255, .1);
+					}
+/* Body */
+
+#page {
+	clear: left;
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto 80px;
+	padding: 0 50px;
+	}
+	
+	.article #page {
+		}
+	
+	#page h3 {
+		font-size: 1.6em;
+		padding: 1em 0 .75em;
+		text-shadow: 0px 1px 0px rgb(255, 255, 255);
+		}
+		
+		#page h3.month {
+			padding: .5em 0 0;
+			font-size: 1.6em;
+			}
+		
+	#page article {
+		margin-bottom: 1em;
+		padding: .75em;
+		line-height: 1.3em;
+		}
+					
+		#page article p {
+			line-height: 1.5em;
+			}
+		
+		#page article a {
+			color: rgb(105, 155, 3);
+			}
+			
+	
+	/*-------------------------------------------    
+		Documentation
+	-------------------------------------------*/
+	
+	.documentation #page h2 { display: none; }
+	
+	.documentation #page h3 {
+		padding: 1em 0 0;
+		}
+	
+	#page .documentation { padding:0 1em .5em;}
+		
+		#page .documentation h4 {
+			padding: .6em 0;
+			font-weight: bold;
+			}
+		
+		#page .documentation .links {
+			float: right;
+			}
+			
+			.documentation.list #page .documentation .links,
+			.documentation.list #page .documentation .table-of-contents {
+				display: none;
+				}
+								
+			#page .documentation ol { 
+				margin: 0 0 2em 2em;
+				}
+				
+			#page .documentation .links li {
+				display: block;
+				list-style-type: none;
+				padding: .25em 0;
+				}
+				
+				#page .documentation .links li a {
+					text-decoration: none;
+					padding: 1em 35px;
+					}
+			
+				#page .documentation .links .examples {
+					background: url(/-/media/html_file.png) left 13px no-repeat;
+					}
+					
+				#page .documentation .links .download {
+					background: url(/-/media/save.png) left 10px no-repeat;
+					}
+		
+		#page .documentation .tab { margin-bottom: 30px; }
+		
+		#page .documentation h5 {
+			display: block;
+			margin: .75em 0;
+			}
+			
+		#page .documentation .description { display: none; }
+		
+			.list #page .documentation .description { display: block; }
+		
+		#page .documentation .examples { float: right; }
+		
+		#page .documentation .release-notes {
+			overflow: hidden;
+			margin: 1.5em 0;
+			}
+			
+			#page .documentation .release-notes dt {
+				display: inline;
+				float: left;
+				clear: left;
+				width: 120px;
+				padding: 3px 0;
+				}
+			
+			#page .documentation .release-notes dd {
+				display: inline;
+				float: left;
+				padding: 3px 0;
+				}
+					
+		#page .documentation p {
+			line-height: 1.25em;
+			}
+			
+		#page .documentation .features ul { 
+			padding: 0 20px;
+			margin-bottom: 30px;
+			}
+			
+			#page .documentation .features li {
+				line-height: 1.3em;
+				}
+	
+		#page .option-description dl { padding: 10px; }
+			
+			#page .option-description dt {
+				font-weight: bold;
+				}
+				
+			#page .option-description dd {
+				padding: 5px;
+				margin-bottom: 10px;
+				}
+	
+	.documentation.list .documentation dl,
+	.documentation.list .documentation div { display: none; }
+	.documentation.list .documentation div.description h5 {display: none !important;}
+	
+		.documentation.list .documentation div.description { 
+			display: block;
+			padding: 1em 1em 0;
+			}
+	
+	.documentation.list  #page article { 
+		margin-bottom: 0;
+		padding-top: 0;
+		}
+
+		.documentation.list #page h3 {
+			padding-bottom: .5em;
+			}
+			
+		.documentation.list #page h4 {
+			display: none;
+			}
+					
+					
+	
+	/* Examples */
+	
+	.examples #page {
+		padding-top: .5em;
+		}
+			
+		.examples h2 { 
+			display: none;		
+			margin-bottom: 0;
+			}
+		
+		.example h2 .reference-link {
+			font-size: .65em;
+			margin: .5em 0 0;
+			font-family: "lemonde-journal-1","lemonde-journal-2",serif;
+			color: rgb(105, 155, 3);
+			font-weight: normal;
+			float: right;
+			}
+			
+			.example h2 a.reference-link:hover {
+				text-decoration: underline;
+				}
+			
+		.examples #page li { 
+			list-style-type: none;
+			padding-bottom: 2em;
+			}
+			
+	.examples.list #page article ul {
+		margin: 0 1em;
+		}
+		
+		.examples.list #page article li p {
+			margin: .5em .2em;
+			}
+		
+	.example time { display: none !important; }
+	
+	.example #page .example {
+		clear: both;
+		padding: 2em 0;
+		}
+		
+		.example #page .example form {
+			margin: 1em 0;
+			}
+			
+			.example #page input.invalid {
+				border: 2px solid red;
+				}
+			
+			.example #page input.valid {
+				border: 2px solid green;
+				}
+						
+		.example #page .example h4.author {
+			display: none;
+			}
+			
+		.example #page .example .map {
+			width: 400px;
+			height: 250px;
+			float: right;
+			}
+		
+		.example #page .example .box {
+			padding: .5em .6em;
+			background-color: rgb(203, 224, 252);
+			margin: 2em 0 1em;
+			display: block;
+			}
+			
+		.example #page .example-2 {
+			position: relative;
+			}
+		
+			.example #page .example-2 .input-wrapper {
+				background: rgb(238, 223, 113);
+				position: relative;
+				margin-bottom: 3em;
+				}
+				
+				.example #page .example-2 label {
+					text-shadow: 0 1px 0 rgb(255, 252, 174);
+					font-size: 1.2em;
+					padding: .6em .5em .6em .75em;
+					display: inline-block;
+					border-right: 1px solid rgb(255, 254, 165);
+					float: left;
+					}
+				
+				.example #page .example-2 input { 
+					border: none;
+					background: rgb(238, 223, 113);
+					border-left: 1px solid rgb(153, 143, 73);
+					padding: 0.55em 0.5em 0.65em 0.7em;
+					float: left;
+					display: inline;
+					-webkit-box-shadow: none;
+					-moz-box-shadow: none;
+					box-shadow: none;
+					-webkit-border-radius: 0;
+					-moz-border-radius: 0;
+					border-radius: 0;
+					color: rgb(64, 64, 64);
+					width: 680px;
+					}
+					
+				.example #page .example-2 input.placeholder,
+				.example #page .example-2 input {
+					text-shadow: 0 1px 0 rgb(255, 252, 174);
+					font-size: 1.1em;
+					}
+					
+				.example #page .example-2 input.placeholder {
+					color: rgb(64, 64, 64);
+					}
+							
+				.example #page .example-2 .representative-state {
+					position: absolute;
+					right: 0;
+					top: 2.5em;
+					padding: .6em .5em .6em .75em;
+					}
+					
+					.example #page .example-2 .representative-state .before-active,
+					.example #page .example-2 .representative-state .active,
+					.example #page .example-2 .representative-state .after-active,
+					.example #page .example-2 .representative-state .valid,
+					.example #page .example-2 .representative-state .invalid,
+					.example #page .example-2 .representative-state .placeholder,
+					.example #page .example-2 .representative-state .focus { 
+						display: none;
+						padding: .6em .5em .6em .75em;
+						}
+				
+					/* Invalid State */
+					
+					.example #page .example-2 .invalid {
+						background: rgb(255, 178, 177);
+						}
+
+						.example #page .example-2 .invalid .invalid {
+							display: inline;
+							background: none;
+							}
+
+						.example #page .example-2 .invalid label {
+							background: red;
+							color: rgb(255, 255, 255);
+							text-shadow: 0 1px 0 rgb(0, 0, 0);
+							border-right: 1px solid rgb(136, 0, 0);
+							}
+						
+						.example #page .example-2 .invalid input {
+							background: rgb(255, 178, 177);
+							border-left: 1px solid rgb(255, 213, 221);
+							color: rgb(136, 0, 0);
+							}
+						
+					.example #page .example-2 .valid label {
+						background: green;
+						color: rgb(255, 255, 255);
+						text-shadow: 0 1px 0 rgb(0, 0, 0);
+						}
+					
+					/* Valid State */	
+					
+					.example #page .example-2 .valid {
+						background: green;
+						}
+						
+						.example #page .example-2 .valid .valid {
+							display: inline;
+							background: none;
+							}
+						
+						.example #page .example-2 .valid label {
+							border-right: 1px solid rgb(0, 88, 0);
+							color: white;
+							text-shadow: 0px 1px 0 rgb(0, 0, 0);
+							}
+							
+						.example #page .example-2 .valid input {
+							background: green;
+							color: white;
+							text-shadow: 0px 1px 0 rgb(0, 0, 0);
+							border-left: 1px solid rgb(116, 191, 121);
+							}
+										
+					/* Before validate */
+					
+					.example #page .example-2 .before-active {
+						}
+					
+						.example #page .example-2 .before-active .before-active {
+							display: inline;
+							}
+						
+					/* Active */
+					
+					.example #page .example-2 .active {
+						}
+					
+						.example #page .example-2 .active .active {
+							display: inline;
+							}
+							
+					/* After validate */
+					
+					.example #page .example-2 .after-active {
+						}
+										
+						.example #page .example-2 .after-active .after-active {
+							display: inline;
+							}
+							
+					/* Focus */
+					
+					.example #page .example-2 .focus {
+						-moz-box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+						-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+						box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+						}
+					
+						.example #page .example-2 .focus .focus {
+							box-shadow: none;
+							display: inline;						
+							-moz-box-shadow: none;
+							-webkit-box-shadow: none;
+							box-shadow: none;
+							}
+							
+					/* Placeholder */
+					
+					.example #page .example-2 .placeholder {
+						}
+												
+						.example #page .example-2 .placeholder .placeholder {
+							display: block;
+							}
+		
+		.example #page .example-4 {}
+		
+			.example #page .example-4 ul { margin: 0 1em; }
+			
+			.example #page .example-4 form {
+				padding: 1em;
+				width: 415px;
+				background: rgb(112, 112, 112);
+				border-top: 1px solid rgb(163, 163, 163);
+				border-left: 1px solid rgb(163, 163, 163);
+				border-right: 1px solid rgb(240, 240, 240);
+				border-bottom: 1px solid rgb(240, 240, 240);
+				position: relative;
+				}
+			
+			.example #page .example-4 form ul {
+				margin: 0;
+				}	
+			
+				.example #page .example-4 form ul li {
+					list-style-type: none;
+					padding: 0 0 1em;
+					}
+					
+					.example #page .example-4 form ul li.confirm {
+						padding-bottom: .5em;
+						}
+						
+					.example #page .example-4 form ul li label {
+						display: block;
+						font-size: 1.1em;
+						color: rgb(255, 255, 255);
+						text-shadow: 0 1px 0 rgb(5, 5, 5);
+						}
+					
+					.example #page .example-4 form ul li input {
+						-moz-border-radius: 0;
+						-webkit-border-radius: 0;
+						border-radius: 0;
+						-moz-box-shadow: none;
+						-webkit-box-shadow: none;
+						box-shadow: none;
+						margin: .25em 0;
+						border-top: 1px solid rgb(163, 163, 163);
+						border-left: 1px solid rgb(163, 163, 163);
+						border-right: 1px solid rgb(208, 208, 208);
+						border-bottom: 1px solid rgb(208, 208, 208);
+						padding: 5px;
+						background: rgb(210, 210, 210);
+						color: rgb(62, 62, 62);
+						width: 400px;
+						}
+					
+					.example #page .example-4 form button {
+						margin: .6em 0 0;
+						}
+					
+					.example #page .example-4 form ul li input.invalid {
+						background: rgb(238, 160, 128);
+						border-top: 1px solid rgb(157, 106, 84);
+						border-left: 1px solid rgb(157, 106, 84);
+						border-right: 1px solid rgb(255, 188, 163);
+						border-bottom: 1px solid rgb(255, 188, 163);
+						color: rgb(103, 69, 55);
+						}
+						
+					.example #page .example-4 form ul li input.valid {
+						background: rgb(182, 205, 77);
+						color: rgb(66, 75, 28);
+						}
+						
+					.example #page .example-4 form .status {
+						position: absolute;
+						bottom: 10px;
+						left: 7.5em;
+						color: rgb(255, 255, 255);
+						text-shadow: 0 1px 0 rgb(0, 0, 0);
+						}
+						
+		.example #page .thanks,
+		.example #page .pagination {
+			clear: both;
+			padding: 5em 0 0;
+			font-size: .9em;
+			float: right;
+			}
+		
+		
+	/* Plugin Reference UI */
+		
+	#page .reference {
+		margin: 3em 0;
+		}
+		
+		#page .reference ol li { }
+		
+		#page .reference ul { }
+			
+			#page .reference ul li {
+				margin: 5px 0;
+				list-style-type: none;
+				background: rgb(247, 247, 247);
+				border-top: 1px solid rgb(212, 212, 212);
+				border-bottom: 1px solid rgb(212, 212, 212);
+				}
+				
+				#page .reference .option-header {
+					padding: 8px;
+					cursor: pointer;
+					}
+									
+					#page .reference .option-header a {
+						background: url(/-/media/spindown-closed.gif) no-repeat center left;
+						padding: 0 17px;
+						color: rgb(56, 152, 222);
+						}
+						
+						
+						#page .reference .open .option-header a { background: url(/-/media/spindown-open.gif) no-repeat center left; }
+						
+					#page .reference .option-header dl { 
+						float: right;
+						width: 65%;
+						}
+						
+						#page .reference .option-header dt {display: inline;}
+						
+							#page .reference .option-header .option-type-label { display: none; }
+							
+							#page .reference .option-header .option-default-label {
+								color: rgb(153, 153, 153);
+								padding-right: 6px;
+								}
+						
+						#page .reference .option-header dd { display: inline-block;}
+							
+							#page .reference .option-header .option-type { width: 35%; }
+															
+								#page .reference .option-header .option-type span {
+									border-bottom: 1px dotted #000;
+									padding-bottom: 2px;
+									}
+							
+							#page .reference .option-header .option-default {}
+							
+				#page .reference .option-description {
+					display: none;
+					padding: 10px;
+					}
+					
+					#page .reference .open .option-description { display: block; }
+		
+					#page .reference .open .option-description h6 {
+						font-size: 16px;
+						margin: 15px 0 5px;
+						}
+				
+					#page .reference .option-description form {
+						margin: 10px 0 10px;
+						}
+					
+						#page .reference .option-description label { 
+							display: block;
+							font-size: 16px;
+							}
+						
+						#page .reference .option-description input {}
+						
+						#page .reference .option-description input.invalid {
+							border: 2px solid rgb(255, 0, 0);
+							-moz-box-shadow:inset 0 0 10px rgba(255, 0, 0, .5);
+						   	-webkit-box-shadow:inset 0 0 10px rgba(255, 0, 0, .5);
+						   	box-shadow:inset 0 0 10px rgba(255, 0, 0, .5);
+							}
+	
+
+/*-------------------------------------------    
+	Profile
+-------------------------------------------*/
+
+.profile {}
+
+	.profile h3 {
+		width: auto;
+		float: left;
+		}
+	
+	.profile .url {
+		margin: 1em 0 0 1.3em;
+		float: left;
+		}
+		
+	.profile .url {
+		margin: 1em 0 0 1.3em;
+		float: left;
+		}
+		
+		.profile .url a {
+			margin: 1em 0 0 0;
+			}
+		
+	.profile img {
+		width: 200px;
+		height: 200px;
+		clear: left;
+		}
+		
+	.profile .bio {
+		width: 500px;
+		margin-left: 20px;
+		}
+			
+
+/* Footer
+--------------------------------------------- */
+
+footer {
+	padding: 30px 0 0 0;
+	background: #7d7e7d; /* old browsers */
+	background: -moz-linear-gradient(top, #7d7e7d 0%, #0e0e0e 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7d7e7d), color-stop(100%,#0e0e0e)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 ); /* ie */
+	border-top: 5px rgb(116, 116, 116) solid;
+	}
+	
+	footer a {
+		text-decoration: none;
+		}
+		
+	.secondary {
+		padding: 30px 0 0 0;
+		}
+
+		.secondary h4 {
+			margin: 0 0 20px 0;
+			padding: 0 0 0 5px;
+			color: rgb(238, 223, 113);
+			font-size: 20px;
+			line-height: 25px;
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, .7);
+			text-transform: uppercase;
+			}
+					
+		.secondary .inner-wrapper {
+			width: 900px;
+			margin: 0 auto 30px auto;
+			}
+							
+			.secondary form {
+				position: relative;
+				float: left;
+				display: inline;
+				width: 420px;
+				height: 250px;
+				margin: 0 40px 0 0;
+				z-index: 1;
+				}
+				
+				.secondary form .overlay {
+					position: absolute;
+					width: 400px;
+					height: 161px;
+					padding: 10px;
+					background: rgb(178, 178, 178);
+					background: rgba(0, 0, 0, .8);
+					-moz-border-radius: 7px;
+					-webkit-border-radius: 7px;
+					border-radius: 7px;
+					color: rgb(255, 255, 255);	
+					display: none;		
+					}
+					
+					.secondary form .overlay ul {}
+						
+						.secondary form .overlay a {
+							padding: 1.5em 1em 0;
+							color: #fff;
+							font-size: .8em;
+							text-decoration: underline;
+							}
+						
+						.secondary form .overlay ul li {
+							list-style-type: none;
+							padding: 10px;
+							}
+							
+							.secondary form .overlay li input {
+								width: 365px;
+								margin: auto;
+								}
+							
+							.secondary .invalid input {
+								background-color: rgb(238, 223, 113);
+								color: rgb(24, 24, 24);
+								text-shadow: 0 1px 0 rgb(240, 240, 240);
+								}
+								
+				.secondary form .bubble {
+					width: 400px;
+					height: 158px;
+					padding: 10px 10px 40px 10px;
+					background: transparent url(/-/media/question-bubble.png) no-repeat;
+					}
+					
+					.secondary form .bubble.overlaid textarea {
+						color: rgb(255, 255, 255);
+						color: rgba(255, 255, 255, 0);
+						}
+
+					.secondary form textarea {
+						width: 395px;
+						max-width: 395px;
+						height: 158px;
+						max-height: 158px;
+						color: rgb(125, 126, 125);
+						border: none;
+						font-family: "ff-nuvo-web-pro-1", "ff-nuvo-web-pro-2", Helvetica, Arial, sans-serif;
+						font-size: 18px;
+						line-height: 23px;
+						}
+
+				.secondary form button {
+					position: absolute;
+					left: 0;
+					bottom: 0;
+					display: block;
+					width: 125px;
+					}
+
+			.secondary div.column {
+				float: left;
+				display: inline;
+				width: 200px;
+				margin: 0 20px 0 0;
+				}
+
+				.secondary div.column ul {
+					list-style: none;
+					}
+
+					.secondary div.column li {
+						font-size: 16px;
+						line-height: 21px;
+						text-shadow: 0 -1px 0 rgba(0, 0, 0, .35);
+						border-bottom: 1px solid rgba(0, 0, 0, .30);
+						-webkit-box-shadow: 0 1px rgba(255, 255, 255, .30);
+						-moz-box-shadow: 0 1px rgba(255, 255, 255, .30);
+						}
+
+					.secondary div.column li:last-child {
+						border: none;
+						-webkit-box-shadow: none;
+						-moz-box-shadow: none;
+						}
+
+						.secondary div.column li a {
+							display: block;
+							margin: 5px;
+							color: rgb(255, 255, 255);
+							background: url(/-/media/right-arrow.png) right center no-repeat;
+							}
+
+						.secondary div.column li a:hover { opacity: 0.65; }
+			
+			.secondary div.column.twitter {}
+				
+				.secondary div.column.twitter p.handle {
+					margin-left: 5px;
+					color: rgb(255, 255, 255);
+					}
+								
+				.secondary div.column.twitter a {
+					color: rgb(186, 238, 54);
+					}
+					
+					.secondary div.column.twitter a:hover { text-decoration: underline; }
+				
+				.secondary div.column .tweet {
+					background-color: rgb(74, 75, 74);
+					background-color: rgba(255, 255, 255, .1);
+					padding: 10px;
+					-moz-border-radius: 5px;
+					-webkit-border-radius: 5px;
+					border-radius: 5px;
+					border: 1px solid rgba(0, 0, 0, .3);
+					font-size: .8em;
+					line-height: 1.3em;
+					color: rgb(255, 255, 255);
+					}
+					
+					
+		.copyright {
+			border-top: 1px solid rgba(255, 255, 255, .30);
+			-webkit-box-shadow: 0 -1px rgba(0, 0, 0, .30);
+			-moz-box-shadow: 0 -1px rgba(0, 0, 0, .30);
+			clear: left;
+			}
+			
+			.copyright p .license {
+				position: absolute;
+				left: 1em;
+				}
+			
+			.copyright p {
+				margin: 0 auto;
+				padding: 20px 0;
+				color: rgb(255, 255, 255);
+				font-size: 14px;
+				line-height: 21px;
+				text-shadow: 0 -1px 0 rgba(0, 0, 0, .35);
+				text-align: center;
+				}
+
+				.copyright a { color: rgb(255, 255, 255); }
+
+				.copyright a:hover { border-bottom: 1px solid rgb(255, 255, 255); }
+				
+/* Photo Scroller */
+
+.photo-scroller {
+	float: right;
+	width: 40%;
+	margin: 10px 0 10px 10px;
+	}
+
+	.photo-scroller img.display {
+		width: 100%;
+		height: 275px;
+		margin: 0 auto;
+		}
+			
+	.photo-scroller ul {
+		padding: 4px 2px;
+		}
+	
+		.photo-scroller ul li {
+			list-style-type: none;
+			display: inline;
+			float: left;
+			padding: 0 1px;
+			}
+			
+			.photo-scroller ul li.first { padding-left: 0;}
+			.photo-scroller ul li.last { padding-right: 0;}
+		
+			.photo-scroller ul li img {
+				width: 55px;
+				cursor: pointer;
+				border: 2px solid rgb(222, 222, 222);
+				}
+			
+			.photo-scroller ul li.active img { 
+				border: 2px solid rgb(238, 223, 113);
+				-moz-box-shadow: 0px 0px 10px rgb(238, 223, 113);
+				-webkit-box-shadow: 0px 0px 10px rgb(238, 223, 113);
+				box-shadow: 0px 0px 10px rgb(238, 223, 113);
+				}
+			
+			.photo-scroller ul li caption { display: none; }
+			
+				
+/* Convenience Objects */
+
+.hidden { display: none; }
+.active { display: block; }
+.float-left { float: left; }
+.float-right { float: right; }
+.placeholder { color: rgb(169, 169, 169)}
+.span-screen { width: 100% !important; }
+.button {
+	padding: 7px;
+	font-size: 20px;
+	line-height: 25px;
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, .35);
+	border: 2px solid rgb(105, 155, 3);
+	color: rgb(255, 255, 255);
+	border-radius: 7px;
+	cursor: pointer;
+	background: #bfd255; /* old browsers */
+	background: -moz-linear-gradient(top, #bfd255 0%, #8eb92a 50%, #72aa00 51%, #9ecb2d 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bfd255), color-stop(50%,#8eb92a), color-stop(51%,#72aa00), color-stop(100%,#9ecb2d)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bfd255', endColorstr='#9ecb2d',GradientType=0 ); /* ie */
+	}
+	
+					
+					
+header:after,
+footer:after,
+#page:after,
+footer ul:after {
+	content: "."; 
+	display: block; 
+	height: 0; 
+	clear: both; 
+	visibility: hidden;
+}
+
+
+
+@media only screen and (max-device-width: 480px), only screen and (max-width: 640px) {
+	
+	#page { 
+		padding: 0 2.5%;
+		width: 95%;
+		}
+	
+		#page h3 { 
+			padding: 0 0 .5em 0;
+			font-size: 1.65em;
+			}
+		
+		#page article h4 { font-size: 1.3em; }
+		
+		.article #page article h4 { font-size: 1.5em; }
+		
+	footer { padding: 0;}
+	
+	
+	
+	header {
+		padding: 0 0 1.4em;
+		}
+	
+	h1 {
+		float: left;
+		display: block;
+		position: static;
+		width: 100%;
+		text-align: center;
+		padding-top: .5em;
+		}
+	
+	nav {
+		margin: 1em 2.5% 0;
+		clear: left;
+		float: left;
+		width: 95%;
+		}
+		
+		nav li {
+			width: 33%;
+			text-align: center;
+			}
+			
+			nav li a {
+				padding: .6em;
+				border: none;
+				text-align: center;
+				}
+				
+				body.articles nav .articles,
+				body.examples nav .examples,
+				body.plugins nav .plugins {
+					background: rgba(0, 0, 0, .3);
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444444', endColorstr='#444444',GradientType=0 ); /* ie */
+					text-shadow: none;
+					-moz-border-radius: 5px;
+					-webkit-border-radius: 5px;
+					border-radius: 5px;
+					}
+		
+	.article #page article .main-photo,
+	.secondary form textarea,
+	.secondary div.column,		
+	.secondary form,	
+	.secondary .inner-wrapper,
+	.secondary .inner-wrapper {
+		width: 100%;
+		max-width: 100%;
+		min-width: 100%;
+		}
+	
+	.examples #page li
+	.secondary form .bubble { background: none; margin: 0 auto;}
+	.secondary form button { margin: 1em 2.5% 0; }
+	.secondary form .bubble,
+	.secondary form button {
+		margin: 0 2.5% 1em;
+		padding: 0;
+		width: 95%;
+		position: static;
+		}
+		
+	.secondary .column.twitter,
+	.secondary .column.links {
+		min-width: 95%;
+		max-width: 95%;
+		width: 95%;
+		margin: 0 2.5% 1.5em !important;
+		}
+}
+
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+		$('.table-of-contents').change(function() {
+			var $t = $(this);
+					
+			window.location = '#'+$t.val();
+		});
+		
+		$('.reference .option-header').click(function() {
+			var $t = $(this);
+			var parent = $t.parent()
+			
+			if(parent.hasClass('open'))
+				parent.removeClass('open');
+			else
+				parent.addClass('open');
+		});
+	
+	});
+	
+</script>
+
+
+<!--[if lte IE 8]>
+	<script src="/-/script/modernizr.js"></script>
+  <script src="/-/script/selectivizr.js"></script>
+<![endif]-->
+
+<!--[if IE 6]>
+	<script src="/-/script/transparency.js"></script>
+	<script src="/-/script/png.js"></script>
+<![endif]-->
+
+</head>
+
+<body class="documentation">
+	
+	<div class="body">
+	
+		<header>
+	<h1><a href="/">Objective HTML</a></h1>
+	
+	<nav>
+		<ul>
+			<li><a href="docs.html" class="articles first">Docs</a></li>
+
+			<li><a href="examples1.html" class="examples">Examples 1</a></li>
+			<li><a href="examples2.html" class="documentation last">Examples 2</a></li>
+		</ul>
+	</nav>
+</header>
+		
+		<section id="page">
+		
+
+	<h2><a href="/documentation">Documentation</a></h2>
+	
+			
+	<article class="documentation">
+
+	
+		<!-- <a href="/examples/documentation_url_title/" class="examples">Examples</a> -->
+				
+		<h3 class="title">Google Maps for ExpressionEngine</h3>
+		
+		<dl class="release-notes">
+			<dt class="version">Version</dt>
+
+			<dd class="version">2.5</dd>
+			<dt class="last-update">Last update</dt>
+			<dd class="last-update">1/31/2012</dd>
+		</dl>
+		
+		<div id="description" class="description tab">
+		
+			<h4>Description</h4>
+			
+			<p>
+
+	This plugin combines the familiar syntax of the <code>exp:channel:entries tag</code> (all of the parameters are available) combined with all the properties used to initialize Google Maps, thus making the process very familiar. This plugin requires no JavaScript or PHP to implement dynamic or static maps. You can plot locations using custom fields from your channels, or just a static address on the contact page right within your EE templates.</p>
+
+			
+		</div>
+				
+		<div class="dropdown tab">
+			<h4>Table of Contents</h4>
+			
+			<select name="table-of-contents" class="table-of-contents">
+	<option value="">-- Skip to Section --</option>
+
+	<option value="overview">Overview</option>
+	<option value="features">Features</option>
+	<option value="installation">Installation</option>
+	<option value="reference">Reference</option>
+	
+	
+		<option value="google-maps-for-expressionengine-expgmapinit">- &#123;exp:gmap:init&#125;</option>
+					
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-id">-- id</option>
+
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-class">-- class</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-style">-- style</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-address">-- address</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-latitude">-- latitude</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-longitude">-- longitude</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-center">-- center</option>
+
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-zoom">-- zoom</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-map_type">-- map_type</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-address_field">-- address_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-city_field">-- city_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-state_field">-- state_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-zipcode_field">-- zipcode_field</option>
+
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-country_field">-- country_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-latitude_field">-- latitude_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-longitude_field">-- longitude_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-zoom_field">-- zoom_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-gmap_field">-- gmap_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-lat_lng">-- lat_lng</option>
+
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-hide_markers">-- hide_markers</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-open_windows">-- open_windows</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-style_link">-- style_link</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-style_object">-- style_object</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-extend_bounds">-- extend_bounds</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-show_one_window">-- show_one_window</option>
+
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-icon">-- icon</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-show_coordinate">-- show_coordinate</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapinit-add_title_to_dropdown">-- add_title_to_dropdown</option>
+	
+
+			
+		<option value="google-maps-for-expressionengine-expgmapmarker">- &#123;exp:gmap:marker&#125;</option>
+					
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-id">-- id</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-address">-- address</option>
+
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-latitude">-- latitude</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-longitude">-- longitude</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-center">-- center</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-zoom">-- zoom</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-address_field">-- address_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-city_field">-- city_field</option>
+
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-state_field">-- state_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-zipcode_field">-- zipcode_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-country_field">-- country_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-latitude_field">-- latitude_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-longitude_field">-- longitude_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-zoom_field">-- zoom_field</option>
+
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-gmap_field">-- gmap_field</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-lat_lng">-- lat_lng</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-open_windows">-- open_windows</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-extend_bounds">-- extend_bounds</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-show_one_window">-- show_one_window</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-icon">-- icon</option>
+
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-show_coordinate">-- show_coordinate</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapmarker-add_title_to_dropdown">-- add_title_to_dropdown</option>
+	
+
+			
+		<option value="google-maps-for-expressionengine-expgmapcenter">- &#123;exp:gmap:center&#125;</option>
+					
+	
+	<option value="google-maps-for-expressionengine-expgmapcenter-id">-- id</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapcenter-address">-- address</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapcenter-latitude">-- latitude</option>
+
+	
+
+			
+		<option value="google-maps-for-expressionengine-expgmapzoom">- &#123;exp:gmap:zoom&#125;</option>
+					
+	
+	<option value="google-maps-for-expressionengine-expgmapzoom-id">-- id</option>
+	
+	<option value="google-maps-for-expressionengine-expgmapzoom-zoom">-- zoom</option>
+	
+
+			
+</select>
+		</div>
+		
+				<div id="overview" class="overview tab">
+			
+			<h4>Overview</h4>
+
+			
+			<p>
+	Using ExpressionEngine to manage pages and content saves hours of time, but using it to manage locations can prove to be a bigger challenge than first meets the eye. The possibilities of the clients&#39; desires are endless, but all revolve around publishing and retrieving data from the channels module, and plotting the address&#39; within a Google Map (now using API v3 with mobile support).</p>
+<p>
+	This plugin aims to take the pain out of that entire process by using the familiar syntax as the <code>channel:entries</code> tag (all of the parameters are available) combined with all the properties used to initialize Google Maps, thus making the process very familiar. This plugin requires no JavaScript or PHP to implement and no knew knowledge outside of the channel tag and the desired properties of Google Map.</p>
+<p>
+
+	<em>Note, the Google Maps JavaScript library is required to be included (in the head presumably) on your page. This plugin does not include the file.</em></p>
+
+	
+		</div>
+				
+				<div id="features" class="features tab">
+			<h4>Features</h4>
+			
+			Combines all the <code>channel:entries</code> parameters with all the Google Maps properties
+Use EE backend to plot map coordinates
+Auto zooms and centers map around the points dynamically (if desired)
+Can adapt any channel with address' to plot within the map
+Absolutely no SQL, PHP, or JavaScript knowledge necessary
+Customizable info windows (popups within the map)
+This is the easiest Google Maps implementation out there
+Customizable controls, styles, map types, and more
+No dependent JS files
+			
+		</div>
+
+				
+				<div id="installation" class="overview tab">
+			
+			<h4>Installation</h4>
+			
+			<div id="product_install" style="display: block;">
+	<ol>
+		<li>
+			Copy <span class="blue">gmap</span> plugin folder to your <span class="red">/system/expressionengine/third_party/</span> folder.</li>
+
+		<li>
+			If you desire to use the fieldtype, install it by going to Addons &gt; Fieldtypes &gt; Google Maps for ExpressionEngine &gt; Install</li>
+		<li>
+			Include this in the <code>head</code> of your document: &lt;<code>script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"&gt;&lt;/script&gt;</code></li>
+
+		<li>
+			Refer to the <a href="examples.html">Google Maps examples</a> for additional information.</li>
+	</ol>
+</div>
+<p>
+	&nbsp;</p>
+
+	
+		</div>
+
+				
+				<div id="reference" class="reference tab">
+			
+			<h4>Methods</h4>
+			
+			<ol class="methods">
+
+	<li><a href="#google-maps-for-expressionengine-expgmapinit">&#123;exp:gmap:init&#125;</a></li>
+
+	<li><a href="#google-maps-for-expressionengine-expgmapmarker">&#123;exp:gmap:marker&#125;</a></li>
+
+	<li><a href="#google-maps-for-expressionengine-expgmapcenter">&#123;exp:gmap:center&#125;</a></li>
+
+	<li><a href="#google-maps-for-expressionengine-expgmapzoom">&#123;exp:gmap:zoom&#125;</a></li>
+
+</ol>
+
+
+
+	<div class="reference methods" id="google-maps-for-expressionengine-expgmapinit">
+
+		<h5 class="method">&#123;exp:gmap:init&#125;</h5>
+		
+		<div class="method-description">
+
+			<p>
+	This is the main and primary method used to create Google Maps. This method is also an alias to the <code>exp:channel:entries</code> method anytime the <code>channel</code> parameter is defined. Meaning, if the <code>channel</code> parameter is defined, all of same <a href="http://expressionengine.com/user_guide/modules/channel/parameters.html">parameters</a> can that would normally be used with the <code>exp:channel:entries</code> method can be used with the <code>exp:gmap</code> method in addition to all the&nbsp;<a href="http://code.google.com/apis/maps/documentation/javascript/reference.html#MapOptions">properties</a> used to initialize a Google Map.</p>
+
+<p>
+	Do not use this method with the <code>channel</code> attribute if your are nesting the <code>exp:gmap</code> method inside the <code>exp:channel:entries</code> method. This will result two nested <code>exp:channel:entries</code> methods. This is not advisable. However, if the <code>channel</code> attribute is not present, you may include &lt;code&gt;exp:gmap&lt;/code&gt; inside the <code>exp:channel:entries</code> tag.</p>
+
+		</div>
+		
+					
+<ul>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-id">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">id</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">String</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			<p>
+	The <code>id</code> must be a unique string, and is used to create the JavaScript variables for the map, and assigned to the map element (div). You must use only alphabetical and numerical characters with the exception of underscores.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_demo" address="Denver, CO"&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-class">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">class</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">String</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			<p>
+	This is the <code>class</code> attribute that will be appended to the map.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="center_demo" address="Broadripple Village, Indianapolis" center="Indianapolis, IN" class="map"&#125; 
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-style">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">style</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">String</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	This is the <code>style</code> attribute that will be appended to the map.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_demo" address="Broadripple Village, Indianapolis" center="Indianapolis, IN" style="width:400px; height:300px"&#125; 
+			</code>
+			
+		</div>
+
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-address">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">address</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Address</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>address</code> is required to create a static map unless you define a <code>latitude</code> and <code>longitude</code>.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+
+				&#123;exp:gmap:init id="map_demo" address="Denver, CO"&#125; 
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-latitude">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">latitude</a>
+			
+			<dl class="options">
+
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Degree</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">0</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+
+			
+			<h6>Description</h6>
+		
+			<p>
+	You can define a single latitude and longitude degree if you don&#39;t need to use the geocoder.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" latitude="0" longitude="0"&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-longitude">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">longitude</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">Degree</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">0</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			<p>
+	You can define a single latitude and longitude degree if you don&#39;t need to use the geocoder.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" latitude="0" longitude="0"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-center">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">center</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Address</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	When the <code>center</code> is set, it will override the default center location.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="center_demo" address="Broadripple Village, Indianapolis" center="Indianapolis, IN"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-zoom">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">zoom</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Integer (1-20)</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>zoom</code> the same field that the Google Maps API implements.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="center_demo" address="Broadripple Village, Indianapolis" center="Indianapolis, IN" zoom="5"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-map_type">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">map_type</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">mapTypeId</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">ROADMAP</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	This attribute is an alias for the <code>mapTypeId</code> property of the Google Map API.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="center_demo" address="Broadripple Village, Indianapolis" center="Indianapolis, IN" map_type="TERRAIN"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-address_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">address_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>address_field</code> attribute is the first part of the address string. You can use any field in the <code>channel</code> attribute is required to use this attribute.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_demo" channel="map_demo" address_field="map_address"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-city_field">
+	
+		<div class="option-header">
+
+		
+			<a href="#option-id">city_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	The <code>city_field</code> attribute is the second part of the address string. You can use any field in the <code>channel</code> attribute is required to use this attribute.</p>
+
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_demo" channel="map_demo" address_field="map_address" city_field="map_city"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-state_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">state_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>state_field</code> is used for the third part of the address string. You can use any field in the <code>channel</code>.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_demo" channel="map_demo" address_field="map_address" city_field="map_city" state_field="map_state"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-zipcode_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">zipcode_field</a>
+
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	The <code>zipcode_field</code> is used for the fourth part of the address string. You can use any field in the <code>channel</code>.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_demo" channel="map_demo"  address_field="map_address" city_field="map_city" state_field="map_state" zipcode_field="map_zipcode"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-country_field">
+
+	
+		<div class="option-header">
+		
+			<a href="#option-id">country_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	The <code>country_field</code> is used for the final part of the address string. You can use any field in the <code>channel</code> attribute is required to use this attribute.</p>
+
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_demo" channel="map_demo"  address_field="map_address" city_field="map_city" state_field="map_state" zipcode_field="map_zipcode" country_field="map_zipcode"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-latitude_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">latitude_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>latitude_field</code> is used to retrieve the latitude from a channel, just like the address fields.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude="map_longitude"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-longitude_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">longitude_field</a>
+
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	The <code>longitude_field</code> is used to retrieve the longitude from a channel, just like the address fields.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude="map_longitude"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-zoom_field">
+
+	
+		<div class="option-header">
+		
+			<a href="#option-id">zoom_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	The <code>zoom_field</code> is used to retrieve a custom zoom from a channel, just like the address and long/lat fields.</p>
+
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude="map_longitude" zoom_field="map_zoom"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-gmap_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">gmap_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Custom Field Name</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>gmap_field</code> is used to retrieve the longitude from a channel, just like the address fields. Except the main difference is this field specfically refers the fieldtype that is included with the plugin.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas"  channel="map_demo" gmap_field="map_gmap"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-lat_lng">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">lat_lng</a>
+
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Coordinate String</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas"  channel="map_demo" lat_lng="(0, 0)(10, 10)(20, 20)"&#125;
+			</code>
+			
+		</div>
+
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-hide_markers">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">hide_markers</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Boolean</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			
+									
+			<h6>Code Examples</h6>
+
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" latitude="32" longitude="-85" zoom="9" hide_markers="true"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-open_windows">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">open_windows</a>
+
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Boolean</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+			</dl>
+			
+		</div>
+
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" latitude="32" longitude="-85" zoom="9" open_windows="true"&#125;
+			</code>
+			
+		</div>
+
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-style_link">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">style_link</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">String</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			
+									
+			<h6>Code Examples</h6>
+
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" style_link="/-/script/gmap-styles.js" address="Canada"&#125;Marker 1&#123;/exp:gmap:init&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-style_object">
+	
+		<div class="option-header">
+
+		
+			<a href="#option-id">style_object</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">String</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">stylez</dd>
+
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" style_link="/-/script/gmap-styles.js" style_object="myStyles" address="Canada"&#125;Marker 1&#123;/exp:gmap:init&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-extend_bounds">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">extend_bounds</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">Boolean</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">TRUE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" extend_bounds="false" zoom="10"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-show_one_window">
+	
+		<div class="option-header">
+
+		
+			<a href="#option-id">show_one_window</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Boolean</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" show_one_window="true"&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-icon">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">icon</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">String</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" icon="/some/file/path/icon.png"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-show_coordinate">
+	
+		<div class="option-header">
+
+		
+			<a href="#option-id">show_coordinate</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Boolean</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" show_coordinate="true"&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapinit-add_title_to_dropdown">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">add_title_to_dropdown</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">Boolean</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">TRUE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:init id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" show_coordinate="true" add_title_to_dropdown="true"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+</ul>
+
+			</div>
+
+
+
+	<div class="reference methods" id="google-maps-for-expressionengine-expgmapmarker">
+
+		<h5 class="method">&#123;exp:gmap:marker&#125;</h5>
+		
+		<div class="method-description">
+			<p>
+	This method allows you the freedom to initialize a Google Map outside of the <code>exp:channel:entries</code> tag. You can save coordinates inside a Matrix table, for example, and add them to a map you have initialized.</p>
+
+<p>
+	Most of the same parameters can be used along with <code>exp:gmap</code>. You can even use this method to loop through your entries with all the same channel parameters just as a <code>exp:channel:entries</code> tag.</p>
+<p>
+	<em>Note, if you use this method you must use it in conjunction with the <code>exp:gmap:init</code> method.</em></p>
+
+		</div>
+		
+					
+<ul>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-id">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">id</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">String</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	This should be the same value used as the <code>id</code> parameter used to initialize the map. This is how the method knows which map to add a marker to. This is also helpful if you have two maps on a page and want to dynamically add them to one or the other. (Why you would want to do that, I don&#39;t know, but now you can.)</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:marker id="map1" address="South Africa"&#125;South Africa&#123;/exp:gmap:marker&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-address">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">address</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">Address</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			<p>
+	The <code>address</code> is required to create a static map unless you define a <code>latitude</code> and <code>longitude</code>.</p>
+
+									
+			<h6>Code Examples</h6>
+
+			
+			<code class="box">
+				&#123;exp:gmap id="map_demo" address="Denver, CO"&#125; 
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-latitude">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">latitude</a>
+
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Degree</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">0</dd>
+			</dl>
+			
+		</div>
+
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	You can define a single latitude and longitude degree if you don&#39;t need to use the geocoder.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+
+				&#123;exp:gmap id="map_demo" address="Denver, CO"&#125; 
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-longitude">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">longitude</a>
+			
+			<dl class="options">
+
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Degree</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">0</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+
+			
+			<h6>Description</h6>
+		
+			<p>
+	You can define a single latitude and longitude degree if you don&#39;t need to use the geocoder.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas" latitude="0" longitude="0"&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-center">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">center</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">Address</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			<p>
+	When the <code>center</code> is set, it will override the default center location.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="center_demo" address="Broadripple Village, Indianapolis" center="Indianapolis, IN"&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-zoom">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">zoom</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">Integer (1-20)</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			<p>
+	The <code>zoom</code> the same field that the Google Maps API implements.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="center_demo" address="Broadripple Village, Indianapolis" center="Indianapolis, IN" zoom="5"&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-address_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">address_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			<p>
+	The <code>address_field</code> attribute is the first part of the address string. You can use any field in the <code>channel</code> attribute is required to use this attribute.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_demo" channel="map_demo" address_field="map_address"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-city_field">
+
+	
+		<div class="option-header">
+		
+			<a href="#option-id">city_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	The <code>city_field</code> attribute is the second part of the address string. You can use any field in the <code>channel</code> attribute is required to use this attribute.</p>
+
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_demo" channel="map_demo"  address_field="map_address" city_field="map_city"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-state_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">state_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>state_field</code> is used for the third part of the address string. You can use any field in the <code>channel</code>.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+
+			
+			<code class="box">
+				&#123;exp:gmap id="map_demo"  channel="map_demo" address_field="map_address" city_field="map_city" state_field="map_state"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-zipcode_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">zipcode_field</a>
+
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	The <code>zipcode_field</code> is used for the fourth part of the address string. You can use any field in the <code>channel</code>.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_demo" channel="map_demo"  address_field="map_address" city_field="map_city" state_field="map_state" zipcode_field="map_zipcode"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-country_field">
+
+	
+		<div class="option-header">
+		
+			<a href="#option-id">country_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	The <code>country_field</code> is used for the final part of the address string. You can use any field in the <code>channel</code> attribute is required to use this attribute.</p>
+
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_demo" channel="map_demo"  address_field="map_address" city_field="map_city" state_field="map_state" zipcode_field="map_zipcode" country_field="map_zipcode"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-latitude_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">latitude_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>latitude_field</code> is used to retrieve the latitude from a channel, just like the address fields.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas"  channel="map_demo" latitude_field="map_latitude" longitude="map_longitude"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-longitude_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">longitude_field</a>
+
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	The <code>longitude_field</code> is used to retrieve the longitude from a channel, just like the address fields.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas" channel="map_demo"  latitude_field="map_latitude" longitude="map_longitude"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-zoom_field">
+
+	
+		<div class="option-header">
+		
+			<a href="#option-id">zoom_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Channel Field Name</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	The <code>zoom_field</code> is used to retrieve a custom zoom from a channel, just like the address and long/lat fields.</p>
+
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas"  channel="map_demo" latitude_field="map_latitude" longitude="map_longitude" zoom_field="map_zoom"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-gmap_field">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">gmap_field</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Custom Field Name</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>gmap_field</code> is used to retrieve the longitude from a channel, just like the address fields. Except the main difference is this field specfically refers the fieldtype that is included with the plugin.</p>
+<p>
+	<i>The <code>channel</code> attribute is required to use this attribute.</i></p>
+
+									
+			<h6>Code Examples</h6>
+
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas"  channel="map_demo" gmap_field="map_gmap"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-lat_lng">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">lat_lng</a>
+
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Coordinate String</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	You can define a custom coordinate string with a specific format. This format is used by the fieldtype to plot the coordinates. If you need to, you can plot the string, rather than the field.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas"  channel="map_demo" lat_lng="(0, 0)(10, 10)(20, 20)"&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-open_windows">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">open_windows</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">Boolean</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			<p>
+	If you want to open the info windows by default, set this property to true.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas" latitude="32" longitude="-85" zoom="9" open_windows="true"&#125;
+			</code>
+			
+		</div>
+
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-extend_bounds">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">extend_bounds</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Boolean</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">TRUE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	By default the plugin extends the map of bounds to automically adjust the center and zoom to fit all the points. If you want to disable this feature, set this parameter <code>false</code>.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" extend_bounds="false" zoom="10"&#125;
+			</code>
+			
+		</div>
+
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-show_one_window">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">show_one_window</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Boolean</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	If you want to limit the amount of windows that are open at a time to one, set this parameter to <code>true</code>.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" show_one_window="true"&#125;
+			</code>
+			
+		</div>
+
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-icon">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">icon</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">String</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	If you want to define a custom image to use for the map icon, use this parameter.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" icon="/some/file/path/icon.png"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-show_coordinate">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">show_coordinate</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Boolean</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+
+				<dd class="option-default">TRUE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+	If you set this parameter to true, each marker that is added to the dropdown will get appendeda with a coordinate string in the menu.</p>
+
+<p>
+	<em>This parameter is only used when you plan to use the <code>exp:gmap:dropdown</code> method.</em></p>
+<p>
+	Note, right now this feature is still somewhat experiemental, and it might not flex to all your needs. It works well for most situations though.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+
+				&#123;exp:gmap id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" show_coordinate="true"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapmarker-add_title_to_dropdown">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">add_title_to_dropdown</a>
+			
+			<dl class="options">
+
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Boolean</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+
+			
+			<h6>Description</h6>
+		
+			<p>
+	If this parameter is set to <code>true</code>, the plugin will attempt to add the entry&#39;s title to the dropdown menu. If their is no title present, the info window content will be used.</p>
+<p>
+	<em>This parameter is only used when you plan to use the <code>exp:gmap:dropdown</code> method.</em></p>
+
+<p>
+	Note, right now this feature is still somewhat experiemental, and it might not flex to all your needs. It works well for most situations though.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap id="map_canvas" channel="map_demo" latitude_field="map_latitude" longitude_field="map_longitude" show_coordinate="true" add_title_to_dropdown="true"&#125;
+			</code>
+			
+		</div>
+
+		
+	</li>
+	
+</ul>
+
+			</div>
+
+
+
+	<div class="reference methods" id="google-maps-for-expressionengine-expgmapcenter">
+
+		<h5 class="method">&#123;exp:gmap:center&#125;</h5>
+		
+		<div class="method-description">
+
+			<p>
+	This is a stand-alone method that allows you to change the map&#39;s center after it&#39;s been initialized and the markers have been added.</p>
+<p>
+	<em>Note, if you intend to change the center point after the map has been initialized and points have been added, make sure you set the <code>extend_bounds</code> parameter to <code>false</code>.</em></p>
+
+		</div>
+		
+					
+<ul>
+	
+	<li id="google-maps-for-expressionengine-expgmapcenter-id">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">id</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">String</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	This should be the same value used as the <code>id</code> parameter used to initialize the map. This is how the method knows which map to add a marker to. This is also helpful if you have two maps on a page and want to dynamically add them to one or the other. (Why you would want to do that, I don&#39;t know, but now you can.)</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:center id="map_canvas" address="New Zealand"&#125;
+			</code>
+
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapcenter-address">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">address</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">String</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>address</code> is required to center the map unless you define a <code>latitude</code> and <code>longitude</code>.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+
+				&#123;exp:gmap:center id="map_canvas" address="New Zealand"&#125;
+			</code>
+			
+		</div>
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapcenter-latitude">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">latitude</a>
+			
+			<dl class="options">
+
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Degree</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+
+			
+			<h6>Description</h6>
+		
+			<p>
+	You can define a single latitude and longitude degree if you don&#39;t need to use the geocoder.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:center id="map_canvas" latitude="50" longitude="-21"&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+</ul>
+
+			</div>
+
+
+
+	<div class="reference methods" id="google-maps-for-expressionengine-expgmapzoom">
+
+		<h5 class="method">&#123;exp:gmap:zoom&#125;</h5>
+		
+		<div class="method-description">
+			<p>
+	This is a stand-alone method that allows you to change the map&#39;s zoom after it&#39;s been initialized and the markers have been added.</p>
+<p>
+	<em>Note, if you intend to change the zoom after the map has been initialized and points have been added, make sure you set the <code>extend_bounds</code> parameter to <code>false</code>.</em></p>
+
+		</div>
+		
+					
+<ul>
+	
+	<li id="google-maps-for-expressionengine-expgmapzoom-id">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">id</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+
+				<dd class="option-type">String</dd>
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">NULL</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+
+		
+			<p>This should be the same value used as the <code>id</code> parameter used to initialize the map. This is how the method knows which map to add a marker to. This is also helpful if you have two maps on a page and want to dynamically add them to one or the other. (Why you would want to do that, I don't know, but now you can.)</p>
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:zoom id="map_canvas" zoom="5"&#125;
+			</code>
+			
+		</div>
+
+		
+	</li>
+	
+	<li id="google-maps-for-expressionengine-expgmapzoom-zoom">
+	
+		<div class="option-header">
+		
+			<a href="#option-id">zoom</a>
+			
+			<dl class="options">
+				<dt class="option-type-label">Type:</dt>
+				<dd class="option-type">Integer (1-20)</dd>
+
+				
+				<dt class="option-default-label">Default:</dt>
+				<dd class="option-default">FALSE</dd>
+			</dl>
+			
+		</div>
+		
+		<div class="option-description">
+			
+			<h6>Description</h6>
+		
+			<p>
+
+	The <code>zoom</code> sets the zoom on the map and is the property that can be found in the Google Map&#39;s API. Since it&#39;s so common, it&#39;s listed here for referrence.</p>
+
+									
+			<h6>Code Examples</h6>
+			
+			<code class="box">
+				&#123;exp:gmap:zoom id="map_canvas" zoom="5"&#125;
+
+			</code>
+			
+		</div>
+		
+	</li>
+	
+</ul>
+
+			</div>
+
+
+			
+		</div>
+				
+	</article>
+
+
+							
+		</section>
+		
+		<footer>
+
+		<div class="copyright">
+		
+			<p>
+				Copyright &copy; 2011 objectivehtml.com
+			</p>
+			
+		</div>
+
+	</div>
+
+</footer>
+	
+	</div>
+
+	
+</body>
+
+</html>
